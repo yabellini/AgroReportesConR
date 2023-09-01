@@ -10,11 +10,11 @@ output:
 
 ## ¿Por qué R?
 
-Generamos reportes e informes para diversas actividades, a veces esos reportes son repetitivos en el tiempo (por ejemplo informes mensuales, informes al final de una campaña).  Solemos utilizar más de un software para generarlos, seguramente alguna hoja de cálculo y algún procesador de texto.  A veces sumamos algun aplicativo para hacer presentaciones. 
+Generamos reportes e informes para diversas actividades, a veces esos reportes son repetitivos en el tiempo (por ejemplo informes mensuales, informes al final de una campaña). Solemos utilizar más de un software para generarlos, seguramente alguna hoja de cálculo y algún procesador de texto. A veces sumamos algun aplicativo para hacer presentaciones. 
 
 Si venís usándolos hace tiempo, seguro que aprendiste un montón de trucos para sacarle el jugo al máximo, habrás aprendido a usar fórmulas, tablas dinámicas, e incluso macros en las hojas de calculo y las plantillas y estilos en los documentos de texto o las presentaciones. Pero seguro que también sufriste sus limitaciones.
 
-Por ejemplo, sn una hoja de cálculo no hay un límite claro entre datos y análisis. Sobrescribir datos es un peligro muy real y análisis complicados son imposibles de entender, especialmente si abrís una hoja de cálculo armada por otra persona (que quizás es tu vos del pasado). Además, repetir el análisis en datos distintos o cambiando algún parámetro se puede volver muy engorroso.
+Por ejemplo, sn una hoja de cálculo no hay un límite claro entre datos y análisis. Sobrescribir datos es un peligro muy real y análisis complicados son imposibles de entender, especialmente si abrís una hoja de cálculo armada por otra persona (que quizás es tu vos del pasado). Además, repetir el análisis con datos distintos o cambiando algún parámetro se puede volver muy engorroso.
 
 Seguro también tenes que copiar y pegar resultados o pasos intermedios de un software al otro, como un lindo gráfico de Excel al documento de Word con el informe.
 
@@ -23,6 +23,8 @@ Si lo que necesitás son reportes frecuentes y automáticos, y análisis de dato
 ## ¿Cómo vamos a trabajar?
 
 Vamos a usar R como lenguaje de programación y RStudio como una IDE (Integrated Development Environment), un Entorno Integrado de Desarrollo. Si no los tenés instalado en tu computadora, no te preocupes, tenemos este  [proyecto en RStudio Cloud](https://rstudio.cloud/project/4046044) para que puedas trabajar.
+
+TODO: actualizar link a proyecto
 
 Para iniciar RStudio, hacé doble click en el ícono de RStudio. Iniciar  RStudio también inicia R (en realidad, es probable que nunca abras R por sí mismo).
 
@@ -66,7 +68,7 @@ Un archivo RMarkdown es un archivo de texto plano, con algunas reglas y una sint
 
 Esto es realmente crítico para la reproducibilidad. También nos ahorra tiempo y puede ayudar en las tareas de automatización. Este documento recreará tus figuras por ti en el mismo documento donde estás escribiendo el texto que las explica. Esto le ahorrará el esfuerzo de hacer un análisis, guardar un gráfico en un archivo, copiar y pegar ese gráfico en Word o Power Point o Google Slides, y tener que hacerlo todo de nuevo después de descubrir un error tipográfico.
 
-Ahora veamos cómo es nuestro Informe de Pingüinos.
+Ahora veamos cómo es nuestro Informe de Cultivares.
 
 * La parte superior tiene el Título y el tipo de salida (que en este caso es un documento HTML).
 * Debajo hay secciones alternas _blancas_ y _grises_. Estas son las dos secciones principales que componen un archivo RMarkdown:
@@ -82,7 +84,7 @@ Ahora veamos cómo es nuestro Informe de Pingüinos.
 
 ### Texto markdown
 
-Podes ver una guia sobre rmakdown [en esta guía rápida](https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/spanish/rmarkdown_es.pdf), pero aquí hay una sintaxis mínima para empezar:
+Podes ver una guia sobre rmarkdown [en esta guía rápida](https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/spanish/rmarkdown_es.pdf), pero aquí hay una sintaxis mínima para empezar:
 
 * encabezados empiezan con `# ` o `## `y asi siguiendo (es importante poner un espacio después del último `#`).
 * las palabras en negrita están rodeadas de `**`
@@ -97,7 +99,9 @@ chunk_end <- "```"
 
 El código R se escribe dentro de "chunks (trozos)" de código. Los trozos de código comienzan con `` `r chunk_start` `` (donde "label" es un nombre opcional y único) y terminan con `` `r chunk_end` ``. En RStudio, podes crear un nuevo chunk con el atajo de teclado `Ctrl + Alt + I`.
 
-Este informe muestra información sobre los pingüinos Papúa, pero podríamos cambiar algunas líneas de código para crear el mismo análisis para las otras dos especies, Adelia y Barbijo.
+Este informe muestra información sobre un cultivar, pero podríamos cambiar algunas líneas de código para crear el mismo análisis para los otros cultivares incluidos en la base de datos.
+
+TODO: cambiar Papua por el cultivar que usemos de ejemplo
 
 > Ahora es tu turno. Sigue buscando en el código, si encuentras alguna mención a "Papúa", cámbiala por cualquiera de las otras especies. 
 
