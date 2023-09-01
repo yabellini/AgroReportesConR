@@ -12,11 +12,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Sobre los Pingüinos de Palmer
+## Sobre los datos de Cultivares
 
-Es hora de presentar el conjunto de datos que estamos utilizando. Los datos de **Pingüinos de Palmer** fueron recogidos y puestos a disposición por la Dra. Kristen Gorman y la [Estación Palmer en la Antártida, LTER](https://pal.lternet.edu/), que es parte de la Red de Investigación Ecológica a Largo Plazo. El conjunto de datos incluye varias características de los pingüinos Adelia, Barbijo y Papúa. Puedes leer más sobre ello en la [documentación de palmerpenguins](https://allisonhorst.github.io/palmerpenguins/). 
+TODO: describir los datos
 
-Estos datos están disponibles en R instalando el paquete palmerpenguins (en inglés) o el paquete datos (en español), pero como queremos aprender a leer datos en R, vamos a leerlos desde archivos csv y xls.
+Como queremos aprender a leer datos en R, vamos a leerlos desde archivos csv y xls.
 
 ## Leyendo archivos csv
 
@@ -25,18 +25,18 @@ Empezaremos cargando el paquete **tidyverse**, que nos da acceso a docenas de pa
 ```{r}
 library(tidyverse)
 
-pinguinos <- read_csv("datos/pinguinos.csv")
+cultivares <- read_csv("datos/RNG_small.csv")
 ```
 
-En Excel o Google Sheets, los datos se almacenan en la hoja de cálculo y se organizan en celdas. En R, se almacenan en objetos. Cuando leemos un archivo csv, los datos van directo a un data.frame llamado `pinguinos` y están listos para ser utilizados. En la solapa "Environment" podemos ver el objeto `pinguinos`, y si hacemos clic en ese objeto los datos se abrirán en una nueva pestaña para que veamos que pinta tiene. 
+En Excel o Google Sheets, los datos se almacenan en la hoja de cálculo y se organizan en celdas. En R, se almacenan en objetos. Cuando leemos un archivo csv, los datos van directo a un data.frame llamado `cultivares` y están listos para ser utilizados. En la solapa "Environment" podemos ver el objeto `cultivares`, y si hacemos clic en ese objeto los datos se abrirán en una nueva pestaña para que veamos que pinta tiene. 
 
 
-<img src="img/view_en_rstudio.png" alt="La pestaña de visualización del data.frame con los datos de pinguinos luego de llamar a la función View()" />
+<img src="img/view_en_rstudio.png" alt="La pestaña de visualización del data.frame con los datos de cultivares luego de llamar a la función View()" />
 
-Esta previsualización es lo más parecida a la que tenemos en una hoja de cálculo. Podemos llegar a este panel ejecutando `View(pinguinos)` en la consola. Hay otras funciones que nos sirven para visualizar nuestros datos.  Vamos a utilizar una de ellas:
+Esta previsualización es lo más parecida a la que tenemos en una hoja de cálculo. Podemos llegar a este panel ejecutando `View(cultivares)` en la consola. Hay otras funciones que nos sirven para visualizar nuestros datos.  Vamos a utilizar una de ellas:
 
 ```{r}
-glimpse(pinguinos)
+glimpse(cultivares)
 ```
 
 Esta salida es diferente y nos da información sobre el tipo de datos en cada columna (o variable).
@@ -52,7 +52,7 @@ A veces nuestros datos no son tan amigables y necesitamos dar más información 
 ```{r}
 library(readxl)
 
-penguinos_xls <- read_excel("datos/pinguinos.xlsx")
+penguinos_xls <- read_excel("datos/cultivares.xlsx")
 ```
 
 Y listo, hemos leído un archivo xlsx. Por supuesto, a veces tenemos que trabajar con archivos con múltiples hojas o con datos que no están muy organizados. Esta función viene con varias opciones o argumentos para leer hojas específicas (`sheet = <nombre de la hoja>`) o un rango específico (`range` = "C1:E7"`) y otros. 
