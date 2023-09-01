@@ -1,0 +1,100 @@
+---
+title: "Informes de tu trabajo"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: false
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+chunk <- "```"
+```
+
+
+El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? RMarkdown, y todo un ecosistema de otros paquetes, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.
+
+La forma de generar el formato del archivo de salida es cambiando la opción `output` de la cabecera.
+
+> Vuelve al informe de ejemplo y busca la línea que empieza por `output:`. Cambia `html_document` por `pdf_document`.
+
+También podes usar el botón "knit", haciendo clic en la flechita de la derecha para ver todas las opciones. 
+
+> Ahora utiliza el botón para generar un documento de Word. ¿Qué cambios ves en el encabezado del archivo?
+
+## Control del código
+
+Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Es usted quien decide si quiere mostrar el código o no. 
+
+Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de los corchetes. Por ejemplo:
+
+    `r chunk`{r nombre-del-chunk, echo = FALSE, message = FALSE}
+    
+    `r chunk`
+
+Un conjunto de opciones particularmente importante son las que controlan si el código se ejecuta y si el resultado del código permanecerá en el informe o no:
+
+* `eval = FALSE` impide que se ejecute el código del chunk, por lo que tampoco mostrará los resultados. Es útil para mostrar código de ejemplo si estás escribiendo, por ejemplo, un documento para enseñar R.
+
+* `echo = FALSE` ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.
+
+* `include = FALSE` ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan bibliotecas.
+
+Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir `echo = FALSE` a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. Esto se hace con la función `knitr::opts_chunk$set()`, que establece las opciones globales de los chunks que le siguen. Encontrarás esta función en el primer chunk "setup".
+
+    `r chunk`{r setup, include = FALSE}
+    knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE)
+    `r chunk`
+    
+> ¿Tienes curiosidad por saber cómo funcionan las opciones? Cámbialas de una en una y toca el archivo cada vez para ver qué cambia.
+
+
+## Automatización
+
+Al principio de este taller te pedimos que cambiaras la especie de pingüino en el informe de ejemplo. La tarea no fue fácil porque "Papua" aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo. 
+
+Para generar un informe parametrizado hay que añadir un elemento llamado `params` a la cabecera con la lista de parámetros y sus valores por defecto.
+
+```yaml
+params:
+  especie: Papúa
+```
+
+```{r, include=FALSE}
+params <- list(especie = "Papúa")
+```
+
+A partir de ahora, tendrás acceso a una variable llamada `params` que es una lista que contiene los parámetros y su valor. Para acceder al valor de cada parámetro se utiliza el operador `$` de la siguiente manera:
+
+```{r}
+params$especie
+```
+
+De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en `params$especie`.
+
+```{r eval=FALSE}
+pinguinos %>% 
+  filter(especie == params$especie) %>% 
+  ggplot(aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point(color = "darkorange",
+             size = 3,
+             alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, color = "darkorange") +
+  theme_minimal() +
+  labs(title = "Dimensiones del pingüino",
+       subtitle = paste("Longitud y profundidad para los pingüinos", params$especie, "en Palmer Station LTER"),
+       x = "Largo del pico (mm)",
+       y = "Alto del pico (mm)",
+       color = "Especie de Pingüino") 
+```
+
+Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en `params$especie`, de esta manera podemos construir el subtítulo de forma progamática.
+
+Ahora el informe está listo para funcionar como un informe parametrizado.
+
+> Por último, cambia "Papúa" en el yaml para generar un nuevo informe para una de las otras especies. 

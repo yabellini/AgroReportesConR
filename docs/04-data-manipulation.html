@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Manipulando datos</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="learnr_metadocencia.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">De hojas de cálculo a R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="prepare.html">Antes de comenzar</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-introduction.html">Introducción y reportes</a>
+    </li>
+    <li>
+      <a href="02-reading-data.html">Leyendo datos</a>
+    </li>
+    <li>
+      <a href="03-plotting-data.html">Graficando datos</a>
+    </li>
+    <li>
+      <a href="04-data-manipulation.html">Maninpulación de datos</a>
+    </li>
+    <li>
+      <a href="05-reports.html">Comunicando nuestro trabajo</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="reporte_pinguinos.html">Ejemplo</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/yabellini/deHojasDeCalculoAR">Repo</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Manipulando datos</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#creando-tablas-de-resumen">Creando tablas de resumen</a></li>
+<li><a href="#dándole-formato-a-la-tabla">Dándole formato a la tabla</a></li>
+<li><a href="#creando-nuevas-variables">Creando nuevas variables</a></li>
+<li><a href="#filtrando-los-datos">Filtrando los datos</a></li>
+</ul>
+</div>
+
+<div id="creando-tablas-de-resumen" class="section level2">
+<h2>Creando tablas de resumen</h2>
+<p>En una hoja de cálculo, las tablas dinámicas o pivot tables son potentes herramientas para resumir los datos de diferentes maneras. Podemos crear estas tablas utilizando las funciones <code>group_by</code> y <code>summarize</code> del paquete dplyr.</p>
+<p>Echemos un vistazo a nuestro informe, justo después de leer los datos, creamos una tabla de resumen con el número de casos y la masa corporal media de cada especie de nuestro conjunto de datos.</p>
+<p>Podemos utilizar <code>group_by()</code> para agrupar nuestros datos por <strong>especie</strong> y <code>summarize()</code> para calcular el número de casos y la <strong>masa_corporal_g</strong> media para cada grupo.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">mean</span>(masa_corporal_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   especie count masa_corporal_media
+##   &lt;chr&gt;   &lt;int&gt;               &lt;dbl&gt;
+## 1 Adelia    152               3701.
+## 2 Barbijo    68               3733.
+## 3 Papúa     124               5076.</code></pre>
+<p>La función <code>n()</code> devuelve el número de casos y la función <code>mean</code> calcula la media o promedio. El parámetro <code>na.rm = TRUE</code> indica a la función que elimine los valores faltantes (<code>NA</code>) antes de realizar el cálculo.</p>
+<blockquote>
+<p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de <code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
+</blockquote>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">mean</span>(masa_corporal_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   count masa_corporal_media
+##   &lt;int&gt;               &lt;dbl&gt;
+## 1   344               4202.</code></pre>
+<p>Así que si no agrupamos por la especie primero, obtendremos una sola estadística de resumen (n y media en este caso) para todo el conjunto de datos.</p>
+<p>Ahora, queremos la media de la masa corporal en kilogramos y con dos decimales. Podemos cambiar nuestra llamada a <code>summarise()</code> para obtener ese cálculo.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(masa_corporal_g<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   especie count masa_corporal_media
+##   &lt;chr&gt;   &lt;int&gt;               &lt;dbl&gt;
+## 1 Adelia    152                3.7 
+## 2 Barbijo    68                3.73
+## 3 Papúa     124                5.08</code></pre>
+<p>Primero dividimos la masa corporal por 1000 para transformarla de gramos a kilogramos y luego utilizamos la función <code>round()</code> para redondear a sólo dos decimales.</p>
+<p>Ahora estamos en el punto en el que queremos guardar esta información resumida como una variable para poder utilizarla en posteriores análisis y formatos.</p>
+<p>Así que vamos a añadir una asignación de variable a esa primera línea:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(masa_corporal_g<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+</div>
+<div id="dándole-formato-a-la-tabla" class="section level2">
+<h2>Dándole formato a la tabla</h2>
+<p>Para que nuestra tabla se vea mejor en un informe, tenemos que cambiar algunos de sus elementos. Por ejemplo, el nombre de las variables debe ser informativo para una persona (de momento son nombres útiles para una computadora), y podemos añadirle un título y cambiar la alineación de los números.</p>
+<p>Podemos hacerlo con la función <code>kable</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Especie&quot;</span>, <span class="st">&quot;Cantidad&quot;</span>, <span class="st">&quot;Masa corporal media&quot;</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">&quot;lcc&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Resumen de los pingüinos en el dataset por especie.&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Resumen de los pingüinos en el dataset por especie.</caption>
+<thead>
+<tr class="header">
+<th align="left">Especie</th>
+<th align="center">Cantidad</th>
+<th align="center">Masa corporal media</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Adelia</td>
+<td align="center">152</td>
+<td align="center">3.70</td>
+</tr>
+<tr class="even">
+<td align="left">Barbijo</td>
+<td align="center">68</td>
+<td align="center">3.73</td>
+</tr>
+<tr class="odd">
+<td align="left">Papúa</td>
+<td align="center">124</td>
+<td align="center">5.08</td>
+</tr>
+</tbody>
+</table>
+<p>Podemos hacer mucho más con otras funciones (o “verbos”) de dplyr. Veamos algunos más.</p>
+</div>
+<div id="creando-nuevas-variables" class="section level2">
+<h2>Creando nuevas variables</h2>
+<p>Muchas veces querremos trabajar con información que se deriva de los datos originales. Esto se suele hacer añadiendo una nueva columna. Lo hacemos con la función <code>mutate()</code>.</p>
+<p>Podemos añadir una nueva variable (llamada <code>prop</code>) que represente la proporción de pingüinos en cada <strong>especie</strong> con el uso de <code>mutate()</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(masa_corporal_g<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> count<span class="sc">/</span><span class="fu">nrow</span>(pinguinos))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##   especie count masa_corporal_media  prop
+##   &lt;chr&gt;   &lt;int&gt;               &lt;dbl&gt; &lt;dbl&gt;
+## 1 Adelia    152                3.7  0.442
+## 2 Barbijo    68                3.73 0.198
+## 3 Papúa     124                5.08 0.360</code></pre>
+</div>
+<div id="filtrando-los-datos" class="section level2">
+<h2>Filtrando los datos</h2>
+<p>En nuestro informe también realizamos un gráfico por especies. Para ello necesitamos mantener sólo los datos de la especie que queremos analizar. Utilizamos la función <code>filter()</code> para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.</p>
+<p>Podemos utilizar operadores lógicos (<code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición (que sea igual a) para datos de tipo texto (la columna especie).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">&quot;Papúa&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 124 × 8
+##    especie isla  largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g sexo 
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;
+##  1 Papúa   Bisc…          46.1         13.2            211            4500 hemb…
+##  2 Papúa   Bisc…          50           16.3            230            5700 macho
+##  3 Papúa   Bisc…          48.7         14.1            210            4450 hemb…
+##  4 Papúa   Bisc…          50           15.2            218            5700 macho
+##  5 Papúa   Bisc…          47.6         14.5            215            5400 macho
+##  6 Papúa   Bisc…          46.5         13.5            210            4550 hemb…
+##  7 Papúa   Bisc…          45.4         14.6            211            4800 hemb…
+##  8 Papúa   Bisc…          46.7         15.3            219            5200 macho
+##  9 Papúa   Bisc…          43.3         13.4            209            4400 hemb…
+## 10 Papúa   Bisc…          46.8         15.4            215            5150 macho
+## # … with 114 more rows, and 1 more variable: anio &lt;dbl&gt;</code></pre>
+<blockquote>
+<p>Actividad: Escribe el código necesario para filtrar todos los pingüinos de la isla Torgersen.</p>
+</blockquote>
+<blockquote>
+<p>Actividad: Ahora escribe el código para filtrar todos los pingüinos con longitud de aleta mayor a 200.</p>
+</blockquote>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuaXB1bGFuZG8gZGF0b3MiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiBmYWxzZQogICAgaGlnaGxpZ2h0OiB0YW5nbwotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCgllY2hvID0gVFJVRSwKCW1lc3NhZ2UgPSBGQUxTRSwKCXdhcm5pbmcgPSBGQUxTRQopCgpsaWJyYXJ5KHRpZHl2ZXJzZSkKcGluZ3Vpbm9zIDwtIHJlYWRfY3N2KCJkYXRvcy9waW5ndWlub3MuY3N2IikKYGBgCgojIyBDcmVhbmRvIHRhYmxhcyBkZSByZXN1bWVuCgpFbiB1bmEgaG9qYSBkZSBjw6FsY3VsbywgbGFzIHRhYmxhcyBkaW7DoW1pY2FzIG8gcGl2b3QgdGFibGVzIHNvbiBwb3RlbnRlcyBoZXJyYW1pZW50YXMgcGFyYSByZXN1bWlyIGxvcyBkYXRvcyBkZSBkaWZlcmVudGVzIG1hbmVyYXMuIFBvZGVtb3MgY3JlYXIgZXN0YXMgdGFibGFzIHV0aWxpemFuZG8gbGFzIGZ1bmNpb25lcyBgZ3JvdXBfYnlgIHkgYHN1bW1hcml6ZWAgZGVsIHBhcXVldGUgZHBseXIuIAoKRWNoZW1vcyB1biB2aXN0YXpvIGEgbnVlc3RybyBpbmZvcm1lLCBqdXN0byBkZXNwdcOpcyBkZSBsZWVyIGxvcyBkYXRvcywgY3JlYW1vcyB1bmEgdGFibGEgZGUgcmVzdW1lbiBjb24gZWwgbsO6bWVybyBkZSBjYXNvcyB5IGxhIG1hc2EgY29ycG9yYWwgbWVkaWEgZGUgY2FkYSBlc3BlY2llIGRlIG51ZXN0cm8gY29uanVudG8gZGUgZGF0b3MuCgpQb2RlbW9zIHV0aWxpemFyIGBncm91cF9ieSgpYCBwYXJhIGFncnVwYXIgbnVlc3Ryb3MgZGF0b3MgcG9yICoqZXNwZWNpZSoqIHkgYHN1bW1hcml6ZSgpYCBwYXJhIGNhbGN1bGFyIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSAqKm1hc2FfY29ycG9yYWxfZyoqIG1lZGlhIHBhcmEgY2FkYSBncnVwby4KCmBgYHtyfQoKcGluZ3Vpbm9zICU+JSAKICBncm91cF9ieShlc3BlY2llKSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLAogICAgICAgICAgICBtYXNhX2NvcnBvcmFsX21lZGlhID0gbWVhbihtYXNhX2NvcnBvcmFsX2csIG5hLnJtID0gVFJVRSkpCgpgYGAKCkxhIGZ1bmNpw7NuIGBuKClgIGRldnVlbHZlIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSBmdW5jacOzbiBgbWVhbmAgY2FsY3VsYSBsYSBtZWRpYSBvIHByb21lZGlvLiBFbCBwYXLDoW1ldHJvIGBuYS5ybSA9IFRSVUVgIGluZGljYSBhIGxhIGZ1bmNpw7NuIHF1ZSBlbGltaW5lIGxvcyB2YWxvcmVzIGZhbHRhbnRlcyAoYE5BYCkgYW50ZXMgZGUgcmVhbGl6YXIgZWwgY8OhbGN1bG8uCgo+IFByZWd1bnRhOiDCv1F1w6kgcGFzYSBzaSBubyBzZSB1dGlsaXphIGBncm91cF9ieSgpYCBhbnRlcyBkZSBgc3VtbWFyaXNlKClgPyBQcm9iw6ltb3NsbyB5IGRpc2N1dGFtb3MgbG8gcXVlIG9jdXJyZS4KCmBgYHtyfQpwaW5ndWlub3MgJT4lIAogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwKICAgICAgICAgICAgbWFzYV9jb3Jwb3JhbF9tZWRpYSA9IG1lYW4obWFzYV9jb3Jwb3JhbF9nLCBuYS5ybSA9IFRSVUUpKQpgYGAKCkFzw60gcXVlIHNpIG5vIGFncnVwYW1vcyBwb3IgbGEgZXNwZWNpZSBwcmltZXJvLCBvYnRlbmRyZW1vcyB1bmEgc29sYSBlc3RhZMOtc3RpY2EgZGUgcmVzdW1lbiAobiB5IG1lZGlhIGVuIGVzdGUgY2FzbykgcGFyYSB0b2RvIGVsIGNvbmp1bnRvIGRlIGRhdG9zLgoKQWhvcmEsIHF1ZXJlbW9zIGxhIG1lZGlhIGRlIGxhIG1hc2EgY29ycG9yYWwgZW4ga2lsb2dyYW1vcyB5IGNvbiBkb3MgZGVjaW1hbGVzLiBQb2RlbW9zIGNhbWJpYXIgbnVlc3RyYSBsbGFtYWRhIGEgYHN1bW1hcmlzZSgpYCBwYXJhIG9idGVuZXIgZXNlIGPDoWxjdWxvLiAgCgpgYGB7cn0KcGluZ3Vpbm9zICU+JSAKICBncm91cF9ieShlc3BlY2llKSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLAogICAgICAgICAgICBtYXNhX2NvcnBvcmFsX21lZGlhID0gcm91bmQobWVhbihtYXNhX2NvcnBvcmFsX2cvMTAwMCwgbmEucm0gPSBUUlVFKSwgMikpCmBgYAoKUHJpbWVybyBkaXZpZGltb3MgbGEgbWFzYSBjb3Jwb3JhbCBwb3IgMTAwMCBwYXJhIHRyYW5zZm9ybWFybGEgZGUgZ3JhbW9zIGEga2lsb2dyYW1vcyB5IGx1ZWdvIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYHJvdW5kKClgIHBhcmEgcmVkb25kZWFyIGEgc8OzbG8gZG9zIGRlY2ltYWxlcy4KCkFob3JhIGVzdGFtb3MgZW4gZWwgcHVudG8gZW4gZWwgcXVlIHF1ZXJlbW9zIGd1YXJkYXIgZXN0YSBpbmZvcm1hY2nDs24gcmVzdW1pZGEgY29tbyB1bmEgdmFyaWFibGUgcGFyYSBwb2RlciB1dGlsaXphcmxhIGVuIHBvc3RlcmlvcmVzIGFuw6FsaXNpcyB5IGZvcm1hdG9zLgoKQXPDrSBxdWUgdmFtb3MgYSBhw7FhZGlyIHVuYSBhc2lnbmFjacOzbiBkZSB2YXJpYWJsZSBhIGVzYSBwcmltZXJhIGzDrW5lYToKCmBgYHtyfQpyZXN1bWVuIDwtIHBpbmd1aW5vcyAlPiUgCiAgZ3JvdXBfYnkoZXNwZWNpZSkgJT4lIAogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwKICAgICAgICAgICAgbWFzYV9jb3Jwb3JhbF9tZWRpYSA9IHJvdW5kKG1lYW4obWFzYV9jb3Jwb3JhbF9nLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKQpgYGAKCiMjIETDoW5kb2xlIGZvcm1hdG8gYSBsYSB0YWJsYQoKUGFyYSBxdWUgbnVlc3RyYSB0YWJsYSBzZSB2ZWEgbWVqb3IgZW4gdW4gaW5mb3JtZSwgdGVuZW1vcyBxdWUgY2FtYmlhciBhbGd1bm9zIGRlIHN1cyBlbGVtZW50b3MuIFBvciBlamVtcGxvLCBlbCBub21icmUgZGUgbGFzIHZhcmlhYmxlcyBkZWJlIHNlciBpbmZvcm1hdGl2byBwYXJhIHVuYSBwZXJzb25hIChkZSBtb21lbnRvIHNvbiBub21icmVzIMO6dGlsZXMgcGFyYSB1bmEgY29tcHV0YWRvcmEpLCB5IHBvZGVtb3MgYcOxYWRpcmxlIHVuIHTDrXR1bG8geSBjYW1iaWFyIGxhIGFsaW5lYWNpw7NuIGRlIGxvcyBuw7ptZXJvcy4KClBvZGVtb3MgaGFjZXJsbyBjb24gbGEgZnVuY2nDs24gYGthYmxlYC4KCmBgYHtyfQpyZXN1bWVuICU+JSAKICBrbml0cjo6a2FibGUoY29sLm5hbWVzID0gYygiRXNwZWNpZSIsICJDYW50aWRhZCIsICJNYXNhIGNvcnBvcmFsIG1lZGlhIiksCiAgICAgICAgICAgICAgIGFsaWduID0gImxjYyIsCiAgICAgICAgICAgICAgIGNhcHRpb24gPSAiUmVzdW1lbiBkZSBsb3MgcGluZ8O8aW5vcyBlbiBlbCBkYXRhc2V0IHBvciBlc3BlY2llLiIpCmBgYAoKUG9kZW1vcyBoYWNlciBtdWNobyBtw6FzIGNvbiBvdHJhcyBmdW5jaW9uZXMgKG8gInZlcmJvcyIpIGRlIGRwbHlyLiBWZWFtb3MgYWxndW5vcyBtw6FzLgoKIyMgQ3JlYW5kbyBudWV2YXMgdmFyaWFibGVzCgpNdWNoYXMgdmVjZXMgcXVlcnJlbW9zIHRyYWJhamFyIGNvbiBpbmZvcm1hY2nDs24gcXVlIHNlIGRlcml2YSBkZSBsb3MgZGF0b3Mgb3JpZ2luYWxlcy4gRXN0byBzZSBzdWVsZSBoYWNlciBhw7FhZGllbmRvIHVuYSBudWV2YSBjb2x1bW5hLiBMbyBoYWNlbW9zIGNvbiBsYSBmdW5jacOzbiBgbXV0YXRlKClgLgoKUG9kZW1vcyBhw7FhZGlyIHVuYSBudWV2YSB2YXJpYWJsZSAobGxhbWFkYSBgcHJvcGApIHF1ZSByZXByZXNlbnRlIGxhIHByb3BvcmNpw7NuIGRlIHBpbmfDvGlub3MgZW4gY2FkYSAqKmVzcGVjaWUqKiBjb24gZWwgdXNvIGRlIGBtdXRhdGUoKWAuIAoKYGBge3J9CnBpbmd1aW5vcyAlPiUgCiAgZ3JvdXBfYnkoZXNwZWNpZSkgJT4lIAogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwKICAgICAgICAgICAgbWFzYV9jb3Jwb3JhbF9tZWRpYSA9IHJvdW5kKG1lYW4obWFzYV9jb3Jwb3JhbF9nLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKSAlPiUKICBtdXRhdGUocHJvcCA9IGNvdW50L25yb3cocGluZ3Vpbm9zKSkKCmBgYAoKIyMgRmlsdHJhbmRvIGxvcyBkYXRvcwoKRW4gbnVlc3RybyBpbmZvcm1lIHRhbWJpw6luIHJlYWxpemFtb3MgdW4gZ3LDoWZpY28gcG9yIGVzcGVjaWVzLiBQYXJhIGVsbG8gbmVjZXNpdGFtb3MgbWFudGVuZXIgc8OzbG8gbG9zIGRhdG9zIGRlIGxhIGVzcGVjaWUgcXVlIHF1ZXJlbW9zIGFuYWxpemFyLiAgVXRpbGl6YW1vcyBsYSBmdW5jacOzbiBgZmlsdGVyKClgIHBhcmEgZmlsdHJhciBmaWxhcyBkZSB1biBkYXRhLmZyYW1lLCBlc3RhIGZ1bmNpw7NuIGRldnVlbHZlIHVuIG51ZXZvIGRhdGEuZnJhbWUgY29uIHPDs2xvIGxhcyBmaWxhcyBxdWUgc2F0aXNmYWNlbiBhbGd1bmFzIGNvbmRpY2lvbmVzLgoKUG9kZW1vcyB1dGlsaXphciBvcGVyYWRvcmVzIGzDs2dpY29zIChgPmAsIGA8YCwgYD49YCwgYDw9YCwgYD09YCkgcGFyYSBjcmVhciBjb25kaWNpb25lcyBhIHBhcnRpciBkZSB2YXJpYWJsZXMgbnVtw6lyaWNhcy4gRXN0b3Mgb3BlcmFkb3JlcyB0YW1iacOpbiBzb24gw7p0aWxlcyBwYXJhIGZlY2hhcyB5IGNhZGVuYXMgZGUgdGV4dG8uIEVsIHNpZ3VpZW50ZSBjw7NkaWdvIGFwbGljYSB1bmEgY29uZGljacOzbiAocXVlIHNlYSBpZ3VhbCBhKSBwYXJhIGRhdG9zIGRlIHRpcG8gdGV4dG8gKGxhIGNvbHVtbmEgZXNwZWNpZSkuCgpgYGB7cn0KcGluZ3Vpbm9zICU+JSAKICBmaWx0ZXIoZXNwZWNpZSA9PSAiUGFww7phIikKYGBgCgo+IEFjdGl2aWRhZDogRXNjcmliZSBlbCBjw7NkaWdvIG5lY2VzYXJpbyBwYXJhIGZpbHRyYXIgdG9kb3MgbG9zIHBpbmfDvGlub3MgZGUgbGEgaXNsYSBUb3JnZXJzZW4uCgo+IEFjdGl2aWRhZDogQWhvcmEgZXNjcmliZSBlbCBjw7NkaWdvIHBhcmEgZmlsdHJhciB0b2RvcyBsb3MgcGluZ8O8aW5vcyBjb24gbG9uZ2l0dWQgZGUgYWxldGEgbWF5b3IgYSAyMDAuCgo=</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("04-data-manipulation.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

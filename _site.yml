@@ -1,0 +1,29 @@
+navbar:
+  title: "Seminario de Aplicación"
+  left: 
+    - text: Antes de comenzar
+      href: prepare.html
+    - text: Temas
+      menu: 
+        - text: Introducción y reportes
+          href: 01-introduction.html
+        - text: Leyendo datos
+          href: 02-reading-data.html
+        - text: Graficando datos
+          href: 03-plotting-data.html
+        - text: Maninpulación de datos
+          href: 04-data-manipulation.html
+        - text: Comunicando nuestro trabajo
+          href: 05-reports.html
+    - text: Ejemplo
+      href: reporte_cultivares.html
+  right:
+    - text: Repo
+      href: 
+output_dir: "docs"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    

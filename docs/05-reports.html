@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Informes de tu trabajo</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="learnr_metadocencia.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">De hojas de cálculo a R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="prepare.html">Antes de comenzar</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-introduction.html">Introducción y reportes</a>
+    </li>
+    <li>
+      <a href="02-reading-data.html">Leyendo datos</a>
+    </li>
+    <li>
+      <a href="03-plotting-data.html">Graficando datos</a>
+    </li>
+    <li>
+      <a href="04-data-manipulation.html">Maninpulación de datos</a>
+    </li>
+    <li>
+      <a href="05-reports.html">Comunicando nuestro trabajo</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="reporte_pinguinos.html">Ejemplo</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/yabellini/deHojasDeCalculoAR">Repo</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Informes de tu trabajo</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#control-del-código">Control del código</a></li>
+<li><a href="#automatización">Automatización</a></li>
+</ul>
+</div>
+
+<p>El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? RMarkdown, y todo un ecosistema de otros paquetes, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.</p>
+<p>La forma de generar el formato del archivo de salida es cambiando la opción <code>output</code> de la cabecera.</p>
+<blockquote>
+<p>Vuelve al informe de ejemplo y busca la línea que empieza por <code>output:</code>. Cambia <code>html_document</code> por <code>pdf_document</code>.</p>
+</blockquote>
+<p>También podes usar el botón “knit”, haciendo clic en la flechita de la derecha para ver todas las opciones.</p>
+<blockquote>
+<p>Ahora utiliza el botón para generar un documento de Word. ¿Qué cambios ves en el encabezado del archivo?</p>
+</blockquote>
+<div id="control-del-código" class="section level2">
+<h2>Control del código</h2>
+<p>Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Es usted quien decide si quiere mostrar el código o no.</p>
+<p>Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de los corchetes. Por ejemplo:</p>
+<pre><code>```{r nombre-del-chunk, echo = FALSE, message = FALSE}
+
+```</code></pre>
+<p>Un conjunto de opciones particularmente importante son las que controlan si el código se ejecuta y si el resultado del código permanecerá en el informe o no:</p>
+<ul>
+<li><p><code>eval = FALSE</code> impide que se ejecute el código del chunk, por lo que tampoco mostrará los resultados. Es útil para mostrar código de ejemplo si estás escribiendo, por ejemplo, un documento para enseñar R.</p></li>
+<li><p><code>echo = FALSE</code> ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.</p></li>
+<li><p><code>include = FALSE</code> ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan bibliotecas.</p></li>
+</ul>
+<p>Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir <code>echo = FALSE</code> a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. Esto se hace con la función <code>knitr::opts_chunk$set()</code>, que establece las opciones globales de los chunks que le siguen. Encontrarás esta función en el primer chunk “setup”.</p>
+<pre><code>```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                  message = FALSE,
+                  warning = FALSE)
+```</code></pre>
+<blockquote>
+<p>¿Tienes curiosidad por saber cómo funcionan las opciones? Cámbialas de una en una y toca el archivo cada vez para ver qué cambia.</p>
+</blockquote>
+</div>
+<div id="automatización" class="section level2">
+<h2>Automatización</h2>
+<p>Al principio de este taller te pedimos que cambiaras la especie de pingüino en el informe de ejemplo. La tarea no fue fácil porque “Papua” aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo.</p>
+<p>Para generar un informe parametrizado hay que añadir un elemento llamado <code>params</code> a la cabecera con la lista de parámetros y sus valores por defecto.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">especie</span><span class="kw">:</span><span class="at"> Papúa</span></span></code></pre></div>
+<p>A partir de ahora, tendrás acceso a una variable llamada <code>params</code> que es una lista que contiene los parámetros y su valor. Para acceder al valor de cada parámetro se utiliza el operador <code>$</code> de la siguiente manera:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>especie</span></code></pre></div>
+<pre><code>## [1] &quot;Papúa&quot;</code></pre>
+<p>De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en <code>params$especie</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> params<span class="sc">$</span>especie) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkorange&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;darkorange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dimensiones del pingüino&quot;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Longitud y profundidad para los pingüinos&quot;</span>, params<span class="sc">$</span>especie, <span class="st">&quot;en Palmer Station LTER&quot;</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Largo del pico (mm)&quot;</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Alto del pico (mm)&quot;</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Especie de Pingüino&quot;</span>) </span></code></pre></div>
+<p>Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en <code>params$especie</code>, de esta manera podemos construir el subtítulo de forma progamática.</p>
+<p>Ahora el informe está listo para funcionar como un informe parametrizado.</p>
+<blockquote>
+<p>Por último, cambia “Papúa” en el yaml para generar un nuevo informe para una de las otras especies.</p>
+</blockquote>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW5mb3JtZXMgZGUgdHUgdHJhYmFqbyIKb3V0cHV0OiAKICBodG1sX2RvY3VtZW50OgogICAgY29kZV9kb3dubG9hZDogdHJ1ZQogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IGZhbHNlCiAgICBoaWdobGlnaHQ6IHRhbmdvCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKCmNodW5rIDwtICJgYGAiCmBgYAoKCkVsIHByaW1lciBlamVtcGxvIGRlIGluZm9ybWUgcXVlIHZpbW9zIHNlIGNvbnZpcnRpw7MgZW4gdW4gYXJjaGl2byBodG1sLiBQZXJvIMK/cXXDqSBwYXNhIGNvbiBsb3MgYXJjaGl2b3MgV29yZCBvIFBERiwgcXVlIHB1ZWRlbiBzZXIgbcOhcyDDunRpbGVzIG8gZXNwZXJhZG9zIGVuIGFsZ3VuYXMgc2l0dWFjaW9uZXM/IFJNYXJrZG93biwgeSB0b2RvIHVuIGVjb3Npc3RlbWEgZGUgb3Ryb3MgcGFxdWV0ZXMsIHBlcm1pdGUgZ2VuZXJhciBkb2N1bWVudG9zIGVuIG3Dumx0aXBsZXMgZm9ybWF0b3MgdXRpbGl6YW5kbyBlbCBtaXNtbyBhcmNoaXZvIGRlIHRleHRvIHBsYW5vLgoKTGEgZm9ybWEgZGUgZ2VuZXJhciBlbCBmb3JtYXRvIGRlbCBhcmNoaXZvIGRlIHNhbGlkYSBlcyBjYW1iaWFuZG8gbGEgb3BjacOzbiBgb3V0cHV0YCBkZSBsYSBjYWJlY2VyYS4KCj4gVnVlbHZlIGFsIGluZm9ybWUgZGUgZWplbXBsbyB5IGJ1c2NhIGxhIGzDrW5lYSBxdWUgZW1waWV6YSBwb3IgYG91dHB1dDpgLiBDYW1iaWEgYGh0bWxfZG9jdW1lbnRgIHBvciBgcGRmX2RvY3VtZW50YC4KClRhbWJpw6luIHBvZGVzIHVzYXIgZWwgYm90w7NuICJrbml0IiwgaGFjaWVuZG8gY2xpYyBlbiBsYSBmbGVjaGl0YSBkZSBsYSBkZXJlY2hhIHBhcmEgdmVyIHRvZGFzIGxhcyBvcGNpb25lcy4gCgo+IEFob3JhIHV0aWxpemEgZWwgYm90w7NuIHBhcmEgZ2VuZXJhciB1biBkb2N1bWVudG8gZGUgV29yZC4gwr9RdcOpIGNhbWJpb3MgdmVzIGVuIGVsIGVuY2FiZXphZG8gZGVsIGFyY2hpdm8/CgojIyBDb250cm9sIGRlbCBjw7NkaWdvCgpOdWVzdHJvIGVqZW1wbG8gcGFyZWNlIGJhc3RhbnRlIG9yZGVuYWRvLiBIZW1vcyBvY3VsdGFkbyB0b2RvIGVsIGPDs2RpZ28geSBsb3MgbWVuc2FqZXMgZGUgUiBwYXJhIHF1ZSBwdWVkYXMgY29uY2VudHJhciB0dSBhdGVuY2nDs24gZW4gbGEgdGFibGEgeSBsYXMgZmlndXJhcy4gUGVybyBlc3RlIG5vIGVzIGVsIGNvbXBvcnRhbWllbnRvIHBvciBkZWZlY3RvIGRlIHVuIGFyY2hpdm8gUm1kLiBQb3IgbG8gZ2VuZXJhbCwgbGEgc2FsaWRhIHRlbmRyw6EgdGFudG8gZWwgY8OzZGlnbyBjb21vIHN1IHJlc3VsdGFkbywgbG8gY3VhbCBlc3TDoSBiaWVuIGN1YW5kbyB2b3MgbyBsYSBwZXJzb25hIHF1ZSBsZWVyw6EgZWwgaW5mb3JtZSBxdWllcmUgdmVyIGVsIGPDs2RpZ28gcXVlIGdlbmVyYSBlc29zIHJlc3VsdGFkb3MsIHBlcm8gcG9kcsOtYSBubyBzZXIgbG8gcXVlIGxhIGF1ZGllbmNpYSBmaW5hbCBkZWwgaW5mb3JtZSBwb2Ryw61hIG5lY2VzaXRhci4gRXMgdXN0ZWQgcXVpZW4gZGVjaWRlIHNpIHF1aWVyZSBtb3N0cmFyIGVsIGPDs2RpZ28gbyBuby4gCgpQYXJhIGNhbWJpYXIgbGFzIG9wY2lvbmVzIGRlIHVuIGNodW5rIGRlIGPDs2RpZ28sIHRvZG8gbG8gcXVlIHRpZW5lIHF1ZSBoYWNlciBlcyBlbnVtZXJhciBsYXMgb3BjaW9uZXMgZGVudHJvIGRlIGxvcyBjb3JjaGV0ZXMuIFBvciBlamVtcGxvOgoKICAgIGByIGNodW5rYHtyIG5vbWJyZS1kZWwtY2h1bmssIGVjaG8gPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFfQogICAgCiAgICBgciBjaHVua2AKClVuIGNvbmp1bnRvIGRlIG9wY2lvbmVzIHBhcnRpY3VsYXJtZW50ZSBpbXBvcnRhbnRlIHNvbiBsYXMgcXVlIGNvbnRyb2xhbiBzaSBlbCBjw7NkaWdvIHNlIGVqZWN1dGEgeSBzaSBlbCByZXN1bHRhZG8gZGVsIGPDs2RpZ28gcGVybWFuZWNlcsOhIGVuIGVsIGluZm9ybWUgbyBubzoKCiogYGV2YWwgPSBGQUxTRWAgaW1waWRlIHF1ZSBzZSBlamVjdXRlIGVsIGPDs2RpZ28gZGVsIGNodW5rLCBwb3IgbG8gcXVlIHRhbXBvY28gbW9zdHJhcsOhIGxvcyByZXN1bHRhZG9zLiBFcyDDunRpbCBwYXJhIG1vc3RyYXIgY8OzZGlnbyBkZSBlamVtcGxvIHNpIGVzdMOhcyBlc2NyaWJpZW5kbywgcG9yIGVqZW1wbG8sIHVuIGRvY3VtZW50byBwYXJhIGVuc2XDsWFyIFIuCgoqIGBlY2hvID0gRkFMU0VgIGVqZWN1dGEgZWwgY8OzZGlnbyBkZWwgY2h1bmsgeSBtdWVzdHJhIGxvcyByZXN1bHRhZG9zLCBwZXJvIG9jdWx0YSBlbCBjw7NkaWdvIGVuIGVsIGluZm9ybWUuIEVzdG8gZXMgw7p0aWwgcGFyYSBlc2NyaWJpciBpbmZvcm1lcyBwYXJhIHBlcnNvbmFzIHF1ZSBubyBuZWNlc2l0YW4gdmVyIGVsIGPDs2RpZ28gUiBxdWUgZ2VuZXLDsyBlbCBncsOhZmljbyBvIGxhIHRhYmxhLgoKKiBgaW5jbHVkZSA9IEZBTFNFYCBlamVjdXRhIGVsIGPDs2RpZ28gcGVybyBvY3VsdGEgdGFudG8gZWwgY8OzZGlnbyBjb21vIGxvcyByZXN1bHRhZG9zLiBFcyDDunRpbCBwYXJhIGNvbmZpZ3VyYWNpw7NuIGdlbmVyYWwgZG9uZGUgc2UgY2FyZ2FuIGJpYmxpb3RlY2FzLgoKU2kgZXN0w6FzIGVzY3JpYmllbmRvIHVuIGluZm9ybWUgZW4gZWwgcXVlIG5vIHF1aWVyZXMgcXVlIHNlIG11ZXN0cmUgbmluZ8O6biBjw7NkaWdvLCBhw7FhZGlyIGBlY2hvID0gRkFMU0VgIGEgY2FkYSBudWV2byBjaHVuayBzZSB2dWVsdmUgdGVkaW9zby4gTGEgc29sdWNpw7NuIGVzIGNhbWJpYXIgbGEgb3BjacOzbiBnbG9iYWxtZW50ZSBwYXJhIHF1ZSBzZSBhcGxpcXVlIGEgdG9kb3MgbG9zIGNodW5rcy4gRXN0byBzZSBoYWNlIGNvbiBsYSBmdW5jacOzbiBga25pdHI6Om9wdHNfY2h1bmskc2V0KClgLCBxdWUgZXN0YWJsZWNlIGxhcyBvcGNpb25lcyBnbG9iYWxlcyBkZSBsb3MgY2h1bmtzIHF1ZSBsZSBzaWd1ZW4uIEVuY29udHJhcsOhcyBlc3RhIGZ1bmNpw7NuIGVuIGVsIHByaW1lciBjaHVuayAic2V0dXAiLgoKICAgIGByIGNodW5rYHtyIHNldHVwLCBpbmNsdWRlID0gRkFMU0V9CiAgICBrbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IEZBTFNFLCAKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2UgPSBGQUxTRSwKICAgICAgICAgICAgICAgICAgICAgIHdhcm5pbmcgPSBGQUxTRSkKICAgIGByIGNodW5rYAogICAgCj4gwr9UaWVuZXMgY3VyaW9zaWRhZCBwb3Igc2FiZXIgY8OzbW8gZnVuY2lvbmFuIGxhcyBvcGNpb25lcz8gQ8OhbWJpYWxhcyBkZSB1bmEgZW4gdW5hIHkgdG9jYSBlbCBhcmNoaXZvIGNhZGEgdmV6IHBhcmEgdmVyIHF1w6kgY2FtYmlhLgoKCiMjIEF1dG9tYXRpemFjacOzbgoKQWwgcHJpbmNpcGlvIGRlIGVzdGUgdGFsbGVyIHRlIHBlZGltb3MgcXVlIGNhbWJpYXJhcyBsYSBlc3BlY2llIGRlIHBpbmfDvGlubyBlbiBlbCBpbmZvcm1lIGRlIGVqZW1wbG8uIExhIHRhcmVhIG5vIGZ1ZSBmw6FjaWwgcG9ycXVlICJQYXB1YSIgYXBhcmVjZSB2YXJpYXMgdmVjZXMgeSBlcyBmw6FjaWwgZXF1aXZvY2Fyc2UuIFBhcmFtZXRyaXphciB1biBpbmZvcm1lIG5vcyBwZXJtaXRlIGRlZmluaXIgZXNlIHRpcG8gZGUgcGFyw6FtZXRyb3MgZW4gdW4gc29sbyBsdWdhciB5IG9idGVuZXIgZGlmZXJlbnRlcyBhbsOhbGlzaXMgYSBwYXJ0aXIgZGVsIG1pc21vIGFyY2hpdm8uIAoKUGFyYSBnZW5lcmFyIHVuIGluZm9ybWUgcGFyYW1ldHJpemFkbyBoYXkgcXVlIGHDsWFkaXIgdW4gZWxlbWVudG8gbGxhbWFkbyBgcGFyYW1zYCBhIGxhIGNhYmVjZXJhIGNvbiBsYSBsaXN0YSBkZSBwYXLDoW1ldHJvcyB5IHN1cyB2YWxvcmVzIHBvciBkZWZlY3RvLgoKYGBgeWFtbApwYXJhbXM6CiAgZXNwZWNpZTogUGFww7phCmBgYAoKYGBge3IsIGluY2x1ZGU9RkFMU0V9CnBhcmFtcyA8LSBsaXN0KGVzcGVjaWUgPSAiUGFww7phIikKYGBgCgpBIHBhcnRpciBkZSBhaG9yYSwgdGVuZHLDoXMgYWNjZXNvIGEgdW5hIHZhcmlhYmxlIGxsYW1hZGEgYHBhcmFtc2AgcXVlIGVzIHVuYSBsaXN0YSBxdWUgY29udGllbmUgbG9zIHBhcsOhbWV0cm9zIHkgc3UgdmFsb3IuIFBhcmEgYWNjZWRlciBhbCB2YWxvciBkZSBjYWRhIHBhcsOhbWV0cm8gc2UgdXRpbGl6YSBlbCBvcGVyYWRvciBgJGAgZGUgbGEgc2lndWllbnRlIG1hbmVyYToKCmBgYHtyfQpwYXJhbXMkZXNwZWNpZQpgYGAKCkRlIGVzdGUgbW9kbywgZWwgY8OzZGlnbyBvcmlnaW5hbCBwdWVkZSBtb2RpZmljYXJzZSBwYXJhIHV0aWxpemFyIGVsIHZhbG9yIGRlIGxhIGVzcGVjaWUgYWxtYWNlbmFkYSBlbiBgcGFyYW1zJGVzcGVjaWVgLgoKYGBge3IgZXZhbD1GQUxTRX0KcGluZ3Vpbm9zICU+JSAKICBmaWx0ZXIoZXNwZWNpZSA9PSBwYXJhbXMkZXNwZWNpZSkgJT4lIAogIGdncGxvdChhZXMoeCA9IGxhcmdvX3BpY29fbW0sIHkgPSBhbHRvX3BpY29fbW0pKSArCiAgZ2VvbV9wb2ludChjb2xvciA9ICJkYXJrb3JhbmdlIiwKICAgICAgICAgICAgIHNpemUgPSAzLAogICAgICAgICAgICAgYWxwaGEgPSAwLjgpICsKICBnZW9tX3Ntb290aChtZXRob2QgPSAibG0iLCBzZSA9IEZBTFNFLCBjb2xvciA9ICJkYXJrb3JhbmdlIikgKwogIHRoZW1lX21pbmltYWwoKSArCiAgbGFicyh0aXRsZSA9ICJEaW1lbnNpb25lcyBkZWwgcGluZ8O8aW5vIiwKICAgICAgIHN1YnRpdGxlID0gcGFzdGUoIkxvbmdpdHVkIHkgcHJvZnVuZGlkYWQgcGFyYSBsb3MgcGluZ8O8aW5vcyIsIHBhcmFtcyRlc3BlY2llLCAiZW4gUGFsbWVyIFN0YXRpb24gTFRFUiIpLAogICAgICAgeCA9ICJMYXJnbyBkZWwgcGljbyAobW0pIiwKICAgICAgIHkgPSAiQWx0byBkZWwgcGljbyAobW0pIiwKICAgICAgIGNvbG9yID0gIkVzcGVjaWUgZGUgUGluZ8O8aW5vIikgCmBgYAoKQXF1w60gY2FtYmlhbW9zIGVsIHN1YnTDrXR1bG8gcGFyYSBjb25jYXRlbmFyIHBhbGFicmFzIGNvbiBlbCB2YWxvciBhbG1hY2VuYWRvIGVuIGBwYXJhbXMkZXNwZWNpZWAsIGRlIGVzdGEgbWFuZXJhIHBvZGVtb3MgY29uc3RydWlyIGVsIHN1YnTDrXR1bG8gZGUgZm9ybWEgcHJvZ2Ftw6F0aWNhLgoKQWhvcmEgZWwgaW5mb3JtZSBlc3TDoSBsaXN0byBwYXJhIGZ1bmNpb25hciBjb21vIHVuIGluZm9ybWUgcGFyYW1ldHJpemFkby4KCj4gUG9yIMO6bHRpbW8sIGNhbWJpYSAiUGFww7phIiBlbiBlbCB5YW1sIHBhcmEgZ2VuZXJhciB1biBudWV2byBpbmZvcm1lIHBhcmEgdW5hIGRlIGxhcyBvdHJhcyBlc3BlY2llcy4g</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("05-reports.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

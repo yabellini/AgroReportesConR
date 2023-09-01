@@ -1,0 +1,124 @@
+---
+title: "Visualizando datos"
+output: 
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: false
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+library(tidyverse)
+
+pinguinos <- read_csv("datos/pinguinos.csv")
+```
+
+La visualización de datos es útil no sólo para explorar los datos e identificar la relación entre diferentes variables, sino también para comunicar el resultado del análisis. El paquete **ggplot2** nos permite generar gráficos de alta calidad con unas pocas líneas de código. Cualquier gráfico de ggplot tendrá al menos 3 componentes: los **datos**, un **sistema de coordenadas** y una **geometría** (la representación visual de los datos) y se construirá por capas.
+
+¡Empecemos a hacer gráficos!
+
+## Primera capa: el área del gráfico
+
+La función principal de ggplot2 se llama también `ggplot()`, y nos permite iniciar el gráfico y definir las características globales. El primer argumento de esta función serán los datos que queremos visualizar, siempre en un data.frame. En este caso utilizamos `pinguinos`.
+
+El segundo argumento se llama `mapping` porque es donde definimos cómo se "mapean" las columnas del data.frame o las variables de los datos a las propiedades visuales de las geometrías. Este mapeo está definido por la función `aes()`. En este caso indicamos que en el eje x queremos graficar la variable `largo_pico_mm` y en el eje y la variable `alto_pico_mm`.
+
+Todo esto sólo generará la primera capa: el área del gráfico.
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) 
+```
+
+## Segunda capa: geometrías
+
+Necesitamos añadir una nueva capa a nuestro gráfico, los elementos geométricos o "geoms" que representarán los datos. Para ello añadimos una función geom, por ejemplo si queremos representar los datos con puntos utilizaremos `geom_point()`. Para hacer esto necesitaremos agregar un `+` al final de la primera capaz para sumar una segunda. 
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point()
+```
+
+Ya tenemos nuestro primer gráfico! 
+
+Tal vez observaste que los puntos están agrupados de una manera particular. Quizá alguna otra variable explique este comportamiento. 
+
+Para incluir información de otras variables en nuestro gráfico podemos aprovechar las características estéticas de las geometrías. En este caso, podemos "pintar" los puntos según la especie de pingüino. 
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point(aes(color = especie))
+```
+
+De nuevo, utilizamos la función `aes()` para asignar una variable de nuestros datos a un elemento del gráfico. ¡Y tada! ¡Cada especie de pingüinos tiene características diferentes!
+
+## Añadiendo geometrías
+
+Muchas veces no basta con mirar los datos en bruto para identificar la relación entre las variables; es necesario utilizar alguna transformación estadística para resaltar esas relaciones, ya sea ajustando un modelo o calculando alguna estadística. 
+
+Para ello, ggplot2 dispone de geoms que calculan transformaciones estadísticas comunes. Vamos a probar con `geom_smoth()` para ajustar un modelo lineal a cada especie. 
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point(aes(color = especie)) +
+  geom_smooth(aes(color = especie), method = "lm")
+```
+
+Por defecto `geom_smooth()` ajusta los datos utilizando el método loess (regresión lineal local) cuando hay menos de 1000 datos disponibles. Pero es muy común que se quiera ajustar una regresión lineal global. En ese caso, tenemos que agregar el argumento `method = "lm"`.
+
+## Hablemos del aspecto del gráfico  
+  
+Por ahora utilizamos el aspecto por defecto de ggplot. Podríamos cambiar el aspecto del gráfico para adaptarlo al estilo de la institución donde trabajamos, de la revista donde lo vamos a publicar o simplemente para hacerlo más llamativo. 
+  
+Empecemos por el color. Para cambiar el aspecto estético de un elemento del gráfico, añadimos una nueva capa con la función `scale_*`. En este caso utilizaremos `scale_color_manual()` para elegir los colores de los puntos manualmente. También podríamos utilizar paletas de colores previamente definidas como las familias Viridis o Color Brewer. 
+  
+Necesitaremos 3 colores para las 3 especies, usaremos `"darkorange"`, `"purple"` y `"cyan4"` siguiendo las hermosas visualizaciones hechas por Allison Horst.
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point(aes(color = especie)) +
+  geom_smooth(aes(color = especie), method = "lm") +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) 
+```
+
+¡Va quedando! Ahora, vamos a añadir algunos elementos de texto con una nueva capa ggplot: `labs()`.
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point(aes(color = especie)) +
+  geom_smooth(aes(color = especie), method = "lm") +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Dimensiones del pico de los pingüinos",
+       subtitle = "Pingüinos Adelia, Barbijo y Papúaen la Estación Palmer LTER",
+       x = "Largo del pico (mm)",
+       y = "Alto del pico (mm)",
+       color = "Especie",
+       shape = "Especie") 
+```
+
+Ahora las etiquetas de los ejes son más legibles y tenemos un título y un subtítulo que explican de qué trata el gráfico. 
+
+Podríamos seguir cambiando esto infinitamente pero terminaremos con el aspecto general del gráfico. 
+
+El aspecto general de un gráfico está definido por su tema. ggplot2 tiene muchos temas disponibles y para todos los gustos. Pero también hay otros paquetes que amplían las posibilidades, por ejemplo ggthemes. Por defecto ggplot2 utiliza `theme_grey()`, probemos con `theme_minimal()`:
+
+```{r}
+ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+  geom_point(aes(color = especie)) +
+  geom_smooth(aes(color = especie), method = "lm") +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Dimensiones del pico de los pingüinos",
+       subtitle = "Pingüinos Adelia, Barbijo y Papúaen la Estación Palmer LTER",
+       x = "Largo del pico (mm)",
+       y = "Alto del pico (mm)",
+       color = "Especie",
+       shape = "Especie") +
+  theme_minimal()
+```
+
+> Ahora es tu turno. Elige un tema que te guste y pruébalo. Además, si se te ocurre un título mejor, ¡modifícalo!
