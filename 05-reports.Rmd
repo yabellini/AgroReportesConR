@@ -87,7 +87,7 @@ cultivares %>%
   geom_smooth(method = "lm", se = FALSE, color = "darkorange") +
   theme_minimal() +
   labs(title = "Rendimiento y porcentaje de aceite",
-       subtitle = paste("Cultivar" params$cultivar),
+       subtitle = paste("Cultivar", params$cultivar),
        x = "Rendimiento Ajustado (kg/ha)",
        y = "Porcentaje de Aceite (%)",
        color = "Cultivar") 
