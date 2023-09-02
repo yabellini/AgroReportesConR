@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 
-pinguinos <- read_csv("datos/pinguinos.csv")
+cultivares <- read_csv("datos/RNG_small.csv")
 ```
 
 La visualización de datos es útil no sólo para explorar los datos e identificar la relación entre diferentes variables, sino también para comunicar el resultado del análisis. El paquete **ggplot2** nos permite generar gráficos de alta calidad con unas pocas líneas de código. Cualquier gráfico de ggplot tendrá al menos 3 componentes: los **datos**, un **sistema de coordenadas** y una **geometría** (la representación visual de los datos) y se construirá por capas.
@@ -25,14 +25,14 @@ La visualización de datos es útil no sólo para explorar los datos e identific
 
 ## Primera capa: el área del gráfico
 
-La función principal de ggplot2 se llama también `ggplot()`, y nos permite iniciar el gráfico y definir las características globales. El primer argumento de esta función serán los datos que queremos visualizar, siempre en un data.frame. En este caso utilizamos `pinguinos`.
+La función principal de ggplot2 se llama también `ggplot()`, y nos permite iniciar el gráfico y definir las características globales. El primer argumento de esta función serán los datos que queremos visualizar, siempre en un data.frame. En este caso utilizamos `cultivares`.
 
-El segundo argumento se llama `mapping` porque es donde definimos cómo se "mapean" las columnas del data.frame o las variables de los datos a las propiedades visuales de las geometrías. Este mapeo está definido por la función `aes()`. En este caso indicamos que en el eje x queremos graficar la variable `largo_pico_mm` y en el eje y la variable `alto_pico_mm`.
+El segundo argumento se llama `mapping` porque es donde definimos cómo se "mapean" las columnas del data.frame o las variables de los datos a las propiedades visuales de las geometrías. Este mapeo está definido por la función `aes()`. En este caso indicamos que en el eje x queremos graficar la variable `Rendimiento_Ajustado` y en el eje y la variable `Aceite_porcentaje`.
 
 Todo esto sólo generará la primera capa: el área del gráfico.
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) 
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) 
 ```
 
 ## Segunda capa: geometrías
@@ -40,7 +40,7 @@ ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm))
 Necesitamos añadir una nueva capa a nuestro gráfico, los elementos geométricos o "geoms" que representarán los datos. Para ello añadimos una función geom, por ejemplo si queremos representar los datos con puntos utilizaremos `geom_point()`. Para hacer esto necesitaremos agregar un `+` al final de la primera capaz para sumar una segunda. 
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje))  +
   geom_point()
 ```
 
@@ -48,14 +48,14 @@ Ya tenemos nuestro primer gráfico!
 
 Tal vez observaste que los puntos están agrupados de una manera particular. Quizá alguna otra variable explique este comportamiento. 
 
-Para incluir información de otras variables en nuestro gráfico podemos aprovechar las características estéticas de las geometrías. En este caso, podemos "pintar" los puntos según la especie de pingüino. 
+Para incluir información de otras variables en nuestro gráfico podemos aprovechar las características estéticas de las geometrías. En este caso, podemos "pintar" los puntos según el tipo de ensayo. 
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
-  geom_point(aes(color = especie))
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
+  geom_point(aes(color = `Tipo Ensayo`))
 ```
 
-De nuevo, utilizamos la función `aes()` para asignar una variable de nuestros datos a un elemento del gráfico. ¡Y tada! ¡Cada especie de pingüinos tiene características diferentes!
+De nuevo, utilizamos la función `aes()` para asignar una variable de nuestros datos a un elemento del gráfico. ¡Y tada! ¡Cada tipo de ensayo tiene características diferentes!
 
 ## Añadiendo geometrías
 
@@ -64,9 +64,9 @@ Muchas veces no basta con mirar los datos en bruto para identificar la relación
 Para ello, ggplot2 dispone de geoms que calculan transformaciones estadísticas comunes. Vamos a probar con `geom_smoth()` para ajustar un modelo lineal a cada especie. 
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
-  geom_point(aes(color = especie)) +
-  geom_smooth(aes(color = especie), method = "lm")
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
+  geom_point(aes(color = `Tipo Ensayo`)) +
+  geom_smooth(aes(color = `Tipo Ensayo`), method = "lm")
 ```
 
 Por defecto `geom_smooth()` ajusta los datos utilizando el método loess (regresión lineal local) cuando hay menos de 1000 datos disponibles. Pero es muy común que se quiera ajustar una regresión lineal global. En ese caso, tenemos que agregar el argumento `method = "lm"`.
@@ -77,28 +77,28 @@ Por ahora utilizamos el aspecto por defecto de ggplot. Podríamos cambiar el asp
   
 Empecemos por el color. Para cambiar el aspecto estético de un elemento del gráfico, añadimos una nueva capa con la función `scale_*`. En este caso utilizaremos `scale_color_manual()` para elegir los colores de los puntos manualmente. También podríamos utilizar paletas de colores previamente definidas como las familias Viridis o Color Brewer. 
   
-Necesitaremos 3 colores para las 3 especies, usaremos `"darkorange"`, `"purple"` y `"cyan4"` siguiendo las hermosas visualizaciones hechas por Allison Horst.
+Necesitaremos 4 colores para los cuatro tipos de ensayo, usaremos `"darkorange"`, `"purple"` , `"cyan4"` y `"lightblue"` siguiendo las hermosas visualizaciones hechas por Allison Horst.
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
-  geom_point(aes(color = especie)) +
-  geom_smooth(aes(color = especie), method = "lm") +
-  scale_color_manual(values = c("darkorange","purple","cyan4")) 
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
+  geom_point(aes(color = `Tipo Ensayo`)) +
+  geom_smooth(aes(color = `Tipo Ensayo`), method = "lm") +
+  scale_color_manual(values = c("darkorange","purple","cyan4", "lightblue")) 
 ```
 
 ¡Va quedando! Ahora, vamos a añadir algunos elementos de texto con una nueva capa ggplot: `labs()`.
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
-  geom_point(aes(color = especie)) +
-  geom_smooth(aes(color = especie), method = "lm") +
-  scale_color_manual(values = c("darkorange","purple","cyan4")) +
-  labs(title = "Dimensiones del pico de los pingüinos",
-       subtitle = "Pingüinos Adelia, Barbijo y Papúaen la Estación Palmer LTER",
-       x = "Largo del pico (mm)",
-       y = "Alto del pico (mm)",
-       color = "Especie",
-       shape = "Especie") 
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
+  geom_point(aes(color = `Tipo Ensayo`)) +
+  geom_smooth(aes(color = `Tipo Ensayo`), method = "lm") +
+  scale_color_manual(values = c("darkorange","purple","cyan4", "lightblue"))  +
+  labs(title = "Rendimiento y procentaje de aceite por tipo de ensayo",
+       subtitle = "Cultivares ACA de la Red Nacional de Ensayos de Girasol",
+       x = "Porcentaje de Aceite (%)",
+       y = "Rendimiento (kg/ha)",
+       color = "Tipo de Ensayo",
+       shape = "Tipo de Ensayo") 
 ```
 
 Ahora las etiquetas de los ejes son más legibles y tenemos un título y un subtítulo que explican de qué trata el gráfico. 
@@ -108,16 +108,16 @@ Podríamos seguir cambiando esto infinitamente pero terminaremos con el aspecto 
 El aspecto general de un gráfico está definido por su tema. ggplot2 tiene muchos temas disponibles y para todos los gustos. Pero también hay otros paquetes que amplían las posibilidades, por ejemplo ggthemes. Por defecto ggplot2 utiliza `theme_grey()`, probemos con `theme_minimal()`:
 
 ```{r}
-ggplot(data = pinguinos, mapping = aes(x = largo_pico_mm, y = alto_pico_mm)) +
-  geom_point(aes(color = especie)) +
-  geom_smooth(aes(color = especie), method = "lm") +
-  scale_color_manual(values = c("darkorange","purple","cyan4")) +
-  labs(title = "Dimensiones del pico de los pingüinos",
-       subtitle = "Pingüinos Adelia, Barbijo y Papúaen la Estación Palmer LTER",
-       x = "Largo del pico (mm)",
-       y = "Alto del pico (mm)",
-       color = "Especie",
-       shape = "Especie") +
+ggplot(data = cultivares, mapping = aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
+  geom_point(aes(color = `Tipo Ensayo`)) +
+  geom_smooth(aes(color = `Tipo Ensayo`), method = "lm") +
+  scale_color_manual(values = c("darkorange","purple","cyan4", "lightblue"))  +
+  labs(title = "Rendimiento y procentaje de aceite por tipo de ensayo",
+       subtitle = "Cultivares ACA de la Red Nacional de Ensayos de Girasol",
+       x = "Porcentaje de Aceite (%)",
+       y = "Rendimiento (kg/ha)",
+       color = "Tipo de Ensayo",
+       shape = "Tipo de Ensayo") +
   theme_minimal()
 ```
 

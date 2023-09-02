@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -89,11 +89,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -102,14 +102,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -147,7 +147,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<link rel="stylesheet" href="learnr_metadocencia.css" type="text/css" />
 
 
 
@@ -334,7 +333,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">De hojas de cálculo a R</a>
+      <a class="navbar-brand" href="index.html">Seminario de Aplicación</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,13 +365,11 @@ $(document).ready(function () {
   </ul>
 </li>
 <li>
-  <a href="reporte_pinguinos.html">Ejemplo</a>
+  <a href="reporte_cultivares.html">Ejemplo</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/yabellini/deHojasDeCalculoAR">Repo</a>
-</li>
+        <li class="dropdown-header">Repo</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -395,90 +392,151 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#primera-capa-el-área-del-gráfico">Primera capa: el área del gráfico</a></li>
-<li><a href="#segunda-capa-geometrías">Segunda capa: geometrías</a></li>
-<li><a href="#añadiendo-geometrías">Añadiendo geometrías</a></li>
-<li><a href="#hablemos-del-aspecto-del-gráfico">Hablemos del aspecto del gráfico</a></li>
+<li><a href="#primera-capa-el-área-del-gráfico"
+id="toc-primera-capa-el-área-del-gráfico">Primera capa: el área del
+gráfico</a></li>
+<li><a href="#segunda-capa-geometrías"
+id="toc-segunda-capa-geometrías">Segunda capa: geometrías</a></li>
+<li><a href="#añadiendo-geometrías"
+id="toc-añadiendo-geometrías">Añadiendo geometrías</a></li>
+<li><a href="#hablemos-del-aspecto-del-gráfico"
+id="toc-hablemos-del-aspecto-del-gráfico">Hablemos del aspecto del
+gráfico</a></li>
 </ul>
 </div>
 
-<p>La visualización de datos es útil no sólo para explorar los datos e identificar la relación entre diferentes variables, sino también para comunicar el resultado del análisis. El paquete <strong>ggplot2</strong> nos permite generar gráficos de alta calidad con unas pocas líneas de código. Cualquier gráfico de ggplot tendrá al menos 3 componentes: los <strong>datos</strong>, un <strong>sistema de coordenadas</strong> y una <strong>geometría</strong> (la representación visual de los datos) y se construirá por capas.</p>
+<p>La visualización de datos es útil no sólo para explorar los datos e
+identificar la relación entre diferentes variables, sino también para
+comunicar el resultado del análisis. El paquete <strong>ggplot2</strong>
+nos permite generar gráficos de alta calidad con unas pocas líneas de
+código. Cualquier gráfico de ggplot tendrá al menos 3 componentes: los
+<strong>datos</strong>, un <strong>sistema de coordenadas</strong> y una
+<strong>geometría</strong> (la representación visual de los datos) y se
+construirá por capas.</p>
 <p>¡Empecemos a hacer gráficos!</p>
 <div id="primera-capa-el-área-del-gráfico" class="section level2">
 <h2>Primera capa: el área del gráfico</h2>
-<p>La función principal de ggplot2 se llama también <code>ggplot()</code>, y nos permite iniciar el gráfico y definir las características globales. El primer argumento de esta función serán los datos que queremos visualizar, siempre en un data.frame. En este caso utilizamos <code>pinguinos</code>.</p>
-<p>El segundo argumento se llama <code>mapping</code> porque es donde definimos cómo se “mapean” las columnas del data.frame o las variables de los datos a las propiedades visuales de las geometrías. Este mapeo está definido por la función <code>aes()</code>. En este caso indicamos que en el eje x queremos graficar la variable <code>largo_pico_mm</code> y en el eje y la variable <code>alto_pico_mm</code>.</p>
+<p>La función principal de ggplot2 se llama también
+<code>ggplot()</code>, y nos permite iniciar el gráfico y definir las
+características globales. El primer argumento de esta función serán los
+datos que queremos visualizar, siempre en un data.frame. En este caso
+utilizamos <code>cultivares</code>.</p>
+<p>El segundo argumento se llama <code>mapping</code> porque es donde
+definimos cómo se “mapean” las columnas del data.frame o las variables
+de los datos a las propiedades visuales de las geometrías. Este mapeo
+está definido por la función <code>aes()</code>. En este caso indicamos
+que en el eje x queremos graficar la variable
+<code>Rendimiento_Ajustado</code> y en el eje y la variable
+<code>Aceite_porcentaje</code>.</p>
 <p>Todo esto sólo generará la primera capa: el área del gráfico.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) </span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
 <div id="segunda-capa-geometrías" class="section level2">
 <h2>Segunda capa: geometrías</h2>
-<p>Necesitamos añadir una nueva capa a nuestro gráfico, los elementos geométricos o “geoms” que representarán los datos. Para ello añadimos una función geom, por ejemplo si queremos representar los datos con puntos utilizaremos <code>geom_point()</code>. Para hacer esto necesitaremos agregar un <code>+</code> al final de la primera capaz para sumar una segunda.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>Necesitamos añadir una nueva capa a nuestro gráfico, los elementos
+geométricos o “geoms” que representarán los datos. Para ello añadimos
+una función geom, por ejemplo si queremos representar los datos con
+puntos utilizaremos <code>geom_point()</code>. Para hacer esto
+necesitaremos agregar un <code>+</code> al final de la primera capaz
+para sumar una segunda.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje))  <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Ya tenemos nuestro primer gráfico!</p>
-<p>Tal vez observaste que los puntos están agrupados de una manera particular. Quizá alguna otra variable explique este comportamiento.</p>
-<p>Para incluir información de otras variables en nuestro gráfico podemos aprovechar las características estéticas de las geometrías. En este caso, podemos “pintar” los puntos según la especie de pingüino.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie))</span></code></pre></div>
+<p>Tal vez observaste que los puntos están agrupados de una manera
+particular. Quizá alguna otra variable explique este comportamiento.</p>
+<p>Para incluir información de otras variables en nuestro gráfico
+podemos aprovechar las características estéticas de las geometrías. En
+este caso, podemos “pintar” los puntos según el tipo de ensayo.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>))</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>De nuevo, utilizamos la función <code>aes()</code> para asignar una variable de nuestros datos a un elemento del gráfico. ¡Y tada! ¡Cada especie de pingüinos tiene características diferentes!</p>
+<p>De nuevo, utilizamos la función <code>aes()</code> para asignar una
+variable de nuestros datos a un elemento del gráfico. ¡Y tada! ¡Cada
+tipo de ensayo tiene características diferentes!</p>
 </div>
 <div id="añadiendo-geometrías" class="section level2">
 <h2>Añadiendo geometrías</h2>
-<p>Muchas veces no basta con mirar los datos en bruto para identificar la relación entre las variables; es necesario utilizar alguna transformación estadística para resaltar esas relaciones, ya sea ajustando un modelo o calculando alguna estadística.</p>
-<p>Para ello, ggplot2 dispone de geoms que calculan transformaciones estadísticas comunes. Vamos a probar con <code>geom_smoth()</code> para ajustar un modelo lineal a cada especie.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<p>Muchas veces no basta con mirar los datos en bruto para identificar
+la relación entre las variables; es necesario utilizar alguna
+transformación estadística para resaltar esas relaciones, ya sea
+ajustando un modelo o calculando alguna estadística.</p>
+<p>Para ello, ggplot2 dispone de geoms que calculan transformaciones
+estadísticas comunes. Vamos a probar con <code>geom_smoth()</code> para
+ajustar un modelo lineal a cada especie.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Por defecto <code>geom_smooth()</code> ajusta los datos utilizando el método loess (regresión lineal local) cuando hay menos de 1000 datos disponibles. Pero es muy común que se quiera ajustar una regresión lineal global. En ese caso, tenemos que agregar el argumento <code>method = "lm"</code>.</p>
+<p>Por defecto <code>geom_smooth()</code> ajusta los datos utilizando el
+método loess (regresión lineal local) cuando hay menos de 1000 datos
+disponibles. Pero es muy común que se quiera ajustar una regresión
+lineal global. En ese caso, tenemos que agregar el argumento
+<code>method = "lm"</code>.</p>
 </div>
 <div id="hablemos-del-aspecto-del-gráfico" class="section level2">
 <h2>Hablemos del aspecto del gráfico</h2>
-<p>Por ahora utilizamos el aspecto por defecto de ggplot. Podríamos cambiar el aspecto del gráfico para adaptarlo al estilo de la institución donde trabajamos, de la revista donde lo vamos a publicar o simplemente para hacerlo más llamativo.</p>
-<p>Empecemos por el color. Para cambiar el aspecto estético de un elemento del gráfico, añadimos una nueva capa con la función <code>scale_*</code>. En este caso utilizaremos <code>scale_color_manual()</code> para elegir los colores de los puntos manualmente. También podríamos utilizar paletas de colores previamente definidas como las familias Viridis o Color Brewer.</p>
-<p>Necesitaremos 3 colores para las 3 especies, usaremos <code>"darkorange"</code>, <code>"purple"</code> y <code>"cyan4"</code> siguiendo las hermosas visualizaciones hechas por Allison Horst.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>)) </span></code></pre></div>
+<p>Por ahora utilizamos el aspecto por defecto de ggplot. Podríamos
+cambiar el aspecto del gráfico para adaptarlo al estilo de la
+institución donde trabajamos, de la revista donde lo vamos a publicar o
+simplemente para hacerlo más llamativo.</p>
+<p>Empecemos por el color. Para cambiar el aspecto estético de un
+elemento del gráfico, añadimos una nueva capa con la función
+<code>scale_*</code>. En este caso utilizaremos
+<code>scale_color_manual()</code> para elegir los colores de los puntos
+manualmente. También podríamos utilizar paletas de colores previamente
+definidas como las familias Viridis o Color Brewer.</p>
+<p>Necesitaremos 4 colores para los cuatro tipos de ensayo, usaremos
+<code>"darkorange"</code>, <code>"purple"</code> , <code>"cyan4"</code>
+y <code>"lightblue"</code> siguiendo las hermosas visualizaciones hechas
+por Allison Horst.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>)) </span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>¡Va quedando! Ahora, vamos a añadir algunos elementos de texto con una nueva capa ggplot: <code>labs()</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dimensiones del pico de los pingüinos&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Pingüinos Adelia, Barbijo y Papúaen la Estación Palmer LTER&quot;</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Largo del pico (mm)&quot;</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Alto del pico (mm)&quot;</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Especie&quot;</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Especie&quot;</span>) </span></code></pre></div>
+<p>¡Va quedando! Ahora, vamos a añadir algunos elementos de texto con
+una nueva capa ggplot: <code>labs()</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>))  <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y procentaje de aceite por tipo de ensayo&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cultivares ACA de la Red Nacional de Ensayos de Girasol&quot;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Rendimiento (kg/ha)&quot;</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>) </span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Ahora las etiquetas de los ejes son más legibles y tenemos un título y un subtítulo que explican de qué trata el gráfico.</p>
-<p>Podríamos seguir cambiando esto infinitamente pero terminaremos con el aspecto general del gráfico.</p>
-<p>El aspecto general de un gráfico está definido por su tema. ggplot2 tiene muchos temas disponibles y para todos los gustos. Pero también hay otros paquetes que amplían las posibilidades, por ejemplo ggthemes. Por defecto ggplot2 utiliza <code>theme_grey()</code>, probemos con <code>theme_minimal()</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> pinguinos, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie)) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> especie), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dimensiones del pico de los pingüinos&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Pingüinos Adelia, Barbijo y Papúaen la Estación Palmer LTER&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Largo del pico (mm)&quot;</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Alto del pico (mm)&quot;</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Especie&quot;</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Especie&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p>Ahora las etiquetas de los ejes son más legibles y tenemos un título
+y un subtítulo que explican de qué trata el gráfico.</p>
+<p>Podríamos seguir cambiando esto infinitamente pero terminaremos con
+el aspecto general del gráfico.</p>
+<p>El aspecto general de un gráfico está definido por su tema. ggplot2
+tiene muchos temas disponibles y para todos los gustos. Pero también hay
+otros paquetes que amplían las posibilidades, por ejemplo ggthemes. Por
+defecto ggplot2 utiliza <code>theme_grey()</code>, probemos con
+<code>theme_minimal()</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>))  <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y procentaje de aceite por tipo de ensayo&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cultivares ACA de la Red Nacional de Ensayos de Girasol&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Rendimiento (kg/ha)&quot;</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <blockquote>
-<p>Ahora es tu turno. Elige un tema que te guste y pruébalo. Además, si se te ocurre un título mejor, ¡modifícalo!</p>
+<p>Ahora es tu turno. Elige un tema que te guste y pruébalo. Además, si
+se te ocurre un título mejor, ¡modifícalo!</p>
 </blockquote>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiVmlzdWFsaXphbmRvIGRhdG9zIgpvdXRwdXQ6IAogIGh0bWxfZG9jdW1lbnQ6CiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlCiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogZmFsc2UKICAgIGhpZ2hsaWdodDogdGFuZ28KLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KAoJZWNobyA9IFRSVUUsCgltZXNzYWdlID0gRkFMU0UsCgl3YXJuaW5nID0gRkFMU0UKKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKCnBpbmd1aW5vcyA8LSByZWFkX2NzdigiZGF0b3MvcGluZ3Vpbm9zLmNzdiIpCmBgYAoKTGEgdmlzdWFsaXphY2nDs24gZGUgZGF0b3MgZXMgw7p0aWwgbm8gc8OzbG8gcGFyYSBleHBsb3JhciBsb3MgZGF0b3MgZSBpZGVudGlmaWNhciBsYSByZWxhY2nDs24gZW50cmUgZGlmZXJlbnRlcyB2YXJpYWJsZXMsIHNpbm8gdGFtYmnDqW4gcGFyYSBjb211bmljYXIgZWwgcmVzdWx0YWRvIGRlbCBhbsOhbGlzaXMuIEVsIHBhcXVldGUgKipnZ3Bsb3QyKiogbm9zIHBlcm1pdGUgZ2VuZXJhciBncsOhZmljb3MgZGUgYWx0YSBjYWxpZGFkIGNvbiB1bmFzIHBvY2FzIGzDrW5lYXMgZGUgY8OzZGlnby4gQ3VhbHF1aWVyIGdyw6FmaWNvIGRlIGdncGxvdCB0ZW5kcsOhIGFsIG1lbm9zIDMgY29tcG9uZW50ZXM6IGxvcyAqKmRhdG9zKiosIHVuICoqc2lzdGVtYSBkZSBjb29yZGVuYWRhcyoqIHkgdW5hICoqZ2VvbWV0csOtYSoqIChsYSByZXByZXNlbnRhY2nDs24gdmlzdWFsIGRlIGxvcyBkYXRvcykgeSBzZSBjb25zdHJ1aXLDoSBwb3IgY2FwYXMuCgrCoUVtcGVjZW1vcyBhIGhhY2VyIGdyw6FmaWNvcyEKCiMjIFByaW1lcmEgY2FwYTogZWwgw6FyZWEgZGVsIGdyw6FmaWNvCgpMYSBmdW5jacOzbiBwcmluY2lwYWwgZGUgZ2dwbG90MiBzZSBsbGFtYSB0YW1iacOpbiBgZ2dwbG90KClgLCB5IG5vcyBwZXJtaXRlIGluaWNpYXIgZWwgZ3LDoWZpY28geSBkZWZpbmlyIGxhcyBjYXJhY3RlcsOtc3RpY2FzIGdsb2JhbGVzLiBFbCBwcmltZXIgYXJndW1lbnRvIGRlIGVzdGEgZnVuY2nDs24gc2Vyw6FuIGxvcyBkYXRvcyBxdWUgcXVlcmVtb3MgdmlzdWFsaXphciwgc2llbXByZSBlbiB1biBkYXRhLmZyYW1lLiBFbiBlc3RlIGNhc28gdXRpbGl6YW1vcyBgcGluZ3Vpbm9zYC4KCkVsIHNlZ3VuZG8gYXJndW1lbnRvIHNlIGxsYW1hIGBtYXBwaW5nYCBwb3JxdWUgZXMgZG9uZGUgZGVmaW5pbW9zIGPDs21vIHNlICJtYXBlYW4iIGxhcyBjb2x1bW5hcyBkZWwgZGF0YS5mcmFtZSBvIGxhcyB2YXJpYWJsZXMgZGUgbG9zIGRhdG9zIGEgbGFzIHByb3BpZWRhZGVzIHZpc3VhbGVzIGRlIGxhcyBnZW9tZXRyw61hcy4gRXN0ZSBtYXBlbyBlc3TDoSBkZWZpbmlkbyBwb3IgbGEgZnVuY2nDs24gYGFlcygpYC4gRW4gZXN0ZSBjYXNvIGluZGljYW1vcyBxdWUgZW4gZWwgZWplIHggcXVlcmVtb3MgZ3JhZmljYXIgbGEgdmFyaWFibGUgYGxhcmdvX3BpY29fbW1gIHkgZW4gZWwgZWplIHkgbGEgdmFyaWFibGUgYGFsdG9fcGljb19tbWAuCgpUb2RvIGVzdG8gc8OzbG8gZ2VuZXJhcsOhIGxhIHByaW1lcmEgY2FwYTogZWwgw6FyZWEgZGVsIGdyw6FmaWNvLgoKYGBge3J9CmdncGxvdChkYXRhID0gcGluZ3Vpbm9zLCBtYXBwaW5nID0gYWVzKHggPSBsYXJnb19waWNvX21tLCB5ID0gYWx0b19waWNvX21tKSkgCmBgYAoKIyMgU2VndW5kYSBjYXBhOiBnZW9tZXRyw61hcwoKTmVjZXNpdGFtb3MgYcOxYWRpciB1bmEgbnVldmEgY2FwYSBhIG51ZXN0cm8gZ3LDoWZpY28sIGxvcyBlbGVtZW50b3MgZ2VvbcOpdHJpY29zIG8gImdlb21zIiBxdWUgcmVwcmVzZW50YXLDoW4gbG9zIGRhdG9zLiBQYXJhIGVsbG8gYcOxYWRpbW9zIHVuYSBmdW5jacOzbiBnZW9tLCBwb3IgZWplbXBsbyBzaSBxdWVyZW1vcyByZXByZXNlbnRhciBsb3MgZGF0b3MgY29uIHB1bnRvcyB1dGlsaXphcmVtb3MgYGdlb21fcG9pbnQoKWAuIFBhcmEgaGFjZXIgZXN0byBuZWNlc2l0YXJlbW9zIGFncmVnYXIgdW4gYCtgIGFsIGZpbmFsIGRlIGxhIHByaW1lcmEgY2FwYXogcGFyYSBzdW1hciB1bmEgc2VndW5kYS4gCgpgYGB7cn0KZ2dwbG90KGRhdGEgPSBwaW5ndWlub3MsIG1hcHBpbmcgPSBhZXMoeCA9IGxhcmdvX3BpY29fbW0sIHkgPSBhbHRvX3BpY29fbW0pKSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKWWEgdGVuZW1vcyBudWVzdHJvIHByaW1lciBncsOhZmljbyEgCgpUYWwgdmV6IG9ic2VydmFzdGUgcXVlIGxvcyBwdW50b3MgZXN0w6FuIGFncnVwYWRvcyBkZSB1bmEgbWFuZXJhIHBhcnRpY3VsYXIuIFF1aXrDoSBhbGd1bmEgb3RyYSB2YXJpYWJsZSBleHBsaXF1ZSBlc3RlIGNvbXBvcnRhbWllbnRvLiAKClBhcmEgaW5jbHVpciBpbmZvcm1hY2nDs24gZGUgb3RyYXMgdmFyaWFibGVzIGVuIG51ZXN0cm8gZ3LDoWZpY28gcG9kZW1vcyBhcHJvdmVjaGFyIGxhcyBjYXJhY3RlcsOtc3RpY2FzIGVzdMOpdGljYXMgZGUgbGFzIGdlb21ldHLDrWFzLiBFbiBlc3RlIGNhc28sIHBvZGVtb3MgInBpbnRhciIgbG9zIHB1bnRvcyBzZWfDum4gbGEgZXNwZWNpZSBkZSBwaW5nw7xpbm8uIAoKYGBge3J9CmdncGxvdChkYXRhID0gcGluZ3Vpbm9zLCBtYXBwaW5nID0gYWVzKHggPSBsYXJnb19waWNvX21tLCB5ID0gYWx0b19waWNvX21tKSkgKwogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gZXNwZWNpZSkpCmBgYAoKRGUgbnVldm8sIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYGFlcygpYCBwYXJhIGFzaWduYXIgdW5hIHZhcmlhYmxlIGRlIG51ZXN0cm9zIGRhdG9zIGEgdW4gZWxlbWVudG8gZGVsIGdyw6FmaWNvLiDCoVkgdGFkYSEgwqFDYWRhIGVzcGVjaWUgZGUgcGluZ8O8aW5vcyB0aWVuZSBjYXJhY3RlcsOtc3RpY2FzIGRpZmVyZW50ZXMhCgojIyBBw7FhZGllbmRvIGdlb21ldHLDrWFzCgpNdWNoYXMgdmVjZXMgbm8gYmFzdGEgY29uIG1pcmFyIGxvcyBkYXRvcyBlbiBicnV0byBwYXJhIGlkZW50aWZpY2FyIGxhIHJlbGFjacOzbiBlbnRyZSBsYXMgdmFyaWFibGVzOyBlcyBuZWNlc2FyaW8gdXRpbGl6YXIgYWxndW5hIHRyYW5zZm9ybWFjacOzbiBlc3RhZMOtc3RpY2EgcGFyYSByZXNhbHRhciBlc2FzIHJlbGFjaW9uZXMsIHlhIHNlYSBhanVzdGFuZG8gdW4gbW9kZWxvIG8gY2FsY3VsYW5kbyBhbGd1bmEgZXN0YWTDrXN0aWNhLiAKClBhcmEgZWxsbywgZ2dwbG90MiBkaXNwb25lIGRlIGdlb21zIHF1ZSBjYWxjdWxhbiB0cmFuc2Zvcm1hY2lvbmVzIGVzdGFkw61zdGljYXMgY29tdW5lcy4gVmFtb3MgYSBwcm9iYXIgY29uIGBnZW9tX3Ntb3RoKClgIHBhcmEgYWp1c3RhciB1biBtb2RlbG8gbGluZWFsIGEgY2FkYSBlc3BlY2llLiAKCmBgYHtyfQpnZ3Bsb3QoZGF0YSA9IHBpbmd1aW5vcywgbWFwcGluZyA9IGFlcyh4ID0gbGFyZ29fcGljb19tbSwgeSA9IGFsdG9fcGljb19tbSkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IGVzcGVjaWUpKSArCiAgZ2VvbV9zbW9vdGgoYWVzKGNvbG9yID0gZXNwZWNpZSksIG1ldGhvZCA9ICJsbSIpCmBgYAoKUG9yIGRlZmVjdG8gYGdlb21fc21vb3RoKClgIGFqdXN0YSBsb3MgZGF0b3MgdXRpbGl6YW5kbyBlbCBtw6l0b2RvIGxvZXNzIChyZWdyZXNpw7NuIGxpbmVhbCBsb2NhbCkgY3VhbmRvIGhheSBtZW5vcyBkZSAxMDAwIGRhdG9zIGRpc3BvbmlibGVzLiBQZXJvIGVzIG11eSBjb23Dum4gcXVlIHNlIHF1aWVyYSBhanVzdGFyIHVuYSByZWdyZXNpw7NuIGxpbmVhbCBnbG9iYWwuIEVuIGVzZSBjYXNvLCB0ZW5lbW9zIHF1ZSBhZ3JlZ2FyIGVsIGFyZ3VtZW50byBgbWV0aG9kID0gImxtImAuCgojIyBIYWJsZW1vcyBkZWwgYXNwZWN0byBkZWwgZ3LDoWZpY28gIAogIApQb3IgYWhvcmEgdXRpbGl6YW1vcyBlbCBhc3BlY3RvIHBvciBkZWZlY3RvIGRlIGdncGxvdC4gUG9kcsOtYW1vcyBjYW1iaWFyIGVsIGFzcGVjdG8gZGVsIGdyw6FmaWNvIHBhcmEgYWRhcHRhcmxvIGFsIGVzdGlsbyBkZSBsYSBpbnN0aXR1Y2nDs24gZG9uZGUgdHJhYmFqYW1vcywgZGUgbGEgcmV2aXN0YSBkb25kZSBsbyB2YW1vcyBhIHB1YmxpY2FyIG8gc2ltcGxlbWVudGUgcGFyYSBoYWNlcmxvIG3DoXMgbGxhbWF0aXZvLiAKICAKRW1wZWNlbW9zIHBvciBlbCBjb2xvci4gUGFyYSBjYW1iaWFyIGVsIGFzcGVjdG8gZXN0w6l0aWNvIGRlIHVuIGVsZW1lbnRvIGRlbCBncsOhZmljbywgYcOxYWRpbW9zIHVuYSBudWV2YSBjYXBhIGNvbiBsYSBmdW5jacOzbiBgc2NhbGVfKmAuIEVuIGVzdGUgY2FzbyB1dGlsaXphcmVtb3MgYHNjYWxlX2NvbG9yX21hbnVhbCgpYCBwYXJhIGVsZWdpciBsb3MgY29sb3JlcyBkZSBsb3MgcHVudG9zIG1hbnVhbG1lbnRlLiBUYW1iacOpbiBwb2Ryw61hbW9zIHV0aWxpemFyIHBhbGV0YXMgZGUgY29sb3JlcyBwcmV2aWFtZW50ZSBkZWZpbmlkYXMgY29tbyBsYXMgZmFtaWxpYXMgVmlyaWRpcyBvIENvbG9yIEJyZXdlci4gCiAgCk5lY2VzaXRhcmVtb3MgMyBjb2xvcmVzIHBhcmEgbGFzIDMgZXNwZWNpZXMsIHVzYXJlbW9zIGAiZGFya29yYW5nZSJgLCBgInB1cnBsZSJgIHkgYCJjeWFuNCJgIHNpZ3VpZW5kbyBsYXMgaGVybW9zYXMgdmlzdWFsaXphY2lvbmVzIGhlY2hhcyBwb3IgQWxsaXNvbiBIb3JzdC4KCmBgYHtyfQpnZ3Bsb3QoZGF0YSA9IHBpbmd1aW5vcywgbWFwcGluZyA9IGFlcyh4ID0gbGFyZ29fcGljb19tbSwgeSA9IGFsdG9fcGljb19tbSkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IGVzcGVjaWUpKSArCiAgZ2VvbV9zbW9vdGgoYWVzKGNvbG9yID0gZXNwZWNpZSksIG1ldGhvZCA9ICJsbSIpICsKICBzY2FsZV9jb2xvcl9tYW51YWwodmFsdWVzID0gYygiZGFya29yYW5nZSIsInB1cnBsZSIsImN5YW40IikpIApgYGAKCsKhVmEgcXVlZGFuZG8hIEFob3JhLCB2YW1vcyBhIGHDsWFkaXIgYWxndW5vcyBlbGVtZW50b3MgZGUgdGV4dG8gY29uIHVuYSBudWV2YSBjYXBhIGdncGxvdDogYGxhYnMoKWAuCgpgYGB7cn0KZ2dwbG90KGRhdGEgPSBwaW5ndWlub3MsIG1hcHBpbmcgPSBhZXMoeCA9IGxhcmdvX3BpY29fbW0sIHkgPSBhbHRvX3BpY29fbW0pKSArCiAgZ2VvbV9wb2ludChhZXMoY29sb3IgPSBlc3BlY2llKSkgKwogIGdlb21fc21vb3RoKGFlcyhjb2xvciA9IGVzcGVjaWUpLCBtZXRob2QgPSAibG0iKSArCiAgc2NhbGVfY29sb3JfbWFudWFsKHZhbHVlcyA9IGMoImRhcmtvcmFuZ2UiLCJwdXJwbGUiLCJjeWFuNCIpKSArCiAgbGFicyh0aXRsZSA9ICJEaW1lbnNpb25lcyBkZWwgcGljbyBkZSBsb3MgcGluZ8O8aW5vcyIsCiAgICAgICBzdWJ0aXRsZSA9ICJQaW5nw7xpbm9zIEFkZWxpYSwgQmFyYmlqbyB5IFBhcMO6YWVuIGxhIEVzdGFjacOzbiBQYWxtZXIgTFRFUiIsCiAgICAgICB4ID0gIkxhcmdvIGRlbCBwaWNvIChtbSkiLAogICAgICAgeSA9ICJBbHRvIGRlbCBwaWNvIChtbSkiLAogICAgICAgY29sb3IgPSAiRXNwZWNpZSIsCiAgICAgICBzaGFwZSA9ICJFc3BlY2llIikgCmBgYAoKQWhvcmEgbGFzIGV0aXF1ZXRhcyBkZSBsb3MgZWplcyBzb24gbcOhcyBsZWdpYmxlcyB5IHRlbmVtb3MgdW4gdMOtdHVsbyB5IHVuIHN1YnTDrXR1bG8gcXVlIGV4cGxpY2FuIGRlIHF1w6kgdHJhdGEgZWwgZ3LDoWZpY28uIAoKUG9kcsOtYW1vcyBzZWd1aXIgY2FtYmlhbmRvIGVzdG8gaW5maW5pdGFtZW50ZSBwZXJvIHRlcm1pbmFyZW1vcyBjb24gZWwgYXNwZWN0byBnZW5lcmFsIGRlbCBncsOhZmljby4gCgpFbCBhc3BlY3RvIGdlbmVyYWwgZGUgdW4gZ3LDoWZpY28gZXN0w6EgZGVmaW5pZG8gcG9yIHN1IHRlbWEuIGdncGxvdDIgdGllbmUgbXVjaG9zIHRlbWFzIGRpc3BvbmlibGVzIHkgcGFyYSB0b2RvcyBsb3MgZ3VzdG9zLiBQZXJvIHRhbWJpw6luIGhheSBvdHJvcyBwYXF1ZXRlcyBxdWUgYW1wbMOtYW4gbGFzIHBvc2liaWxpZGFkZXMsIHBvciBlamVtcGxvIGdndGhlbWVzLiBQb3IgZGVmZWN0byBnZ3Bsb3QyIHV0aWxpemEgYHRoZW1lX2dyZXkoKWAsIHByb2JlbW9zIGNvbiBgdGhlbWVfbWluaW1hbCgpYDoKCmBgYHtyfQpnZ3Bsb3QoZGF0YSA9IHBpbmd1aW5vcywgbWFwcGluZyA9IGFlcyh4ID0gbGFyZ29fcGljb19tbSwgeSA9IGFsdG9fcGljb19tbSkpICsKICBnZW9tX3BvaW50KGFlcyhjb2xvciA9IGVzcGVjaWUpKSArCiAgZ2VvbV9zbW9vdGgoYWVzKGNvbG9yID0gZXNwZWNpZSksIG1ldGhvZCA9ICJsbSIpICsKICBzY2FsZV9jb2xvcl9tYW51YWwodmFsdWVzID0gYygiZGFya29yYW5nZSIsInB1cnBsZSIsImN5YW40IikpICsKICBsYWJzKHRpdGxlID0gIkRpbWVuc2lvbmVzIGRlbCBwaWNvIGRlIGxvcyBwaW5nw7xpbm9zIiwKICAgICAgIHN1YnRpdGxlID0gIlBpbmfDvGlub3MgQWRlbGlhLCBCYXJiaWpvIHkgUGFww7phZW4gbGEgRXN0YWNpw7NuIFBhbG1lciBMVEVSIiwKICAgICAgIHggPSAiTGFyZ28gZGVsIHBpY28gKG1tKSIsCiAgICAgICB5ID0gIkFsdG8gZGVsIHBpY28gKG1tKSIsCiAgICAgICBjb2xvciA9ICJFc3BlY2llIiwKICAgICAgIHNoYXBlID0gIkVzcGVjaWUiKSArCiAgdGhlbWVfbWluaW1hbCgpCmBgYAoKPiBBaG9yYSBlcyB0dSB0dXJuby4gRWxpZ2UgdW4gdGVtYSBxdWUgdGUgZ3VzdGUgeSBwcnXDqWJhbG8uIEFkZW3DoXMsIHNpIHNlIHRlIG9jdXJyZSB1biB0w610dWxvIG1lam9yLCDCoW1vZGlmw61jYWxvIQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlZpc3VhbGl6YW5kbyBkYXRvcyINCm91dHB1dDogDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQ0KICAgIHRvYzogdHJ1ZQ0KICAgIHRvY19mbG9hdDogZmFsc2UNCiAgICBoaWdobGlnaHQ6IHRhbmdvDQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoDQoJZWNobyA9IFRSVUUsDQoJbWVzc2FnZSA9IEZBTFNFLA0KCXdhcm5pbmcgPSBGQUxTRQ0KKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCmN1bHRpdmFyZXMgPC0gcmVhZF9jc3YoImRhdG9zL1JOR19zbWFsbC5jc3YiKQ0KYGBgDQoNCkxhIHZpc3VhbGl6YWNpw7NuIGRlIGRhdG9zIGVzIMO6dGlsIG5vIHPDs2xvIHBhcmEgZXhwbG9yYXIgbG9zIGRhdG9zIGUgaWRlbnRpZmljYXIgbGEgcmVsYWNpw7NuIGVudHJlIGRpZmVyZW50ZXMgdmFyaWFibGVzLCBzaW5vIHRhbWJpw6luIHBhcmEgY29tdW5pY2FyIGVsIHJlc3VsdGFkbyBkZWwgYW7DoWxpc2lzLiBFbCBwYXF1ZXRlICoqZ2dwbG90MioqIG5vcyBwZXJtaXRlIGdlbmVyYXIgZ3LDoWZpY29zIGRlIGFsdGEgY2FsaWRhZCBjb24gdW5hcyBwb2NhcyBsw61uZWFzIGRlIGPDs2RpZ28uIEN1YWxxdWllciBncsOhZmljbyBkZSBnZ3Bsb3QgdGVuZHLDoSBhbCBtZW5vcyAzIGNvbXBvbmVudGVzOiBsb3MgKipkYXRvcyoqLCB1biAqKnNpc3RlbWEgZGUgY29vcmRlbmFkYXMqKiB5IHVuYSAqKmdlb21ldHLDrWEqKiAobGEgcmVwcmVzZW50YWNpw7NuIHZpc3VhbCBkZSBsb3MgZGF0b3MpIHkgc2UgY29uc3RydWlyw6EgcG9yIGNhcGFzLg0KDQrCoUVtcGVjZW1vcyBhIGhhY2VyIGdyw6FmaWNvcyENCg0KIyMgUHJpbWVyYSBjYXBhOiBlbCDDoXJlYSBkZWwgZ3LDoWZpY28NCg0KTGEgZnVuY2nDs24gcHJpbmNpcGFsIGRlIGdncGxvdDIgc2UgbGxhbWEgdGFtYmnDqW4gYGdncGxvdCgpYCwgeSBub3MgcGVybWl0ZSBpbmljaWFyIGVsIGdyw6FmaWNvIHkgZGVmaW5pciBsYXMgY2FyYWN0ZXLDrXN0aWNhcyBnbG9iYWxlcy4gRWwgcHJpbWVyIGFyZ3VtZW50byBkZSBlc3RhIGZ1bmNpw7NuIHNlcsOhbiBsb3MgZGF0b3MgcXVlIHF1ZXJlbW9zIHZpc3VhbGl6YXIsIHNpZW1wcmUgZW4gdW4gZGF0YS5mcmFtZS4gRW4gZXN0ZSBjYXNvIHV0aWxpemFtb3MgYGN1bHRpdmFyZXNgLg0KDQpFbCBzZWd1bmRvIGFyZ3VtZW50byBzZSBsbGFtYSBgbWFwcGluZ2AgcG9ycXVlIGVzIGRvbmRlIGRlZmluaW1vcyBjw7NtbyBzZSAibWFwZWFuIiBsYXMgY29sdW1uYXMgZGVsIGRhdGEuZnJhbWUgbyBsYXMgdmFyaWFibGVzIGRlIGxvcyBkYXRvcyBhIGxhcyBwcm9waWVkYWRlcyB2aXN1YWxlcyBkZSBsYXMgZ2VvbWV0csOtYXMuIEVzdGUgbWFwZW8gZXN0w6EgZGVmaW5pZG8gcG9yIGxhIGZ1bmNpw7NuIGBhZXMoKWAuIEVuIGVzdGUgY2FzbyBpbmRpY2Ftb3MgcXVlIGVuIGVsIGVqZSB4IHF1ZXJlbW9zIGdyYWZpY2FyIGxhIHZhcmlhYmxlIGBSZW5kaW1pZW50b19BanVzdGFkb2AgeSBlbiBlbCBlamUgeSBsYSB2YXJpYWJsZSBgQWNlaXRlX3BvcmNlbnRhamVgLg0KDQpUb2RvIGVzdG8gc8OzbG8gZ2VuZXJhcsOhIGxhIHByaW1lcmEgY2FwYTogZWwgw6FyZWEgZGVsIGdyw6FmaWNvLg0KDQpgYGB7cn0NCmdncGxvdChkYXRhID0gY3VsdGl2YXJlcywgbWFwcGluZyA9IGFlcyh4ID0gUmVuZGltaWVudG9fQWp1c3RhZG8sIHkgPSBBY2VpdGVfcG9yY2VudGFqZSkpIA0KYGBgDQoNCiMjIFNlZ3VuZGEgY2FwYTogZ2VvbWV0csOtYXMNCg0KTmVjZXNpdGFtb3MgYcOxYWRpciB1bmEgbnVldmEgY2FwYSBhIG51ZXN0cm8gZ3LDoWZpY28sIGxvcyBlbGVtZW50b3MgZ2VvbcOpdHJpY29zIG8gImdlb21zIiBxdWUgcmVwcmVzZW50YXLDoW4gbG9zIGRhdG9zLiBQYXJhIGVsbG8gYcOxYWRpbW9zIHVuYSBmdW5jacOzbiBnZW9tLCBwb3IgZWplbXBsbyBzaSBxdWVyZW1vcyByZXByZXNlbnRhciBsb3MgZGF0b3MgY29uIHB1bnRvcyB1dGlsaXphcmVtb3MgYGdlb21fcG9pbnQoKWAuIFBhcmEgaGFjZXIgZXN0byBuZWNlc2l0YXJlbW9zIGFncmVnYXIgdW4gYCtgIGFsIGZpbmFsIGRlIGxhIHByaW1lcmEgY2FwYXogcGFyYSBzdW1hciB1bmEgc2VndW5kYS4gDQoNCmBgYHtyfQ0KZ2dwbG90KGRhdGEgPSBjdWx0aXZhcmVzLCBtYXBwaW5nID0gYWVzKHggPSBSZW5kaW1pZW50b19BanVzdGFkbywgeSA9IEFjZWl0ZV9wb3JjZW50YWplKSkgICsNCiAgZ2VvbV9wb2ludCgpDQpgYGANCg0KWWEgdGVuZW1vcyBudWVzdHJvIHByaW1lciBncsOhZmljbyEgDQoNClRhbCB2ZXogb2JzZXJ2YXN0ZSBxdWUgbG9zIHB1bnRvcyBlc3TDoW4gYWdydXBhZG9zIGRlIHVuYSBtYW5lcmEgcGFydGljdWxhci4gUXVpesOhIGFsZ3VuYSBvdHJhIHZhcmlhYmxlIGV4cGxpcXVlIGVzdGUgY29tcG9ydGFtaWVudG8uIA0KDQpQYXJhIGluY2x1aXIgaW5mb3JtYWNpw7NuIGRlIG90cmFzIHZhcmlhYmxlcyBlbiBudWVzdHJvIGdyw6FmaWNvIHBvZGVtb3MgYXByb3ZlY2hhciBsYXMgY2FyYWN0ZXLDrXN0aWNhcyBlc3TDqXRpY2FzIGRlIGxhcyBnZW9tZXRyw61hcy4gRW4gZXN0ZSBjYXNvLCBwb2RlbW9zICJwaW50YXIiIGxvcyBwdW50b3Mgc2Vnw7puIGVsIHRpcG8gZGUgZW5zYXlvLiANCg0KYGBge3J9DQpnZ3Bsb3QoZGF0YSA9IGN1bHRpdmFyZXMsIG1hcHBpbmcgPSBhZXMoeCA9IFJlbmRpbWllbnRvX0FqdXN0YWRvLCB5ID0gQWNlaXRlX3BvcmNlbnRhamUpKSArDQogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gYFRpcG8gRW5zYXlvYCkpDQpgYGANCg0KRGUgbnVldm8sIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYGFlcygpYCBwYXJhIGFzaWduYXIgdW5hIHZhcmlhYmxlIGRlIG51ZXN0cm9zIGRhdG9zIGEgdW4gZWxlbWVudG8gZGVsIGdyw6FmaWNvLiDCoVkgdGFkYSEgwqFDYWRhIHRpcG8gZGUgZW5zYXlvIHRpZW5lIGNhcmFjdGVyw61zdGljYXMgZGlmZXJlbnRlcyENCg0KIyMgQcOxYWRpZW5kbyBnZW9tZXRyw61hcw0KDQpNdWNoYXMgdmVjZXMgbm8gYmFzdGEgY29uIG1pcmFyIGxvcyBkYXRvcyBlbiBicnV0byBwYXJhIGlkZW50aWZpY2FyIGxhIHJlbGFjacOzbiBlbnRyZSBsYXMgdmFyaWFibGVzOyBlcyBuZWNlc2FyaW8gdXRpbGl6YXIgYWxndW5hIHRyYW5zZm9ybWFjacOzbiBlc3RhZMOtc3RpY2EgcGFyYSByZXNhbHRhciBlc2FzIHJlbGFjaW9uZXMsIHlhIHNlYSBhanVzdGFuZG8gdW4gbW9kZWxvIG8gY2FsY3VsYW5kbyBhbGd1bmEgZXN0YWTDrXN0aWNhLiANCg0KUGFyYSBlbGxvLCBnZ3Bsb3QyIGRpc3BvbmUgZGUgZ2VvbXMgcXVlIGNhbGN1bGFuIHRyYW5zZm9ybWFjaW9uZXMgZXN0YWTDrXN0aWNhcyBjb211bmVzLiBWYW1vcyBhIHByb2JhciBjb24gYGdlb21fc21vdGgoKWAgcGFyYSBhanVzdGFyIHVuIG1vZGVsbyBsaW5lYWwgYSBjYWRhIGVzcGVjaWUuIA0KDQpgYGB7cn0NCmdncGxvdChkYXRhID0gY3VsdGl2YXJlcywgbWFwcGluZyA9IGFlcyh4ID0gUmVuZGltaWVudG9fQWp1c3RhZG8sIHkgPSBBY2VpdGVfcG9yY2VudGFqZSkpICsNCiAgZ2VvbV9wb2ludChhZXMoY29sb3IgPSBgVGlwbyBFbnNheW9gKSkgKw0KICBnZW9tX3Ntb290aChhZXMoY29sb3IgPSBgVGlwbyBFbnNheW9gKSwgbWV0aG9kID0gImxtIikNCmBgYA0KDQpQb3IgZGVmZWN0byBgZ2VvbV9zbW9vdGgoKWAgYWp1c3RhIGxvcyBkYXRvcyB1dGlsaXphbmRvIGVsIG3DqXRvZG8gbG9lc3MgKHJlZ3Jlc2nDs24gbGluZWFsIGxvY2FsKSBjdWFuZG8gaGF5IG1lbm9zIGRlIDEwMDAgZGF0b3MgZGlzcG9uaWJsZXMuIFBlcm8gZXMgbXV5IGNvbcO6biBxdWUgc2UgcXVpZXJhIGFqdXN0YXIgdW5hIHJlZ3Jlc2nDs24gbGluZWFsIGdsb2JhbC4gRW4gZXNlIGNhc28sIHRlbmVtb3MgcXVlIGFncmVnYXIgZWwgYXJndW1lbnRvIGBtZXRob2QgPSAibG0iYC4NCg0KIyMgSGFibGVtb3MgZGVsIGFzcGVjdG8gZGVsIGdyw6FmaWNvICANCiAgDQpQb3IgYWhvcmEgdXRpbGl6YW1vcyBlbCBhc3BlY3RvIHBvciBkZWZlY3RvIGRlIGdncGxvdC4gUG9kcsOtYW1vcyBjYW1iaWFyIGVsIGFzcGVjdG8gZGVsIGdyw6FmaWNvIHBhcmEgYWRhcHRhcmxvIGFsIGVzdGlsbyBkZSBsYSBpbnN0aXR1Y2nDs24gZG9uZGUgdHJhYmFqYW1vcywgZGUgbGEgcmV2aXN0YSBkb25kZSBsbyB2YW1vcyBhIHB1YmxpY2FyIG8gc2ltcGxlbWVudGUgcGFyYSBoYWNlcmxvIG3DoXMgbGxhbWF0aXZvLiANCiAgDQpFbXBlY2Vtb3MgcG9yIGVsIGNvbG9yLiBQYXJhIGNhbWJpYXIgZWwgYXNwZWN0byBlc3TDqXRpY28gZGUgdW4gZWxlbWVudG8gZGVsIGdyw6FmaWNvLCBhw7FhZGltb3MgdW5hIG51ZXZhIGNhcGEgY29uIGxhIGZ1bmNpw7NuIGBzY2FsZV8qYC4gRW4gZXN0ZSBjYXNvIHV0aWxpemFyZW1vcyBgc2NhbGVfY29sb3JfbWFudWFsKClgIHBhcmEgZWxlZ2lyIGxvcyBjb2xvcmVzIGRlIGxvcyBwdW50b3MgbWFudWFsbWVudGUuIFRhbWJpw6luIHBvZHLDrWFtb3MgdXRpbGl6YXIgcGFsZXRhcyBkZSBjb2xvcmVzIHByZXZpYW1lbnRlIGRlZmluaWRhcyBjb21vIGxhcyBmYW1pbGlhcyBWaXJpZGlzIG8gQ29sb3IgQnJld2VyLiANCiAgDQpOZWNlc2l0YXJlbW9zIDQgY29sb3JlcyBwYXJhIGxvcyBjdWF0cm8gdGlwb3MgZGUgZW5zYXlvLCB1c2FyZW1vcyBgImRhcmtvcmFuZ2UiYCwgYCJwdXJwbGUiYCAsIGAiY3lhbjQiYCB5IGAibGlnaHRibHVlImAgc2lndWllbmRvIGxhcyBoZXJtb3NhcyB2aXN1YWxpemFjaW9uZXMgaGVjaGFzIHBvciBBbGxpc29uIEhvcnN0Lg0KDQpgYGB7cn0NCmdncGxvdChkYXRhID0gY3VsdGl2YXJlcywgbWFwcGluZyA9IGFlcyh4ID0gUmVuZGltaWVudG9fQWp1c3RhZG8sIHkgPSBBY2VpdGVfcG9yY2VudGFqZSkpICsNCiAgZ2VvbV9wb2ludChhZXMoY29sb3IgPSBgVGlwbyBFbnNheW9gKSkgKw0KICBnZW9tX3Ntb290aChhZXMoY29sb3IgPSBgVGlwbyBFbnNheW9gKSwgbWV0aG9kID0gImxtIikgKw0KICBzY2FsZV9jb2xvcl9tYW51YWwodmFsdWVzID0gYygiZGFya29yYW5nZSIsInB1cnBsZSIsImN5YW40IiwgImxpZ2h0Ymx1ZSIpKSANCmBgYA0KDQrCoVZhIHF1ZWRhbmRvISBBaG9yYSwgdmFtb3MgYSBhw7FhZGlyIGFsZ3Vub3MgZWxlbWVudG9zIGRlIHRleHRvIGNvbiB1bmEgbnVldmEgY2FwYSBnZ3Bsb3Q6IGBsYWJzKClgLg0KDQpgYGB7cn0NCmdncGxvdChkYXRhID0gY3VsdGl2YXJlcywgbWFwcGluZyA9IGFlcyh4ID0gUmVuZGltaWVudG9fQWp1c3RhZG8sIHkgPSBBY2VpdGVfcG9yY2VudGFqZSkpICsNCiAgZ2VvbV9wb2ludChhZXMoY29sb3IgPSBgVGlwbyBFbnNheW9gKSkgKw0KICBnZW9tX3Ntb290aChhZXMoY29sb3IgPSBgVGlwbyBFbnNheW9gKSwgbWV0aG9kID0gImxtIikgKw0KICBzY2FsZV9jb2xvcl9tYW51YWwodmFsdWVzID0gYygiZGFya29yYW5nZSIsInB1cnBsZSIsImN5YW40IiwgImxpZ2h0Ymx1ZSIpKSAgKw0KICBsYWJzKHRpdGxlID0gIlJlbmRpbWllbnRvIHkgcHJvY2VudGFqZSBkZSBhY2VpdGUgcG9yIHRpcG8gZGUgZW5zYXlvIiwNCiAgICAgICBzdWJ0aXRsZSA9ICJDdWx0aXZhcmVzIEFDQSBkZSBsYSBSZWQgTmFjaW9uYWwgZGUgRW5zYXlvcyBkZSBHaXJhc29sIiwNCiAgICAgICB4ID0gIlBvcmNlbnRhamUgZGUgQWNlaXRlICglKSIsDQogICAgICAgeSA9ICJSZW5kaW1pZW50byAoa2cvaGEpIiwNCiAgICAgICBjb2xvciA9ICJUaXBvIGRlIEVuc2F5byIsDQogICAgICAgc2hhcGUgPSAiVGlwbyBkZSBFbnNheW8iKSANCmBgYA0KDQpBaG9yYSBsYXMgZXRpcXVldGFzIGRlIGxvcyBlamVzIHNvbiBtw6FzIGxlZ2libGVzIHkgdGVuZW1vcyB1biB0w610dWxvIHkgdW4gc3VidMOtdHVsbyBxdWUgZXhwbGljYW4gZGUgcXXDqSB0cmF0YSBlbCBncsOhZmljby4gDQoNClBvZHLDrWFtb3Mgc2VndWlyIGNhbWJpYW5kbyBlc3RvIGluZmluaXRhbWVudGUgcGVybyB0ZXJtaW5hcmVtb3MgY29uIGVsIGFzcGVjdG8gZ2VuZXJhbCBkZWwgZ3LDoWZpY28uIA0KDQpFbCBhc3BlY3RvIGdlbmVyYWwgZGUgdW4gZ3LDoWZpY28gZXN0w6EgZGVmaW5pZG8gcG9yIHN1IHRlbWEuIGdncGxvdDIgdGllbmUgbXVjaG9zIHRlbWFzIGRpc3BvbmlibGVzIHkgcGFyYSB0b2RvcyBsb3MgZ3VzdG9zLiBQZXJvIHRhbWJpw6luIGhheSBvdHJvcyBwYXF1ZXRlcyBxdWUgYW1wbMOtYW4gbGFzIHBvc2liaWxpZGFkZXMsIHBvciBlamVtcGxvIGdndGhlbWVzLiBQb3IgZGVmZWN0byBnZ3Bsb3QyIHV0aWxpemEgYHRoZW1lX2dyZXkoKWAsIHByb2JlbW9zIGNvbiBgdGhlbWVfbWluaW1hbCgpYDoNCg0KYGBge3J9DQpnZ3Bsb3QoZGF0YSA9IGN1bHRpdmFyZXMsIG1hcHBpbmcgPSBhZXMoeCA9IFJlbmRpbWllbnRvX0FqdXN0YWRvLCB5ID0gQWNlaXRlX3BvcmNlbnRhamUpKSArDQogIGdlb21fcG9pbnQoYWVzKGNvbG9yID0gYFRpcG8gRW5zYXlvYCkpICsNCiAgZ2VvbV9zbW9vdGgoYWVzKGNvbG9yID0gYFRpcG8gRW5zYXlvYCksIG1ldGhvZCA9ICJsbSIpICsNCiAgc2NhbGVfY29sb3JfbWFudWFsKHZhbHVlcyA9IGMoImRhcmtvcmFuZ2UiLCJwdXJwbGUiLCJjeWFuNCIsICJsaWdodGJsdWUiKSkgICsNCiAgbGFicyh0aXRsZSA9ICJSZW5kaW1pZW50byB5IHByb2NlbnRhamUgZGUgYWNlaXRlIHBvciB0aXBvIGRlIGVuc2F5byIsDQogICAgICAgc3VidGl0bGUgPSAiQ3VsdGl2YXJlcyBBQ0EgZGUgbGEgUmVkIE5hY2lvbmFsIGRlIEVuc2F5b3MgZGUgR2lyYXNvbCIsDQogICAgICAgeCA9ICJQb3JjZW50YWplIGRlIEFjZWl0ZSAoJSkiLA0KICAgICAgIHkgPSAiUmVuZGltaWVudG8gKGtnL2hhKSIsDQogICAgICAgY29sb3IgPSAiVGlwbyBkZSBFbnNheW8iLA0KICAgICAgIHNoYXBlID0gIlRpcG8gZGUgRW5zYXlvIikgKw0KICB0aGVtZV9taW5pbWFsKCkNCmBgYA0KDQo+IEFob3JhIGVzIHR1IHR1cm5vLiBFbGlnZSB1biB0ZW1hIHF1ZSB0ZSBndXN0ZSB5IHBydcOpYmFsby4gQWRlbcOhcywgc2kgc2UgdGUgb2N1cnJlIHVuIHTDrXR1bG8gbWVqb3IsIMKhbW9kaWbDrWNhbG8hDQo=</div>
 
 
 
