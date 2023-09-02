@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -89,11 +89,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -102,14 +102,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -147,7 +147,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<link rel="stylesheet" href="learnr_metadocencia.css" type="text/css" />
 
 
 
@@ -334,7 +333,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">De hojas de cálculo a R</a>
+      <a class="navbar-brand" href="index.html">Seminario de Aplicación</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,13 +365,11 @@ $(document).ready(function () {
   </ul>
 </li>
 <li>
-  <a href="reporte_pinguinos.html">Ejemplo</a>
+  <a href="reporte_cultivares.html">Ejemplo</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/yabellini/deHojasDeCalculoAR">Repo</a>
-</li>
+        <li class="dropdown-header">Repo</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -395,141 +392,311 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#creando-tablas-de-resumen">Creando tablas de resumen</a></li>
-<li><a href="#dándole-formato-a-la-tabla">Dándole formato a la tabla</a></li>
-<li><a href="#creando-nuevas-variables">Creando nuevas variables</a></li>
-<li><a href="#filtrando-los-datos">Filtrando los datos</a></li>
+<li><a href="#creando-tablas-de-resumen"
+id="toc-creando-tablas-de-resumen">Creando tablas de resumen</a></li>
+<li><a href="#dándole-formato-a-la-tabla"
+id="toc-dándole-formato-a-la-tabla">Dándole formato a la tabla</a></li>
+<li><a href="#creando-nuevas-variables"
+id="toc-creando-nuevas-variables">Creando nuevas variables</a></li>
+<li><a href="#filtrando-los-datos"
+id="toc-filtrando-los-datos">Filtrando los datos</a></li>
 </ul>
 </div>
 
 <div id="creando-tablas-de-resumen" class="section level2">
 <h2>Creando tablas de resumen</h2>
-<p>En una hoja de cálculo, las tablas dinámicas o pivot tables son potentes herramientas para resumir los datos de diferentes maneras. Podemos crear estas tablas utilizando las funciones <code>group_by</code> y <code>summarize</code> del paquete dplyr.</p>
-<p>Echemos un vistazo a nuestro informe, justo después de leer los datos, creamos una tabla de resumen con el número de casos y la masa corporal media de cada especie de nuestro conjunto de datos.</p>
-<p>Podemos utilizar <code>group_by()</code> para agrupar nuestros datos por <strong>especie</strong> y <code>summarize()</code> para calcular el número de casos y la <strong>masa_corporal_g</strong> media para cada grupo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">mean</span>(masa_corporal_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 3
-##   especie count masa_corporal_media
-##   &lt;chr&gt;   &lt;int&gt;               &lt;dbl&gt;
-## 1 Adelia    152               3701.
-## 2 Barbijo    68               3733.
-## 3 Papúa     124               5076.</code></pre>
-<p>La función <code>n()</code> devuelve el número de casos y la función <code>mean</code> calcula la media o promedio. El parámetro <code>na.rm = TRUE</code> indica a la función que elimine los valores faltantes (<code>NA</code>) antes de realizar el cálculo.</p>
+<p>En una hoja de cálculo, las tablas dinámicas o pivot tables son
+potentes herramientas para resumir los datos de diferentes maneras.
+Podemos crear estas tablas utilizando las funciones
+<code>group_by</code> y <code>summarize</code> del paquete dplyr.</p>
+<p>Echemos un vistazo a nuestro informe, justo después de leer los
+datos, creamos una tabla de resumen con el número de ensayos y el
+rendimiento media de cada cultivar de nuestro conjunto de datos.</p>
+<p>Podemos utilizar <code>group_by()</code> para agrupar nuestros datos
+por <strong>cultivar</strong> y <code>summarize()</code> para calcular
+el número de ensayos y el <strong>rendimiento_ajustado</strong> medio
+para cada grupo.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 19 x 3
+##    Cultivar        count rendimiento_ajustado_medio
+##    &lt;chr&gt;           &lt;int&gt;                      &lt;dbl&gt;
+##  1 ACA 203             3                      2309 
+##  2 ACA 203 CL         57                      3089.
+##  3 ACA 203 CL DM       3                      3771.
+##  4 ACA 211 CL          9                      2870.
+##  5 ACA 350 CL PLUS    18                      3439.
+##  6 ACA 769             1                      3744 
+##  7 ACA 861           185                      3004.
+##  8 ACA 862             1                      3483 
+##  9 ACA 862 HO         14                      2673.
+## 10 ACA 863            82                      3022.
+## 11 ACA 864 DM         31                      3474.
+## 12 ACA 865            12                      3256.
+## 13 ACA 866 HO         21                      2846.
+## 14 ACA 867            43                      3394.
+## 15 ACA 868 HO         15                      3645.
+## 16 ACA 876             1                      1691 
+## 17 ACA 884             1                      1654 
+## 18 ACA 885             1                      1574 
+## 19 ACA 886             1                      1588</code></pre>
+<p>La función <code>n()</code> devuelve el número de casos y la función
+<code>mean</code> calcula la media o promedio. El parámetro
+<code>na.rm = TRUE</code> indica a la función que elimine los valores
+faltantes (<code>NA</code>) antes de realizar el cálculo.</p>
 <blockquote>
-<p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de <code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
+<p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de
+<code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
 </blockquote>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">mean</span>(masa_corporal_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 2
-##   count masa_corporal_media
-##   &lt;int&gt;               &lt;dbl&gt;
-## 1   344               4202.</code></pre>
-<p>Así que si no agrupamos por la especie primero, obtendremos una sola estadística de resumen (n y media en este caso) para todo el conjunto de datos.</p>
-<p>Ahora, queremos la media de la masa corporal en kilogramos y con dos decimales. Podemos cambiar nuestra llamada a <code>summarise()</code> para obtener ese cálculo.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(masa_corporal_g<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 3
-##   especie count masa_corporal_media
-##   &lt;chr&gt;   &lt;int&gt;               &lt;dbl&gt;
-## 1 Adelia    152                3.7 
-## 2 Barbijo    68                3.73
-## 3 Papúa     124                5.08</code></pre>
-<p>Primero dividimos la masa corporal por 1000 para transformarla de gramos a kilogramos y luego utilizamos la función <code>round()</code> para redondear a sólo dos decimales.</p>
-<p>Ahora estamos en el punto en el que queremos guardar esta información resumida como una variable para poder utilizarla en posteriores análisis y formatos.</p>
-<p>Así que vamos a añadir una asignación de variable a esa primera línea:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(masa_corporal_g<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   count rendimiento_ajustado_medio
+##   &lt;int&gt;                      &lt;dbl&gt;
+## 1   499                      3094.</code></pre>
+<p>Así que si no agrupamos por el cultivar primero, obtendremos una sola
+estadística de resumen (n y media en este caso) para todo el conjunto de
+datos.</p>
+<p>Ahora, queremos la media del rendimiento en toneladas y con dos
+decimales. Podemos cambiar nuestra llamada a <code>summarise()</code>
+para obtener ese cálculo.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 19 x 3
+##    Cultivar        count rendimiento_ajustado_medio
+##    &lt;chr&gt;           &lt;int&gt;                      &lt;dbl&gt;
+##  1 ACA 203             3                       2.31
+##  2 ACA 203 CL         57                       3.09
+##  3 ACA 203 CL DM       3                       3.77
+##  4 ACA 211 CL          9                       2.87
+##  5 ACA 350 CL PLUS    18                       3.44
+##  6 ACA 769             1                       3.74
+##  7 ACA 861           185                       3   
+##  8 ACA 862             1                       3.48
+##  9 ACA 862 HO         14                       2.67
+## 10 ACA 863            82                       3.02
+## 11 ACA 864 DM         31                       3.47
+## 12 ACA 865            12                       3.26
+## 13 ACA 866 HO         21                       2.85
+## 14 ACA 867            43                       3.39
+## 15 ACA 868 HO         15                       3.65
+## 16 ACA 876             1                       1.69
+## 17 ACA 884             1                       1.65
+## 18 ACA 885             1                       1.57
+## 19 ACA 886             1                       1.59</code></pre>
+<p>Primero dividimos el rendimiento ajustado por 1000 para transformarlo
+de kilogramos a toneladas y luego utilizamos la función
+<code>round()</code> para redondear a sólo dos decimales.</p>
+<p>Ahora estamos en el punto en el que queremos guardar esta información
+resumida como una variable para poder utilizarla en posteriores análisis
+y formatos.</p>
+<p>Así que vamos a añadir una asignación de variable a esa primera
+línea:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
 </div>
 <div id="dándole-formato-a-la-tabla" class="section level2">
 <h2>Dándole formato a la tabla</h2>
-<p>Para que nuestra tabla se vea mejor en un informe, tenemos que cambiar algunos de sus elementos. Por ejemplo, el nombre de las variables debe ser informativo para una persona (de momento son nombres útiles para una computadora), y podemos añadirle un título y cambiar la alineación de los números.</p>
+<p>Para que nuestra tabla se vea mejor en un informe, tenemos que
+cambiar algunos de sus elementos. Por ejemplo, el nombre de las
+variables debe ser informativo para una persona (de momento son nombres
+útiles para una computadora), y podemos añadirle un título y cambiar la
+alineación de los números.</p>
 <p>Podemos hacerlo con la función <code>kable</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Especie&quot;</span>, <span class="st">&quot;Cantidad&quot;</span>, <span class="st">&quot;Masa corporal media&quot;</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">&quot;lcc&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Resumen de los pingüinos en el dataset por especie.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Cultivar&quot;</span>, <span class="st">&quot;Cantidad&quot;</span>, <span class="st">&quot;Rendimiento Ajustado Medio&quot;</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">&quot;lcc&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Resumen de los Cultivares en el dataset.&quot;</span>)</span></code></pre></div>
 <table>
-<caption>Resumen de los pingüinos en el dataset por especie.</caption>
+<caption>Resumen de los Cultivares en el dataset.</caption>
 <thead>
 <tr class="header">
-<th align="left">Especie</th>
+<th align="left">Cultivar</th>
 <th align="center">Cantidad</th>
-<th align="center">Masa corporal media</th>
+<th align="center">Rendimiento Ajustado Medio</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Adelia</td>
-<td align="center">152</td>
-<td align="center">3.70</td>
+<td align="left">ACA 203</td>
+<td align="center">3</td>
+<td align="center">2.31</td>
 </tr>
 <tr class="even">
-<td align="left">Barbijo</td>
-<td align="center">68</td>
-<td align="center">3.73</td>
+<td align="left">ACA 203 CL</td>
+<td align="center">57</td>
+<td align="center">3.09</td>
 </tr>
 <tr class="odd">
-<td align="left">Papúa</td>
-<td align="center">124</td>
-<td align="center">5.08</td>
+<td align="left">ACA 203 CL DM</td>
+<td align="center">3</td>
+<td align="center">3.77</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 211 CL</td>
+<td align="center">9</td>
+<td align="center">2.87</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 350 CL PLUS</td>
+<td align="center">18</td>
+<td align="center">3.44</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 769</td>
+<td align="center">1</td>
+<td align="center">3.74</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 861</td>
+<td align="center">185</td>
+<td align="center">3.00</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 862</td>
+<td align="center">1</td>
+<td align="center">3.48</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 862 HO</td>
+<td align="center">14</td>
+<td align="center">2.67</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 863</td>
+<td align="center">82</td>
+<td align="center">3.02</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 864 DM</td>
+<td align="center">31</td>
+<td align="center">3.47</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 865</td>
+<td align="center">12</td>
+<td align="center">3.26</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 866 HO</td>
+<td align="center">21</td>
+<td align="center">2.85</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 867</td>
+<td align="center">43</td>
+<td align="center">3.39</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 868 HO</td>
+<td align="center">15</td>
+<td align="center">3.65</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 876</td>
+<td align="center">1</td>
+<td align="center">1.69</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 884</td>
+<td align="center">1</td>
+<td align="center">1.65</td>
+</tr>
+<tr class="even">
+<td align="left">ACA 885</td>
+<td align="center">1</td>
+<td align="center">1.57</td>
+</tr>
+<tr class="odd">
+<td align="left">ACA 886</td>
+<td align="center">1</td>
+<td align="center">1.59</td>
 </tr>
 </tbody>
 </table>
-<p>Podemos hacer mucho más con otras funciones (o “verbos”) de dplyr. Veamos algunos más.</p>
+<p>Podemos hacer mucho más con otras funciones (o “verbos”) de dplyr.
+Veamos algunos más.</p>
 </div>
 <div id="creando-nuevas-variables" class="section level2">
 <h2>Creando nuevas variables</h2>
-<p>Muchas veces querremos trabajar con información que se deriva de los datos originales. Esto se suele hacer añadiendo una nueva columna. Lo hacemos con la función <code>mutate()</code>.</p>
-<p>Podemos añadir una nueva variable (llamada <code>prop</code>) que represente la proporción de pingüinos en cada <strong>especie</strong> con el uso de <code>mutate()</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">masa_corporal_media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(masa_corporal_g<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> count<span class="sc">/</span><span class="fu">nrow</span>(pinguinos))</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 4
-##   especie count masa_corporal_media  prop
-##   &lt;chr&gt;   &lt;int&gt;               &lt;dbl&gt; &lt;dbl&gt;
-## 1 Adelia    152                3.7  0.442
-## 2 Barbijo    68                3.73 0.198
-## 3 Papúa     124                5.08 0.360</code></pre>
+<p>Muchas veces querremos trabajar con información que se deriva de los
+datos originales. Esto se suele hacer añadiendo una nueva columna. Lo
+hacemos con la función <code>mutate()</code>.</p>
+<p>Podemos añadir una nueva variable (llamada <code>prop</code>) que
+represente la proporción de ensayos en cada <strong>localidad</strong>
+con el uso de <code>mutate()</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> count<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span></code></pre></div>
+<pre><code>## # A tibble: 58 x 4
+##    Localidad    count rendimiento_ajustado_medio    prop
+##    &lt;chr&gt;        &lt;int&gt;                      &lt;dbl&gt;   &lt;dbl&gt;
+##  1 &quot;Anguil&quot;        21                      3156. 0.0421 
+##  2 &quot;Ascasubi&quot;       5                      4996. 0.0100 
+##  3 &quot;Asturias&quot;       7                      4216. 0.0140 
+##  4 &quot;Balcarce&quot;      59                      2856. 0.118  
+##  5 &quot;Barrow&quot;        34                      2665. 0.0681 
+##  6 &quot;Bellocq&quot;       31                      3899. 0.0621 
+##  7 &quot;Bol\xedvar&quot;     5                      3931  0.0100 
+##  8 &quot;Bordenave&quot;      3                      4624  0.00601
+##  9 &quot;Bulnes&quot;        11                      2980. 0.0220 
+## 10 &quot;Carhue&quot;         2                      2879  0.00401
+## # i 48 more rows</code></pre>
 </div>
 <div id="filtrando-los-datos" class="section level2">
 <h2>Filtrando los datos</h2>
-<p>En nuestro informe también realizamos un gráfico por especies. Para ello necesitamos mantener sólo los datos de la especie que queremos analizar. Utilizamos la función <code>filter()</code> para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.</p>
-<p>Podemos utilizar operadores lógicos (<code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición (que sea igual a) para datos de tipo texto (la columna especie).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">&quot;Papúa&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 124 × 8
-##    especie isla  largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g sexo 
-##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;
-##  1 Papúa   Bisc…          46.1         13.2            211            4500 hemb…
-##  2 Papúa   Bisc…          50           16.3            230            5700 macho
-##  3 Papúa   Bisc…          48.7         14.1            210            4450 hemb…
-##  4 Papúa   Bisc…          50           15.2            218            5700 macho
-##  5 Papúa   Bisc…          47.6         14.5            215            5400 macho
-##  6 Papúa   Bisc…          46.5         13.5            210            4550 hemb…
-##  7 Papúa   Bisc…          45.4         14.6            211            4800 hemb…
-##  8 Papúa   Bisc…          46.7         15.3            219            5200 macho
-##  9 Papúa   Bisc…          43.3         13.4            209            4400 hemb…
-## 10 Papúa   Bisc…          46.8         15.4            215            5150 macho
-## # … with 114 more rows, and 1 more variable: anio &lt;dbl&gt;</code></pre>
+<p>En nuestro informe también realizamos un gráfico de un cultivar
+específico. Para ello necesitamos mantener sólo los datos del cultivar
+que queremos analizar. Utilizamos la función <code>filter()</code> para
+filtrar filas de un data.frame, esta función devuelve un nuevo
+data.frame con sólo las filas que satisfacen algunas condiciones.</p>
+<p>Podemos utilizar operadores lógicos (<code>&gt;</code>,
+<code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>,
+<code>==</code>) para crear condiciones a partir de variables numéricas.
+Estos operadores también son útiles para fechas y cadenas de texto. El
+siguiente código aplica una condición (que sea igual a) para datos de
+tipo texto (la columna especie).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">&quot;ACA 861&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 185 x 21
+##    Cultivar Empresa Floracion_dias Altura_cm Densidad_sem Rendimiento
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+##  1 ACA 861  ACA                 62       181        66229        4571
+##  2 ACA 861  ACA                 68       129        53345        2598
+##  3 ACA 861  ACA                 74       149        54286        2902
+##  4 ACA 861  ACA                 73       156        42682        3097
+##  5 ACA 861  ACA                 61       155        44818        3316
+##  6 ACA 861  ACA                 68        NA        44193        4140
+##  7 ACA 861  ACA                 69       167        40001        4201
+##  8 ACA 861  ACA                 69       168        40650        3200
+##  9 ACA 861  ACA                 72       173        56260        3858
+## 10 ACA 861  ACA                 71        NA        52858        4464
+## # i 175 more rows
+## # i 15 more variables: Aceite_porcentaje &lt;dbl&gt;, Rendimiento_Ajustado &lt;dbl&gt;,
+## #   Campania &lt;chr&gt;, Localidad &lt;chr&gt;, Latitud &lt;dbl&gt;, Longitud &lt;dbl&gt;,
+## #   Ensayo &lt;chr&gt;, `Tipo Ensayo` &lt;chr&gt;, Epoca &lt;chr&gt;, Distancia_surcos &lt;dbl&gt;,
+## #   Tipo_Siembra &lt;chr&gt;, Densidad_siembra &lt;dbl&gt;, Fecha_Siembra &lt;chr&gt;,
+## #   Testigo &lt;chr&gt;, Visible &lt;chr&gt;</code></pre>
 <blockquote>
-<p>Actividad: Escribe el código necesario para filtrar todos los pingüinos de la isla Torgersen.</p>
+<p>Actividad: Escribe el código necesario para filtrar todos los ensayos
+de la localidad Anguil.</p>
 </blockquote>
 <blockquote>
-<p>Actividad: Ahora escribe el código para filtrar todos los pingüinos con longitud de aleta mayor a 200.</p>
+<p>Actividad: Ahora escribe el código para filtrar todos los cultivares
+con un rendimiento mayor a 5000 kg/ha.</p>
 </blockquote>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuaXB1bGFuZG8gZGF0b3MiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiBmYWxzZQogICAgaGlnaGxpZ2h0OiB0YW5nbwotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCgllY2hvID0gVFJVRSwKCW1lc3NhZ2UgPSBGQUxTRSwKCXdhcm5pbmcgPSBGQUxTRQopCgpsaWJyYXJ5KHRpZHl2ZXJzZSkKcGluZ3Vpbm9zIDwtIHJlYWRfY3N2KCJkYXRvcy9waW5ndWlub3MuY3N2IikKYGBgCgojIyBDcmVhbmRvIHRhYmxhcyBkZSByZXN1bWVuCgpFbiB1bmEgaG9qYSBkZSBjw6FsY3VsbywgbGFzIHRhYmxhcyBkaW7DoW1pY2FzIG8gcGl2b3QgdGFibGVzIHNvbiBwb3RlbnRlcyBoZXJyYW1pZW50YXMgcGFyYSByZXN1bWlyIGxvcyBkYXRvcyBkZSBkaWZlcmVudGVzIG1hbmVyYXMuIFBvZGVtb3MgY3JlYXIgZXN0YXMgdGFibGFzIHV0aWxpemFuZG8gbGFzIGZ1bmNpb25lcyBgZ3JvdXBfYnlgIHkgYHN1bW1hcml6ZWAgZGVsIHBhcXVldGUgZHBseXIuIAoKRWNoZW1vcyB1biB2aXN0YXpvIGEgbnVlc3RybyBpbmZvcm1lLCBqdXN0byBkZXNwdcOpcyBkZSBsZWVyIGxvcyBkYXRvcywgY3JlYW1vcyB1bmEgdGFibGEgZGUgcmVzdW1lbiBjb24gZWwgbsO6bWVybyBkZSBjYXNvcyB5IGxhIG1hc2EgY29ycG9yYWwgbWVkaWEgZGUgY2FkYSBlc3BlY2llIGRlIG51ZXN0cm8gY29uanVudG8gZGUgZGF0b3MuCgpQb2RlbW9zIHV0aWxpemFyIGBncm91cF9ieSgpYCBwYXJhIGFncnVwYXIgbnVlc3Ryb3MgZGF0b3MgcG9yICoqZXNwZWNpZSoqIHkgYHN1bW1hcml6ZSgpYCBwYXJhIGNhbGN1bGFyIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSAqKm1hc2FfY29ycG9yYWxfZyoqIG1lZGlhIHBhcmEgY2FkYSBncnVwby4KCmBgYHtyfQoKcGluZ3Vpbm9zICU+JSAKICBncm91cF9ieShlc3BlY2llKSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLAogICAgICAgICAgICBtYXNhX2NvcnBvcmFsX21lZGlhID0gbWVhbihtYXNhX2NvcnBvcmFsX2csIG5hLnJtID0gVFJVRSkpCgpgYGAKCkxhIGZ1bmNpw7NuIGBuKClgIGRldnVlbHZlIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSBmdW5jacOzbiBgbWVhbmAgY2FsY3VsYSBsYSBtZWRpYSBvIHByb21lZGlvLiBFbCBwYXLDoW1ldHJvIGBuYS5ybSA9IFRSVUVgIGluZGljYSBhIGxhIGZ1bmNpw7NuIHF1ZSBlbGltaW5lIGxvcyB2YWxvcmVzIGZhbHRhbnRlcyAoYE5BYCkgYW50ZXMgZGUgcmVhbGl6YXIgZWwgY8OhbGN1bG8uCgo+IFByZWd1bnRhOiDCv1F1w6kgcGFzYSBzaSBubyBzZSB1dGlsaXphIGBncm91cF9ieSgpYCBhbnRlcyBkZSBgc3VtbWFyaXNlKClgPyBQcm9iw6ltb3NsbyB5IGRpc2N1dGFtb3MgbG8gcXVlIG9jdXJyZS4KCmBgYHtyfQpwaW5ndWlub3MgJT4lIAogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwKICAgICAgICAgICAgbWFzYV9jb3Jwb3JhbF9tZWRpYSA9IG1lYW4obWFzYV9jb3Jwb3JhbF9nLCBuYS5ybSA9IFRSVUUpKQpgYGAKCkFzw60gcXVlIHNpIG5vIGFncnVwYW1vcyBwb3IgbGEgZXNwZWNpZSBwcmltZXJvLCBvYnRlbmRyZW1vcyB1bmEgc29sYSBlc3RhZMOtc3RpY2EgZGUgcmVzdW1lbiAobiB5IG1lZGlhIGVuIGVzdGUgY2FzbykgcGFyYSB0b2RvIGVsIGNvbmp1bnRvIGRlIGRhdG9zLgoKQWhvcmEsIHF1ZXJlbW9zIGxhIG1lZGlhIGRlIGxhIG1hc2EgY29ycG9yYWwgZW4ga2lsb2dyYW1vcyB5IGNvbiBkb3MgZGVjaW1hbGVzLiBQb2RlbW9zIGNhbWJpYXIgbnVlc3RyYSBsbGFtYWRhIGEgYHN1bW1hcmlzZSgpYCBwYXJhIG9idGVuZXIgZXNlIGPDoWxjdWxvLiAgCgpgYGB7cn0KcGluZ3Vpbm9zICU+JSAKICBncm91cF9ieShlc3BlY2llKSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLAogICAgICAgICAgICBtYXNhX2NvcnBvcmFsX21lZGlhID0gcm91bmQobWVhbihtYXNhX2NvcnBvcmFsX2cvMTAwMCwgbmEucm0gPSBUUlVFKSwgMikpCmBgYAoKUHJpbWVybyBkaXZpZGltb3MgbGEgbWFzYSBjb3Jwb3JhbCBwb3IgMTAwMCBwYXJhIHRyYW5zZm9ybWFybGEgZGUgZ3JhbW9zIGEga2lsb2dyYW1vcyB5IGx1ZWdvIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYHJvdW5kKClgIHBhcmEgcmVkb25kZWFyIGEgc8OzbG8gZG9zIGRlY2ltYWxlcy4KCkFob3JhIGVzdGFtb3MgZW4gZWwgcHVudG8gZW4gZWwgcXVlIHF1ZXJlbW9zIGd1YXJkYXIgZXN0YSBpbmZvcm1hY2nDs24gcmVzdW1pZGEgY29tbyB1bmEgdmFyaWFibGUgcGFyYSBwb2RlciB1dGlsaXphcmxhIGVuIHBvc3RlcmlvcmVzIGFuw6FsaXNpcyB5IGZvcm1hdG9zLgoKQXPDrSBxdWUgdmFtb3MgYSBhw7FhZGlyIHVuYSBhc2lnbmFjacOzbiBkZSB2YXJpYWJsZSBhIGVzYSBwcmltZXJhIGzDrW5lYToKCmBgYHtyfQpyZXN1bWVuIDwtIHBpbmd1aW5vcyAlPiUgCiAgZ3JvdXBfYnkoZXNwZWNpZSkgJT4lIAogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwKICAgICAgICAgICAgbWFzYV9jb3Jwb3JhbF9tZWRpYSA9IHJvdW5kKG1lYW4obWFzYV9jb3Jwb3JhbF9nLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKQpgYGAKCiMjIETDoW5kb2xlIGZvcm1hdG8gYSBsYSB0YWJsYQoKUGFyYSBxdWUgbnVlc3RyYSB0YWJsYSBzZSB2ZWEgbWVqb3IgZW4gdW4gaW5mb3JtZSwgdGVuZW1vcyBxdWUgY2FtYmlhciBhbGd1bm9zIGRlIHN1cyBlbGVtZW50b3MuIFBvciBlamVtcGxvLCBlbCBub21icmUgZGUgbGFzIHZhcmlhYmxlcyBkZWJlIHNlciBpbmZvcm1hdGl2byBwYXJhIHVuYSBwZXJzb25hIChkZSBtb21lbnRvIHNvbiBub21icmVzIMO6dGlsZXMgcGFyYSB1bmEgY29tcHV0YWRvcmEpLCB5IHBvZGVtb3MgYcOxYWRpcmxlIHVuIHTDrXR1bG8geSBjYW1iaWFyIGxhIGFsaW5lYWNpw7NuIGRlIGxvcyBuw7ptZXJvcy4KClBvZGVtb3MgaGFjZXJsbyBjb24gbGEgZnVuY2nDs24gYGthYmxlYC4KCmBgYHtyfQpyZXN1bWVuICU+JSAKICBrbml0cjo6a2FibGUoY29sLm5hbWVzID0gYygiRXNwZWNpZSIsICJDYW50aWRhZCIsICJNYXNhIGNvcnBvcmFsIG1lZGlhIiksCiAgICAgICAgICAgICAgIGFsaWduID0gImxjYyIsCiAgICAgICAgICAgICAgIGNhcHRpb24gPSAiUmVzdW1lbiBkZSBsb3MgcGluZ8O8aW5vcyBlbiBlbCBkYXRhc2V0IHBvciBlc3BlY2llLiIpCmBgYAoKUG9kZW1vcyBoYWNlciBtdWNobyBtw6FzIGNvbiBvdHJhcyBmdW5jaW9uZXMgKG8gInZlcmJvcyIpIGRlIGRwbHlyLiBWZWFtb3MgYWxndW5vcyBtw6FzLgoKIyMgQ3JlYW5kbyBudWV2YXMgdmFyaWFibGVzCgpNdWNoYXMgdmVjZXMgcXVlcnJlbW9zIHRyYWJhamFyIGNvbiBpbmZvcm1hY2nDs24gcXVlIHNlIGRlcml2YSBkZSBsb3MgZGF0b3Mgb3JpZ2luYWxlcy4gRXN0byBzZSBzdWVsZSBoYWNlciBhw7FhZGllbmRvIHVuYSBudWV2YSBjb2x1bW5hLiBMbyBoYWNlbW9zIGNvbiBsYSBmdW5jacOzbiBgbXV0YXRlKClgLgoKUG9kZW1vcyBhw7FhZGlyIHVuYSBudWV2YSB2YXJpYWJsZSAobGxhbWFkYSBgcHJvcGApIHF1ZSByZXByZXNlbnRlIGxhIHByb3BvcmNpw7NuIGRlIHBpbmfDvGlub3MgZW4gY2FkYSAqKmVzcGVjaWUqKiBjb24gZWwgdXNvIGRlIGBtdXRhdGUoKWAuIAoKYGBge3J9CnBpbmd1aW5vcyAlPiUgCiAgZ3JvdXBfYnkoZXNwZWNpZSkgJT4lIAogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwKICAgICAgICAgICAgbWFzYV9jb3Jwb3JhbF9tZWRpYSA9IHJvdW5kKG1lYW4obWFzYV9jb3Jwb3JhbF9nLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKSAlPiUKICBtdXRhdGUocHJvcCA9IGNvdW50L25yb3cocGluZ3Vpbm9zKSkKCmBgYAoKIyMgRmlsdHJhbmRvIGxvcyBkYXRvcwoKRW4gbnVlc3RybyBpbmZvcm1lIHRhbWJpw6luIHJlYWxpemFtb3MgdW4gZ3LDoWZpY28gcG9yIGVzcGVjaWVzLiBQYXJhIGVsbG8gbmVjZXNpdGFtb3MgbWFudGVuZXIgc8OzbG8gbG9zIGRhdG9zIGRlIGxhIGVzcGVjaWUgcXVlIHF1ZXJlbW9zIGFuYWxpemFyLiAgVXRpbGl6YW1vcyBsYSBmdW5jacOzbiBgZmlsdGVyKClgIHBhcmEgZmlsdHJhciBmaWxhcyBkZSB1biBkYXRhLmZyYW1lLCBlc3RhIGZ1bmNpw7NuIGRldnVlbHZlIHVuIG51ZXZvIGRhdGEuZnJhbWUgY29uIHPDs2xvIGxhcyBmaWxhcyBxdWUgc2F0aXNmYWNlbiBhbGd1bmFzIGNvbmRpY2lvbmVzLgoKUG9kZW1vcyB1dGlsaXphciBvcGVyYWRvcmVzIGzDs2dpY29zIChgPmAsIGA8YCwgYD49YCwgYDw9YCwgYD09YCkgcGFyYSBjcmVhciBjb25kaWNpb25lcyBhIHBhcnRpciBkZSB2YXJpYWJsZXMgbnVtw6lyaWNhcy4gRXN0b3Mgb3BlcmFkb3JlcyB0YW1iacOpbiBzb24gw7p0aWxlcyBwYXJhIGZlY2hhcyB5IGNhZGVuYXMgZGUgdGV4dG8uIEVsIHNpZ3VpZW50ZSBjw7NkaWdvIGFwbGljYSB1bmEgY29uZGljacOzbiAocXVlIHNlYSBpZ3VhbCBhKSBwYXJhIGRhdG9zIGRlIHRpcG8gdGV4dG8gKGxhIGNvbHVtbmEgZXNwZWNpZSkuCgpgYGB7cn0KcGluZ3Vpbm9zICU+JSAKICBmaWx0ZXIoZXNwZWNpZSA9PSAiUGFww7phIikKYGBgCgo+IEFjdGl2aWRhZDogRXNjcmliZSBlbCBjw7NkaWdvIG5lY2VzYXJpbyBwYXJhIGZpbHRyYXIgdG9kb3MgbG9zIHBpbmfDvGlub3MgZGUgbGEgaXNsYSBUb3JnZXJzZW4uCgo+IEFjdGl2aWRhZDogQWhvcmEgZXNjcmliZSBlbCBjw7NkaWdvIHBhcmEgZmlsdHJhciB0b2RvcyBsb3MgcGluZ8O8aW5vcyBjb24gbG9uZ2l0dWQgZGUgYWxldGEgbWF5b3IgYSAyMDAuCgo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1hbmlwdWxhbmRvIGRhdG9zIg0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlDQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiBmYWxzZQ0KICAgIGhpZ2hsaWdodDogdGFuZ28NCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldCgNCgllY2hvID0gVFJVRSwNCgltZXNzYWdlID0gRkFMU0UsDQoJd2FybmluZyA9IEZBTFNFDQopDQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpDQpgYGANCg0KIyMgQ3JlYW5kbyB0YWJsYXMgZGUgcmVzdW1lbg0KDQpFbiB1bmEgaG9qYSBkZSBjw6FsY3VsbywgbGFzIHRhYmxhcyBkaW7DoW1pY2FzIG8gcGl2b3QgdGFibGVzIHNvbiBwb3RlbnRlcyBoZXJyYW1pZW50YXMgcGFyYSByZXN1bWlyIGxvcyBkYXRvcyBkZSBkaWZlcmVudGVzIG1hbmVyYXMuIFBvZGVtb3MgY3JlYXIgZXN0YXMgdGFibGFzIHV0aWxpemFuZG8gbGFzIGZ1bmNpb25lcyBgZ3JvdXBfYnlgIHkgYHN1bW1hcml6ZWAgZGVsIHBhcXVldGUgZHBseXIuIA0KDQpFY2hlbW9zIHVuIHZpc3Rhem8gYSBudWVzdHJvIGluZm9ybWUsIGp1c3RvIGRlc3B1w6lzIGRlIGxlZXIgbG9zIGRhdG9zLCBjcmVhbW9zIHVuYSB0YWJsYSBkZSByZXN1bWVuIGNvbiBlbCBuw7ptZXJvIGRlIGVuc2F5b3MgeSBlbCByZW5kaW1pZW50byBtZWRpYSBkZSBjYWRhIGN1bHRpdmFyIGRlIG51ZXN0cm8gY29uanVudG8gZGUgZGF0b3MuDQoNClBvZGVtb3MgdXRpbGl6YXIgYGdyb3VwX2J5KClgIHBhcmEgYWdydXBhciBudWVzdHJvcyBkYXRvcyBwb3IgKipjdWx0aXZhcioqIHkgYHN1bW1hcml6ZSgpYCBwYXJhIGNhbGN1bGFyIGVsIG7Dum1lcm8gZGUgZW5zYXlvcyB5IGVsICoqcmVuZGltaWVudG9fYWp1c3RhZG8qKiBtZWRpbyBwYXJhIGNhZGEgZ3J1cG8uDQoNCmBgYHtyfQ0KDQpjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoQ3VsdGl2YXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLA0KICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLCBuYS5ybSA9IFRSVUUpLCAyKSkNCg0KYGBgDQoNCkxhIGZ1bmNpw7NuIGBuKClgIGRldnVlbHZlIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSBmdW5jacOzbiBgbWVhbmAgY2FsY3VsYSBsYSBtZWRpYSBvIHByb21lZGlvLiBFbCBwYXLDoW1ldHJvIGBuYS5ybSA9IFRSVUVgIGluZGljYSBhIGxhIGZ1bmNpw7NuIHF1ZSBlbGltaW5lIGxvcyB2YWxvcmVzIGZhbHRhbnRlcyAoYE5BYCkgYW50ZXMgZGUgcmVhbGl6YXIgZWwgY8OhbGN1bG8uDQoNCj4gUHJlZ3VudGE6IMK/UXXDqSBwYXNhIHNpIG5vIHNlIHV0aWxpemEgYGdyb3VwX2J5KClgIGFudGVzIGRlIGBzdW1tYXJpc2UoKWA/IFByb2LDqW1vc2xvIHkgZGlzY3V0YW1vcyBsbyBxdWUgb2N1cnJlLg0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBzdW1tYXJpc2UoY291bnQgPSBuKCksDQogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8sIG5hLnJtID0gVFJVRSksIDIpKQ0KYGBgDQoNCkFzw60gcXVlIHNpIG5vIGFncnVwYW1vcyBwb3IgZWwgY3VsdGl2YXIgcHJpbWVybywgb2J0ZW5kcmVtb3MgdW5hIHNvbGEgZXN0YWTDrXN0aWNhIGRlIHJlc3VtZW4gKG4geSBtZWRpYSBlbiBlc3RlIGNhc28pIHBhcmEgdG9kbyBlbCBjb25qdW50byBkZSBkYXRvcy4NCg0KQWhvcmEsIHF1ZXJlbW9zIGxhIG1lZGlhIGRlbCByZW5kaW1pZW50byBlbiB0b25lbGFkYXMgeSBjb24gZG9zIGRlY2ltYWxlcy4gUG9kZW1vcyBjYW1iaWFyIG51ZXN0cmEgbGxhbWFkYSBhIGBzdW1tYXJpc2UoKWAgcGFyYSBvYnRlbmVyIGVzZSBjw6FsY3Vsby4gIA0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBncm91cF9ieShDdWx0aXZhcikgJT4lIA0KICBzdW1tYXJpc2UoY291bnQgPSBuKCksDQogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8vMTAwMCwgbmEucm0gPSBUUlVFKSwgMikpDQoNCmBgYA0KDQpQcmltZXJvIGRpdmlkaW1vcyBlbCByZW5kaW1pZW50byBhanVzdGFkbyBwb3IgMTAwMCBwYXJhIHRyYW5zZm9ybWFybG8gZGUga2lsb2dyYW1vcyBhIHRvbmVsYWRhcyB5IGx1ZWdvIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYHJvdW5kKClgIHBhcmEgcmVkb25kZWFyIGEgc8OzbG8gZG9zIGRlY2ltYWxlcy4NCg0KQWhvcmEgZXN0YW1vcyBlbiBlbCBwdW50byBlbiBlbCBxdWUgcXVlcmVtb3MgZ3VhcmRhciBlc3RhIGluZm9ybWFjacOzbiByZXN1bWlkYSBjb21vIHVuYSB2YXJpYWJsZSBwYXJhIHBvZGVyIHV0aWxpemFybGEgZW4gcG9zdGVyaW9yZXMgYW7DoWxpc2lzIHkgZm9ybWF0b3MuDQoNCkFzw60gcXVlIHZhbW9zIGEgYcOxYWRpciB1bmEgYXNpZ25hY2nDs24gZGUgdmFyaWFibGUgYSBlc2EgcHJpbWVyYSBsw61uZWE6DQoNCmBgYHtyfQ0KcmVzdW1lbiA8LSBjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoQ3VsdGl2YXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLA0KICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKQ0KYGBgDQoNCiMjIETDoW5kb2xlIGZvcm1hdG8gYSBsYSB0YWJsYQ0KDQpQYXJhIHF1ZSBudWVzdHJhIHRhYmxhIHNlIHZlYSBtZWpvciBlbiB1biBpbmZvcm1lLCB0ZW5lbW9zIHF1ZSBjYW1iaWFyIGFsZ3Vub3MgZGUgc3VzIGVsZW1lbnRvcy4gUG9yIGVqZW1wbG8sIGVsIG5vbWJyZSBkZSBsYXMgdmFyaWFibGVzIGRlYmUgc2VyIGluZm9ybWF0aXZvIHBhcmEgdW5hIHBlcnNvbmEgKGRlIG1vbWVudG8gc29uIG5vbWJyZXMgw7p0aWxlcyBwYXJhIHVuYSBjb21wdXRhZG9yYSksIHkgcG9kZW1vcyBhw7FhZGlybGUgdW4gdMOtdHVsbyB5IGNhbWJpYXIgbGEgYWxpbmVhY2nDs24gZGUgbG9zIG7Dum1lcm9zLg0KDQpQb2RlbW9zIGhhY2VybG8gY29uIGxhIGZ1bmNpw7NuIGBrYWJsZWAuDQoNCmBgYHtyfQ0KcmVzdW1lbiAlPiUgDQogIGtuaXRyOjprYWJsZShjb2wubmFtZXMgPSBjKCJDdWx0aXZhciIsICJDYW50aWRhZCIsICJSZW5kaW1pZW50byBBanVzdGFkbyBNZWRpbyIpLA0KICAgICAgICAgICAgICAgYWxpZ24gPSAibGNjIiwNCiAgICAgICAgICAgICAgIGNhcHRpb24gPSAiUmVzdW1lbiBkZSBsb3MgQ3VsdGl2YXJlcyBlbiBlbCBkYXRhc2V0LiIpDQpgYGANCg0KUG9kZW1vcyBoYWNlciBtdWNobyBtw6FzIGNvbiBvdHJhcyBmdW5jaW9uZXMgKG8gInZlcmJvcyIpIGRlIGRwbHlyLiBWZWFtb3MgYWxndW5vcyBtw6FzLg0KDQojIyBDcmVhbmRvIG51ZXZhcyB2YXJpYWJsZXMNCg0KTXVjaGFzIHZlY2VzIHF1ZXJyZW1vcyB0cmFiYWphciBjb24gaW5mb3JtYWNpw7NuIHF1ZSBzZSBkZXJpdmEgZGUgbG9zIGRhdG9zIG9yaWdpbmFsZXMuIEVzdG8gc2Ugc3VlbGUgaGFjZXIgYcOxYWRpZW5kbyB1bmEgbnVldmEgY29sdW1uYS4gTG8gaGFjZW1vcyBjb24gbGEgZnVuY2nDs24gYG11dGF0ZSgpYC4NCg0KUG9kZW1vcyBhw7FhZGlyIHVuYSBudWV2YSB2YXJpYWJsZSAobGxhbWFkYSBgcHJvcGApIHF1ZSByZXByZXNlbnRlIGxhIHByb3BvcmNpw7NuIGRlIGVuc2F5b3MgZW4gY2FkYSAqKmxvY2FsaWRhZCoqIGNvbiBlbCB1c28gZGUgYG11dGF0ZSgpYC4gDQoNCmBgYHtyfQ0KDQpjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoTG9jYWxpZGFkKSAlPiUgDQogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwNCiAgICAgICAgICAgIHJlbmRpbWllbnRvX2FqdXN0YWRvX21lZGlvID0gcm91bmQobWVhbihSZW5kaW1pZW50b19BanVzdGFkbywgbmEucm0gPSBUUlVFKSwgMikpICU+JQ0KICBtdXRhdGUocHJvcCA9IGNvdW50L25yb3coY3VsdGl2YXJlcykpDQoNCmBgYA0KDQojIyBGaWx0cmFuZG8gbG9zIGRhdG9zDQoNCkVuIG51ZXN0cm8gaW5mb3JtZSB0YW1iacOpbiByZWFsaXphbW9zIHVuIGdyw6FmaWNvIGRlIHVuIGN1bHRpdmFyIGVzcGVjw61maWNvLiBQYXJhIGVsbG8gbmVjZXNpdGFtb3MgbWFudGVuZXIgc8OzbG8gbG9zIGRhdG9zIGRlbCBjdWx0aXZhciBxdWUgcXVlcmVtb3MgYW5hbGl6YXIuICBVdGlsaXphbW9zIGxhIGZ1bmNpw7NuIGBmaWx0ZXIoKWAgcGFyYSBmaWx0cmFyIGZpbGFzIGRlIHVuIGRhdGEuZnJhbWUsIGVzdGEgZnVuY2nDs24gZGV2dWVsdmUgdW4gbnVldm8gZGF0YS5mcmFtZSBjb24gc8OzbG8gbGFzIGZpbGFzIHF1ZSBzYXRpc2ZhY2VuIGFsZ3VuYXMgY29uZGljaW9uZXMuDQoNClBvZGVtb3MgdXRpbGl6YXIgb3BlcmFkb3JlcyBsw7NnaWNvcyAoYD5gLCBgPGAsIGA+PWAsIGA8PWAsIGA9PWApIHBhcmEgY3JlYXIgY29uZGljaW9uZXMgYSBwYXJ0aXIgZGUgdmFyaWFibGVzIG51bcOpcmljYXMuIEVzdG9zIG9wZXJhZG9yZXMgdGFtYmnDqW4gc29uIMO6dGlsZXMgcGFyYSBmZWNoYXMgeSBjYWRlbmFzIGRlIHRleHRvLiBFbCBzaWd1aWVudGUgY8OzZGlnbyBhcGxpY2EgdW5hIGNvbmRpY2nDs24gKHF1ZSBzZWEgaWd1YWwgYSkgcGFyYSBkYXRvcyBkZSB0aXBvIHRleHRvIChsYSBjb2x1bW5hIGVzcGVjaWUpLg0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBmaWx0ZXIoQ3VsdGl2YXIgPT0gIkFDQSA4NjEiKQ0KYGBgDQoNCj4gQWN0aXZpZGFkOiBFc2NyaWJlIGVsIGPDs2RpZ28gbmVjZXNhcmlvIHBhcmEgZmlsdHJhciB0b2RvcyBsb3MgZW5zYXlvcyBkZSBsYSBsb2NhbGlkYWQgQW5ndWlsLg0KDQo+IEFjdGl2aWRhZDogQWhvcmEgZXNjcmliZSBlbCBjw7NkaWdvIHBhcmEgZmlsdHJhciB0b2RvcyBsb3MgY3VsdGl2YXJlcyBjb24gdW4gcmVuZGltaWVudG8gbWF5b3IgYSA1MDAwIGtnL2hhLg0KDQo=</div>
 
 
 
