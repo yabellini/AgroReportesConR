@@ -13,7 +13,7 @@
 
 <title>Visualizando datos</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -89,11 +89,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #204a87; } /* Attribute */
+code span.at { color: #c4a000; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #8f5902; } /* Constant */
+code span.cn { color: #000000; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -102,14 +102,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.fu { color: #000000; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.sc { color: #000000; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -124,13 +124,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -230,11 +237,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -263,8 +274,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -272,16 +283,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -429,7 +433,7 @@ que en el eje x queremos graficar la variable
 <code>Rendimiento_Ajustado</code> y en el eje y la variable
 <code>Aceite_porcentaje</code>.</p>
 <p>Todo esto sólo generará la primera capa: el área del gráfico.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) </span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
 <div id="segunda-capa-geometrías" class="section level2">
@@ -440,8 +444,8 @@ una función geom, por ejemplo si queremos representar los datos con
 puntos utilizaremos <code>geom_point()</code>. Para hacer esto
 necesitaremos agregar un <code>+</code> al final de la primera capaz
 para sumar una segunda.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje))  <span class="sc">+</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje))  <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Ya tenemos nuestro primer gráfico!</p>
 <p>Tal vez observaste que los puntos están agrupados de una manera
@@ -449,8 +453,8 @@ particular. Quizá alguna otra variable explique este comportamiento.</p>
 <p>Para incluir información de otras variables en nuestro gráfico
 podemos aprovechar las características estéticas de las geometrías. En
 este caso, podemos “pintar” los puntos según el tipo de ensayo.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>))</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>De nuevo, utilizamos la función <code>aes()</code> para asignar una
 variable de nuestros datos a un elemento del gráfico. ¡Y tada! ¡Cada
@@ -465,9 +469,9 @@ ajustando un modelo o calculando alguna estadística.</p>
 <p>Para ello, ggplot2 dispone de geoms que calculan transformaciones
 estadísticas comunes. Vamos a probar con <code>geom_smoth()</code> para
 ajustar un modelo lineal a cada especie.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Por defecto <code>geom_smooth()</code> ajusta los datos utilizando el
 método loess (regresión lineal local) cuando hay menos de 1000 datos
@@ -491,23 +495,23 @@ definidas como las familias Viridis o Color Brewer.</p>
 <code>"darkorange"</code>, <code>"purple"</code> , <code>"cyan4"</code>
 y <code>"lightblue"</code> siguiendo las hermosas visualizaciones hechas
 por Allison Horst.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>)) </span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>¡Va quedando! Ahora, vamos a añadir algunos elementos de texto con
 una nueva capa ggplot: <code>labs()</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>))  <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y procentaje de aceite por tipo de ensayo&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cultivares ACA de la Red Nacional de Ensayos de Girasol&quot;</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Rendimiento (kg/ha)&quot;</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>))  <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y procentaje de aceite por tipo de ensayo&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cultivares ACA de la Red Nacional de Ensayos de Girasol&quot;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Rendimiento (kg/ha)&quot;</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>) </span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Ahora las etiquetas de los ejes son más legibles y tenemos un título
 y un subtítulo que explican de qué trata el gráfico.</p>
@@ -518,17 +522,17 @@ tiene muchos temas disponibles y para todos los gustos. Pero también hay
 otros paquetes que amplían las posibilidades, por ejemplo ggthemes. Por
 defecto ggplot2 utiliza <code>theme_grey()</code>, probemos con
 <code>theme_minimal()</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>))  <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y procentaje de aceite por tipo de ensayo&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cultivares ACA de la Red Nacional de Ensayos de Girasol&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Rendimiento (kg/ha)&quot;</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cultivares, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">`</span><span class="at">Tipo Ensayo</span><span class="st">`</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;lightblue&quot;</span>))  <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y procentaje de aceite por tipo de ensayo&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cultivares ACA de la Red Nacional de Ensayos de Girasol&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Rendimiento (kg/ha)&quot;</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">&quot;Tipo de Ensayo&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="03-plotting-data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <blockquote>
 <p>Ahora es tu turno. Elige un tema que te guste y pruébalo. Además, si

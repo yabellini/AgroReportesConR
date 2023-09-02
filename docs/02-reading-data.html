@@ -13,7 +13,7 @@
 
 <title>Leyendo datos</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -89,11 +89,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #204a87; } /* Attribute */
+code span.at { color: #c4a000; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #8f5902; } /* Constant */
+code span.cn { color: #000000; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -102,14 +102,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.fu { color: #000000; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.sc { color: #000000; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -124,13 +124,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -230,11 +237,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -263,8 +274,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -272,16 +283,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -419,26 +423,34 @@ archivos csv y xls.</p>
 da acceso a docenas de paquetes y funciones con las que trabajar. Por
 ahora usaremos la función <code>read_csv()</code> para leer un archivo
 .csv que está almacenado en el directorio de datos.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
-## v dplyr     1.1.2     v readr     2.1.4
-## v forcats   1.0.0     v stringr   1.5.0
-## v ggplot2   3.4.2     v tibble    3.2.1
-## v lubridate 1.9.2     v tidyr     1.3.0
-## v purrr     1.0.1     
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-## i Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>cultivares <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;datos/RNG_small.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.2     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.1     
+## ── Conflicts ────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;datos/RNG_small.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 499 Columns: 21
-## -- Column specification --------------------------------------------------------
+## ── Column specification ────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (11): Cultivar, Empresa, Campania, Localidad, Ensayo, Tipo Ensayo, Epoca...
 ## dbl (10): Floracion_dias, Altura_cm, Densidad_sem, Rendimiento, Aceite_porce...
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>En Excel o Google Sheets, los datos se almacenan en la hoja de
 cálculo y se organizan en celdas. En R, se almacenan en objetos. Cuando
 leemos un archivo csv, los datos van directo a un data.frame llamado
@@ -452,30 +464,30 @@ de cálculo. Podemos llegar a este panel ejecutando
 <code>View(cultivares)</code> en la consola. Hay otras funciones que nos
 sirven para visualizar nuestros datos. Vamos a utilizar una de
 ellas:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">glimpse</span>(cultivares)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cultivares)</span></code></pre></div>
 <pre><code>## Rows: 499
 ## Columns: 21
-## $ Cultivar             &lt;chr&gt; &quot;ACA 203&quot;, &quot;ACA 203&quot;, &quot;ACA 203&quot;, &quot;ACA 203 CL&quot;, &quot;A~
-## $ Empresa              &lt;chr&gt; &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, ~
-## $ Floracion_dias       &lt;dbl&gt; NA, NA, 81, 77, 77, 80, 58, 79, 80, 73, 76, 62, 6~
-## $ Altura_cm            &lt;dbl&gt; NA, NA, 197, NA, 157, 159, 185, 165, 115, 118, 20~
-## $ Densidad_sem         &lt;dbl&gt; 43594, 45370, NA, 65171, 62112, 47619, 41799, 465~
-## $ Rendimiento          &lt;dbl&gt; 2688, 1080, 3130, 4775, 4284, 2165, 2363, 3357, 2~
-## $ Aceite_porcentaje    &lt;dbl&gt; 43.89, 43.16, 40.89, 45.80, 47.83, 45.16, 36.46, ~
-## $ Rendimiento_Ajustado &lt;dbl&gt; 2739, 1093, 3095, 4956, 4534, 2233, 2232, 3314, 2~
-## $ Campania             &lt;chr&gt; &quot;2010-2011&quot;, &quot;2010-2011&quot;, &quot;2011-2012&quot;, &quot;2007-2008~
-## $ Localidad            &lt;chr&gt; &quot;General Pico&quot;, &quot;Villa Mirasol&quot;, &quot;Reconquista&quot;, &quot;~
-## $ Latitud              &lt;dbl&gt; -35.66669, -36.10005, -29.14952, -36.51676, -37.8~
-## $ Longitud             &lt;dbl&gt; -63.75005, -63.88339, -59.66646, -64.01673, -58.2~
-## $ Ensayo               &lt;chr&gt; &quot;General Pico  2010-2011&quot;, &quot;Villa Mirasol  2010-2~
-## $ `Tipo Ensayo`        &lt;chr&gt; &quot;Convencional&quot;, &quot;Convencional&quot;, &quot;Convencional&quot;, &quot;~
-## $ Epoca                &lt;chr&gt; &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;,~
-## $ Distancia_surcos     &lt;dbl&gt; 70, NA, NA, 70, 70, 70, 70, 70, 70, 70, 70, 70, 7~
-## $ Tipo_Siembra         &lt;chr&gt; &quot;Directa&quot;, NA, NA, &quot;Convencional&quot;, &quot;Directa&quot;, &quot;Co~
-## $ Densidad_siembra     &lt;dbl&gt; 43000, NA, NA, 62000, 59000, 45000, 44000, 46000,~
-## $ Fecha_Siembra        &lt;chr&gt; NA, NA, &quot;07/09/2011&quot;, &quot;25/102007&quot;, &quot;30/10/2007&quot;, ~
-## $ Testigo              &lt;chr&gt; &quot;NO&quot;, &quot;NO&quot;, &quot;SI&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;~
-## $ Visible              &lt;chr&gt; &quot;SI&quot;, &quot;SI&quot;, &quot;NO&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;~</code></pre>
+## $ Cultivar             &lt;chr&gt; &quot;ACA 203&quot;, &quot;ACA 203&quot;, &quot;ACA 203&quot;, &quot;ACA 203 CL&quot;, &quot;A…
+## $ Empresa              &lt;chr&gt; &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, &quot;ACA&quot;, …
+## $ Floracion_dias       &lt;dbl&gt; NA, NA, 81, 77, 77, 80, 58, 79, 80, 73, 76, 62, 6…
+## $ Altura_cm            &lt;dbl&gt; NA, NA, 197, NA, 157, 159, 185, 165, 115, 118, 20…
+## $ Densidad_sem         &lt;dbl&gt; 43594, 45370, NA, 65171, 62112, 47619, 41799, 465…
+## $ Rendimiento          &lt;dbl&gt; 2688, 1080, 3130, 4775, 4284, 2165, 2363, 3357, 2…
+## $ Aceite_porcentaje    &lt;dbl&gt; 43.89, 43.16, 40.89, 45.80, 47.83, 45.16, 36.46, …
+## $ Rendimiento_Ajustado &lt;dbl&gt; 2739, 1093, 3095, 4956, 4534, 2233, 2232, 3314, 2…
+## $ Campania             &lt;chr&gt; &quot;2010-2011&quot;, &quot;2010-2011&quot;, &quot;2011-2012&quot;, &quot;2007-2008…
+## $ Localidad            &lt;chr&gt; &quot;General Pico&quot;, &quot;Villa Mirasol&quot;, &quot;Reconquista&quot;, &quot;…
+## $ Latitud              &lt;dbl&gt; -35.66669, -36.10005, -29.14952, -36.51676, -37.8…
+## $ Longitud             &lt;dbl&gt; -63.75005, -63.88339, -59.66646, -64.01673, -58.2…
+## $ Ensayo               &lt;chr&gt; &quot;General Pico  2010-2011&quot;, &quot;Villa Mirasol  2010-2…
+## $ `Tipo Ensayo`        &lt;chr&gt; &quot;Convencional&quot;, &quot;Convencional&quot;, &quot;Convencional&quot;, &quot;…
+## $ Epoca                &lt;chr&gt; &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;, &quot;Normal&quot;,…
+## $ Distancia_surcos     &lt;dbl&gt; 70, NA, NA, 70, 70, 70, 70, 70, 70, 70, 70, 70, 7…
+## $ Tipo_Siembra         &lt;chr&gt; &quot;Directa&quot;, NA, NA, &quot;Convencional&quot;, &quot;Directa&quot;, &quot;Co…
+## $ Densidad_siembra     &lt;dbl&gt; 43000, NA, NA, 62000, 59000, 45000, 44000, 46000,…
+## $ Fecha_Siembra        &lt;chr&gt; NA, NA, &quot;07/09/2011&quot;, &quot;25/102007&quot;, &quot;30/10/2007&quot;, …
+## $ Testigo              &lt;chr&gt; &quot;NO&quot;, &quot;NO&quot;, &quot;SI&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;NO&quot;, &quot;…
+## $ Visible              &lt;chr&gt; &quot;SI&quot;, &quot;SI&quot;, &quot;NO&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;SI&quot;, &quot;…</code></pre>
 <p>Esta salida es diferente y nos da información sobre el tipo de datos
 en cada columna (o variable).</p>
 <p>A veces nuestros datos no son tan amigables y necesitamos dar más
@@ -493,9 +505,9 @@ defecto?</p>
 de R, <strong>readxl</strong> que ya está instalado en el proyecto
 RStudio Cloud, solo necesitamos cargar la librería. En este caso la
 función se llama <code>read_excel()</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>penguinos_xls <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;datos/RNG_small.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.2.3</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cultivares_xls <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;datos/RNG_small.xlsx&quot;</span>)</span></code></pre></div>
 <p>Y listo, hemos leído un archivo xlsx. Por supuesto, a veces tenemos
 que trabajar con archivos con múltiples hojas o con datos que no están
 muy organizados. Esta función viene con varias opciones o argumentos
@@ -506,7 +518,7 @@ para leer hojas específicas
 esos datos.</p>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxleWVuZG8gZGF0b3MiDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IGZhbHNlDQogICAgaGlnaGxpZ2h0OiB0YW5nbw0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMjIFNvYnJlIGxvcyBkYXRvcyBkZSBDdWx0aXZhcmVzDQoNCkVsIGNvbmp1dG8gZGUgZGF0b3MgY29udGllbmUgNDk5IG9ic2VydmFjaW9uZXMgY29uIDIxIHZhcmlhYmxlcy4gRXN0YXMgc29uIGxhcyB2YXJpYWJsZXMgcXVlIHNlIHJlZ2lzdHJhbiBkdXJhbnRlIGxvcyBlbnNheW9zIHkgcXVlIGNhcmFjdGVyaXphbiBlbCBjdWx0aXZhciwgcG9yIGVqZW1wbG8gcmVuZGltaWVudG8sIHBvcmNlbnRhamUgZGUgYWNlaXRlLCBkw61hcyBhIGZsb3JhY2nDs24geSBhbHR1cmEuICBUYW1iacOpbiBjb250aWVuZSBkZXRhbGxlcyBzb2JyZSBsb3MgZW5zYXlvcywgY29tbyBsYSBmZWNoYSwgZWwgdGlwbyBkZSBzaWVtYnJhLCBsYSBsb2NhbGlkYWQgZG9uZGUgc2UgcmVhbGl6w7MgeSBsYSDDqXBvY2EgZGUgc2llbWJyYS4NCg0KQ29tbyBxdWVyZW1vcyBhcHJlbmRlciBhIGxlZXIgZGF0b3MgZW4gUiwgdmFtb3MgYSBsZWVybG9zIGRlc2RlIGFyY2hpdm9zIGNzdiB5IHhscy4NCg0KIyMgTGV5ZW5kbyBhcmNoaXZvcyBjc3YNCg0KRW1wZXphcmVtb3MgY2FyZ2FuZG8gZWwgcGFxdWV0ZSAqKnRpZHl2ZXJzZSoqLCBxdWUgbm9zIGRhIGFjY2VzbyBhIGRvY2VuYXMgZGUgcGFxdWV0ZXMgeSBmdW5jaW9uZXMgY29uIGxhcyBxdWUgdHJhYmFqYXIuIFBvciBhaG9yYSB1c2FyZW1vcyBsYSBmdW5jacOzbiBgcmVhZF9jc3YoKWAgcGFyYSBsZWVyIHVuIGFyY2hpdm8gLmNzdiBxdWUgZXN0w6EgYWxtYWNlbmFkbyBlbiBlbCBkaXJlY3RvcmlvIGRlIGRhdG9zLiANCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCg0KY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpDQpgYGANCg0KRW4gRXhjZWwgbyBHb29nbGUgU2hlZXRzLCBsb3MgZGF0b3Mgc2UgYWxtYWNlbmFuIGVuIGxhIGhvamEgZGUgY8OhbGN1bG8geSBzZSBvcmdhbml6YW4gZW4gY2VsZGFzLiBFbiBSLCBzZSBhbG1hY2VuYW4gZW4gb2JqZXRvcy4gQ3VhbmRvIGxlZW1vcyB1biBhcmNoaXZvIGNzdiwgbG9zIGRhdG9zIHZhbiBkaXJlY3RvIGEgdW4gZGF0YS5mcmFtZSBsbGFtYWRvIGBjdWx0aXZhcmVzYCB5IGVzdMOhbiBsaXN0b3MgcGFyYSBzZXIgdXRpbGl6YWRvcy4gRW4gbGEgc29sYXBhICJFbnZpcm9ubWVudCIgcG9kZW1vcyB2ZXIgZWwgb2JqZXRvIGBjdWx0aXZhcmVzYCwgeSBzaSBoYWNlbW9zIGNsaWMgZW4gZXNlIG9iamV0byBsb3MgZGF0b3Mgc2UgYWJyaXLDoW4gZW4gdW5hIG51ZXZhIHBlc3Rhw7FhIHBhcmEgcXVlIHZlYW1vcyBxdWUgcGludGEgdGllbmUuIA0KDQoNCjxpbWcgc3JjPSJpbWcvdmlld19lbl9yc3R1ZGlvLnBuZyIgYWx0PSJMYSBwZXN0YcOxYSBkZSB2aXN1YWxpemFjacOzbiBkZWwgZGF0YS5mcmFtZSBjb24gbG9zIGRhdG9zIGRlIGN1bHRpdmFyZXMgbHVlZ28gZGUgbGxhbWFyIGEgbGEgZnVuY2nDs24gVmlldygpIiAvPg0KDQpFc3RhIHByZXZpc3VhbGl6YWNpw7NuIGVzIGxvIG3DoXMgcGFyZWNpZGEgYSBsYSBxdWUgdGVuZW1vcyBlbiB1bmEgaG9qYSBkZSBjw6FsY3Vsby4gUG9kZW1vcyBsbGVnYXIgYSBlc3RlIHBhbmVsIGVqZWN1dGFuZG8gYFZpZXcoY3VsdGl2YXJlcylgIGVuIGxhIGNvbnNvbGEuIEhheSBvdHJhcyBmdW5jaW9uZXMgcXVlIG5vcyBzaXJ2ZW4gcGFyYSB2aXN1YWxpemFyIG51ZXN0cm9zIGRhdG9zLiAgVmFtb3MgYSB1dGlsaXphciB1bmEgZGUgZWxsYXM6DQoNCmBgYHtyfQ0KZ2xpbXBzZShjdWx0aXZhcmVzKQ0KYGBgDQoNCkVzdGEgc2FsaWRhIGVzIGRpZmVyZW50ZSB5IG5vcyBkYSBpbmZvcm1hY2nDs24gc29icmUgZWwgdGlwbyBkZSBkYXRvcyBlbiBjYWRhIGNvbHVtbmEgKG8gdmFyaWFibGUpLg0KDQpBIHZlY2VzIG51ZXN0cm9zIGRhdG9zIG5vIHNvbiB0YW4gYW1pZ2FibGVzIHkgbmVjZXNpdGFtb3MgZGFyIG3DoXMgaW5mb3JtYWNpw7NuIGEgbGEgZnVuY2nDs24gcGFyYSBwb2RlciBsZWVyIGxvcyBkYXRvcyBjb3JyZWN0YW1lbnRlLiBQdWVkZXMgZW5jb250cmFyIGVzdGFzIG9wY2lvbmVzIGJ1c2NhbmRvIGVuIGxhIGRvY3VtZW50YWNpw7NuIGRlIGxhIGZ1bmNpw7NuLiANCg0KPiBFc2NyaWJlIGA/cmVhZF9jc3YoKWAgZW4gbGEgY29uc29sYSB5IHJldmlzYSBsYSBkb2N1bWVudGFjacOzbi4gwr9Dw7NtbyBzZSBsbGFtYSBsYSBvcGNpw7NuIHBhcmEgY2FtYmlhciBlbCBkZWxpbWl0YWRvciBwb3IgZGVmZWN0bz8NCg0KIyMgTGV5ZW5kbyBhcmNoaXZvcyB4bHN4DQoNCsK/Q8OzbW8gcG9kZW1vcyB0cmFiYWphciBjb24gYXJjaGl2b3MgeGxzeD8gTmVjZXNpdGFyZW1vcyBvdHJvIHBhcXVldGUgZGUgUiwgKipyZWFkeGwqKiBxdWUgeWEgZXN0w6EgaW5zdGFsYWRvIGVuIGVsIHByb3llY3RvIFJTdHVkaW8gQ2xvdWQsIHNvbG8gbmVjZXNpdGFtb3MgY2FyZ2FyIGxhIGxpYnJlcsOtYS4gRW4gZXN0ZSBjYXNvIGxhIGZ1bmNpw7NuIHNlIGxsYW1hIGByZWFkX2V4Y2VsKClgLg0KDQpgYGB7cn0NCmxpYnJhcnkocmVhZHhsKQ0KDQpwZW5ndWlub3NfeGxzIDwtIHJlYWRfZXhjZWwoImRhdG9zL1JOR19zbWFsbC54bHN4IikNCmBgYA0KDQpZIGxpc3RvLCBoZW1vcyBsZcOtZG8gdW4gYXJjaGl2byB4bHN4LiBQb3Igc3VwdWVzdG8sIGEgdmVjZXMgdGVuZW1vcyBxdWUgdHJhYmFqYXIgY29uIGFyY2hpdm9zIGNvbiBtw7psdGlwbGVzIGhvamFzIG8gY29uIGRhdG9zIHF1ZSBubyBlc3TDoW4gbXV5IG9yZ2FuaXphZG9zLiBFc3RhIGZ1bmNpw7NuIHZpZW5lIGNvbiB2YXJpYXMgb3BjaW9uZXMgbyBhcmd1bWVudG9zIHBhcmEgbGVlciBob2phcyBlc3BlY8OtZmljYXMgKGBzaGVldCA9IDxub21icmUgZGUgbGEgaG9qYT5gKSBvIHVuIHJhbmdvIGVzcGVjw61maWNvIChgcmFuZ2VgID0gIkMxOkU3ImApIHkgb3Ryb3MuIA0KDQpBaG9yYSBxdWUgdGVuZW1vcyBsb3MgZGF0b3MgbGXDrWRvcyBlbiBSLCBlcyBlbCBtb21lbnRvIGRlIGFuYWxpemFyIGVzb3MgZGF0b3MuIA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxleWVuZG8gZGF0b3MiDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IGZhbHNlDQogICAgaGlnaGxpZ2h0OiB0YW5nbw0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMjIFNvYnJlIGxvcyBkYXRvcyBkZSBDdWx0aXZhcmVzDQoNCkVsIGNvbmp1dG8gZGUgZGF0b3MgY29udGllbmUgNDk5IG9ic2VydmFjaW9uZXMgY29uIDIxIHZhcmlhYmxlcy4gRXN0YXMgc29uIGxhcyB2YXJpYWJsZXMgcXVlIHNlIHJlZ2lzdHJhbiBkdXJhbnRlIGxvcyBlbnNheW9zIHkgcXVlIGNhcmFjdGVyaXphbiBlbCBjdWx0aXZhciwgcG9yIGVqZW1wbG8gcmVuZGltaWVudG8sIHBvcmNlbnRhamUgZGUgYWNlaXRlLCBkw61hcyBhIGZsb3JhY2nDs24geSBhbHR1cmEuICBUYW1iacOpbiBjb250aWVuZSBkZXRhbGxlcyBzb2JyZSBsb3MgZW5zYXlvcywgY29tbyBsYSBmZWNoYSwgZWwgdGlwbyBkZSBzaWVtYnJhLCBsYSBsb2NhbGlkYWQgZG9uZGUgc2UgcmVhbGl6w7MgeSBsYSDDqXBvY2EgZGUgc2llbWJyYS4NCg0KQ29tbyBxdWVyZW1vcyBhcHJlbmRlciBhIGxlZXIgZGF0b3MgZW4gUiwgdmFtb3MgYSBsZWVybG9zIGRlc2RlIGFyY2hpdm9zIGNzdiB5IHhscy4NCg0KIyMgTGV5ZW5kbyBhcmNoaXZvcyBjc3YNCg0KRW1wZXphcmVtb3MgY2FyZ2FuZG8gZWwgcGFxdWV0ZSAqKnRpZHl2ZXJzZSoqLCBxdWUgbm9zIGRhIGFjY2VzbyBhIGRvY2VuYXMgZGUgcGFxdWV0ZXMgeSBmdW5jaW9uZXMgY29uIGxhcyBxdWUgdHJhYmFqYXIuIFBvciBhaG9yYSB1c2FyZW1vcyBsYSBmdW5jacOzbiBgcmVhZF9jc3YoKWAgcGFyYSBsZWVyIHVuIGFyY2hpdm8gLmNzdiBxdWUgZXN0w6EgYWxtYWNlbmFkbyBlbiBlbCBkaXJlY3RvcmlvIGRlIGRhdG9zLiANCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCg0KY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpDQpgYGANCg0KRW4gRXhjZWwgbyBHb29nbGUgU2hlZXRzLCBsb3MgZGF0b3Mgc2UgYWxtYWNlbmFuIGVuIGxhIGhvamEgZGUgY8OhbGN1bG8geSBzZSBvcmdhbml6YW4gZW4gY2VsZGFzLiBFbiBSLCBzZSBhbG1hY2VuYW4gZW4gb2JqZXRvcy4gQ3VhbmRvIGxlZW1vcyB1biBhcmNoaXZvIGNzdiwgbG9zIGRhdG9zIHZhbiBkaXJlY3RvIGEgdW4gZGF0YS5mcmFtZSBsbGFtYWRvIGBjdWx0aXZhcmVzYCB5IGVzdMOhbiBsaXN0b3MgcGFyYSBzZXIgdXRpbGl6YWRvcy4gRW4gbGEgc29sYXBhICJFbnZpcm9ubWVudCIgcG9kZW1vcyB2ZXIgZWwgb2JqZXRvIGBjdWx0aXZhcmVzYCwgeSBzaSBoYWNlbW9zIGNsaWMgZW4gZXNlIG9iamV0byBsb3MgZGF0b3Mgc2UgYWJyaXLDoW4gZW4gdW5hIG51ZXZhIHBlc3Rhw7FhIHBhcmEgcXVlIHZlYW1vcyBxdWUgcGludGEgdGllbmUuIA0KDQoNCjxpbWcgc3JjPSJpbWcvdmlld19lbl9yc3R1ZGlvLnBuZyIgYWx0PSJMYSBwZXN0YcOxYSBkZSB2aXN1YWxpemFjacOzbiBkZWwgZGF0YS5mcmFtZSBjb24gbG9zIGRhdG9zIGRlIGN1bHRpdmFyZXMgbHVlZ28gZGUgbGxhbWFyIGEgbGEgZnVuY2nDs24gVmlldygpIiAvPg0KDQpFc3RhIHByZXZpc3VhbGl6YWNpw7NuIGVzIGxvIG3DoXMgcGFyZWNpZGEgYSBsYSBxdWUgdGVuZW1vcyBlbiB1bmEgaG9qYSBkZSBjw6FsY3Vsby4gUG9kZW1vcyBsbGVnYXIgYSBlc3RlIHBhbmVsIGVqZWN1dGFuZG8gYFZpZXcoY3VsdGl2YXJlcylgIGVuIGxhIGNvbnNvbGEuIEhheSBvdHJhcyBmdW5jaW9uZXMgcXVlIG5vcyBzaXJ2ZW4gcGFyYSB2aXN1YWxpemFyIG51ZXN0cm9zIGRhdG9zLiAgVmFtb3MgYSB1dGlsaXphciB1bmEgZGUgZWxsYXM6DQoNCmBgYHtyfQ0KZ2xpbXBzZShjdWx0aXZhcmVzKQ0KYGBgDQoNCkVzdGEgc2FsaWRhIGVzIGRpZmVyZW50ZSB5IG5vcyBkYSBpbmZvcm1hY2nDs24gc29icmUgZWwgdGlwbyBkZSBkYXRvcyBlbiBjYWRhIGNvbHVtbmEgKG8gdmFyaWFibGUpLg0KDQpBIHZlY2VzIG51ZXN0cm9zIGRhdG9zIG5vIHNvbiB0YW4gYW1pZ2FibGVzIHkgbmVjZXNpdGFtb3MgZGFyIG3DoXMgaW5mb3JtYWNpw7NuIGEgbGEgZnVuY2nDs24gcGFyYSBwb2RlciBsZWVyIGxvcyBkYXRvcyBjb3JyZWN0YW1lbnRlLiBQdWVkZXMgZW5jb250cmFyIGVzdGFzIG9wY2lvbmVzIGJ1c2NhbmRvIGVuIGxhIGRvY3VtZW50YWNpw7NuIGRlIGxhIGZ1bmNpw7NuLiANCg0KPiBFc2NyaWJlIGA/cmVhZF9jc3YoKWAgZW4gbGEgY29uc29sYSB5IHJldmlzYSBsYSBkb2N1bWVudGFjacOzbi4gwr9Dw7NtbyBzZSBsbGFtYSBsYSBvcGNpw7NuIHBhcmEgY2FtYmlhciBlbCBkZWxpbWl0YWRvciBwb3IgZGVmZWN0bz8NCg0KIyMgTGV5ZW5kbyBhcmNoaXZvcyB4bHN4DQoNCsK/Q8OzbW8gcG9kZW1vcyB0cmFiYWphciBjb24gYXJjaGl2b3MgeGxzeD8gTmVjZXNpdGFyZW1vcyBvdHJvIHBhcXVldGUgZGUgUiwgKipyZWFkeGwqKiBxdWUgeWEgZXN0w6EgaW5zdGFsYWRvIGVuIGVsIHByb3llY3RvIFJTdHVkaW8gQ2xvdWQsIHNvbG8gbmVjZXNpdGFtb3MgY2FyZ2FyIGxhIGxpYnJlcsOtYS4gRW4gZXN0ZSBjYXNvIGxhIGZ1bmNpw7NuIHNlIGxsYW1hIGByZWFkX2V4Y2VsKClgLg0KDQpgYGB7cn0NCmxpYnJhcnkocmVhZHhsKQ0KDQpjdWx0aXZhcmVzX3hscyA8LSByZWFkX2V4Y2VsKCJkYXRvcy9STkdfc21hbGwueGxzeCIpDQpgYGANCg0KWSBsaXN0bywgaGVtb3MgbGXDrWRvIHVuIGFyY2hpdm8geGxzeC4gUG9yIHN1cHVlc3RvLCBhIHZlY2VzIHRlbmVtb3MgcXVlIHRyYWJhamFyIGNvbiBhcmNoaXZvcyBjb24gbcO6bHRpcGxlcyBob2phcyBvIGNvbiBkYXRvcyBxdWUgbm8gZXN0w6FuIG11eSBvcmdhbml6YWRvcy4gRXN0YSBmdW5jacOzbiB2aWVuZSBjb24gdmFyaWFzIG9wY2lvbmVzIG8gYXJndW1lbnRvcyBwYXJhIGxlZXIgaG9qYXMgZXNwZWPDrWZpY2FzIChgc2hlZXQgPSA8bm9tYnJlIGRlIGxhIGhvamE+YCkgbyB1biByYW5nbyBlc3BlY8OtZmljbyAoYHJhbmdlYCA9ICJDMTpFNyJgKSB5IG90cm9zLiANCg0KQWhvcmEgcXVlIHRlbmVtb3MgbG9zIGRhdG9zIGxlw61kb3MgZW4gUiwgZXMgZWwgbW9tZW50byBkZSBhbmFsaXphciBlc29zIGRhdG9zLiANCg0K</div>
 
 
 
