@@ -5,7 +5,7 @@ output:
     toc: false
 ---
 
-_De hojas de cálculo a R_ está dirigido a personas que utilizan hojas de cálculo (Excel, Google sheets) para la manipulación y el análisis de datos, pero que desean aprender a utilizar R. En particular, estamos pensando en
+Está dirigido a personas que utilizan hojas de cálculo (Excel, Google sheets) para la manipulación y el análisis de datos, pero que desean aprender a utilizar R. En particular, estamos pensando en
 
 
 * **Noemí:** Está haciendo un doctorado en genética. Lleva casi diez años analizando datos con Excel. Va a realizar 300 experimentos en los próximos seis meses. No quiere tener que hacer todos los análisis a mano. Y quiere gráficos más bonitos para su tesis que los que puede producir en Excel.

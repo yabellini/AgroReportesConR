@@ -89,11 +89,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -102,14 +102,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -400,6 +400,12 @@ $(document).ready(function () {
 del código</a></li>
 <li><a href="#automatización"
 id="toc-automatización">Automatización</a></li>
+<li><a href="#publicación" id="toc-publicación">Publicación</a></li>
+<li><a href="#sitio-web-de-una-sola-página"
+id="toc-sitio-web-de-una-sola-página">Sitio web de una sola página</a>
+<ul>
+<li><a href="#publicación-1" id="toc-publicación-1">Publicación</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -429,8 +435,8 @@ tabla y las figuras. Pero este no es el comportamiento por defecto de un
 archivo Rmd. Por lo general, la salida tendrá tanto el código como su
 resultado, lo cual está bien cuando vos o la persona que leerá el
 informe quiere ver el código que genera esos resultados, pero podría no
-ser lo que la audiencia final del informe podría necesitar. Es usted
-quien decide si quiere mostrar el código o no.</p>
+ser lo que la audiencia final del informe podría necesitar. Vos decidis
+si quieres mostrar el código o no.</p>
 <p>Para cambiar las opciones de un chunk de código, todo lo que tiene
 que hacer es enumerar las opciones dentro de los corchetes. Por
 ejemplo:</p>
@@ -481,41 +487,88 @@ diferentes análisis a partir del mismo archivo.</p>
 llamado <code>params</code> a la cabecera con la lista de parámetros y
 sus valores por defecto.</p>
 <div class="sourceCode" id="cb3"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">especie</span><span class="kw">:</span><span class="at"> Papúa</span></span></code></pre></div>
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="at">  </span><span class="fu">cultivar</span><span class="kw">:</span><span class="at"> ACA 861</span></span></code></pre></div>
 <p>A partir de ahora, tendrás acceso a una variable llamada
 <code>params</code> que es una lista que contiene los parámetros y su
 valor. Para acceder al valor de cada parámetro se utiliza el operador
 <code>$</code> de la siguiente manera:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>especie</span></code></pre></div>
-<pre><code>## [1] &quot;Papúa&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>params<span class="sc">$</span>cultivar</span></code></pre></div>
+<pre><code>## [1] &quot;ACA 861&quot;</code></pre>
 <p>De este modo, el código original puede modificarse para utilizar el
-valor de la especie almacenada en <code>params$especie</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pinguinos <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> params<span class="sc">$</span>especie) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> largo_pico_mm, <span class="at">y =</span> alto_pico_mm)) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkorange&quot;</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;darkorange&quot;</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dimensiones del pingüino&quot;</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Longitud y profundidad para los pingüinos&quot;</span>, params<span class="sc">$</span>especie, <span class="st">&quot;en Palmer Station LTER&quot;</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Largo del pico (mm)&quot;</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Alto del pico (mm)&quot;</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Especie de Pingüino&quot;</span>) </span></code></pre></div>
+valor de la especie almacenada en <code>params$cultivar</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> params<span class="sc">$</span>cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkorange&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;darkorange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rendimiento y porcentaje de aceite&quot;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Cultivar&quot;</span>, params<span class="sc">$</span>cultivar),</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Rendimiento Ajustado (kg/ha)&quot;</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Porcentaje de Aceite (%)&quot;</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Cultivar&quot;</span>) </span></code></pre></div>
 <p>Aquí cambiamos el subtítulo para concatenar palabras con el valor
-almacenado en <code>params$especie</code>, de esta manera podemos
+almacenado en <code>params$cultivar</code>, de esta manera podemos
 construir el subtítulo de forma progamática.</p>
 <p>Ahora el informe está listo para funcionar como un informe
 parametrizado.</p>
 <blockquote>
-<p>Por último, cambia “Papúa” en el yaml para generar un nuevo informe
+<p>Por último, cambia “ACA 861” en el yaml para generar un nuevo informe
 para una de las otras especies.</p>
 </blockquote>
 </div>
+<div id="publicación" class="section level2">
+<h2>Publicación</h2>
+<p>Querés compartir tus resultados y tenés un archivo RMarkdown o Quarto
+en el que estuviste trabajando. Podrías compartir la carpeta del
+proyecto o un link a un repositorio pero sería ideal que cualquier
+persona pueda ver esos hermosos resultados sin necesidad de correr
+código. La otra alternativa es knitear el documento para compartir un
+PDF o archivo de Word. Las opciones no terminan ahí, Rmarkdown/Quarto
+abre un mundo de posibilidades para trabajar con código de R, texto y
+además compartir los resultados (y cualquier otra cosa!).</p>
+</div>
+<div id="sitio-web-de-una-sola-página" class="section level2">
+<h2>Sitio web de una sola página</h2>
+<p>Si sabés cómo generar un reporte en formato html usando R Markdown,
+¡ya sabés todo lo que necesitás para publicar un sitio web simple! Lo
+único que hace falta es un servicio que <em>hostee</em> el archivo y lo
+muestre a los visitantes. Uno de ellos es <a
+href="https://www.netlify.com/">Netlify</a>, que permite crear un sitio
+web con sólo arrastrar una carpeta.</p>
+<p><strong>Pequeño detalle:</strong> seguramente tu reporte (tu archivo
+RMarkdown) tiene algún nombre descriptivo consistente con su contenido.
+Para que <em>convertirlo</em> en una página web el archivo tiene que
+tener un nombre especial: “index.html”. Adelante, nombrá a tu documento
+como index.Rmd y knitea a HTML como de costumbre.</p>
+<p>Ahora deberías tener como resultado archivo llamado “index.html” en
+la carpeta de tu proyecto. ¡Felicitaciones! Creaste tu primer página
+web.</p>
+<div id="publicación-1" class="section level3">
+<h3>Publicación</h3>
+<p>Solo falta publicar tu página web para no viva solo en tu
+computadora. Veamos como se hace en Netlify.</p>
+<p>Entrá a <a href="https://app.netlify.com/drop"
+class="uri">https://app.netlify.com/drop</a> y arrastrar la carpeta en
+el recuadro. Netlify va a crear una página web con un nombre aleatorio y
+posiblemente imposible de deletrear, pero está publicada!</p>
+<p><a href="https://www.youtube.com/watch?v=hZ8TpfcL1l8">Aqui hay un
+video con los pasos a seguir</a></p>
+<p>Tal vez notaste que Netlify borra los sitios web luego de 24 horas.
+Para que tu sitio sea permanente tenés que crearte una cuenta en
+Netlify. Eso además te va a permitir cambiarle el nombre a tu página,
+por ejemplo agroreporte.netlify.app</p>
+<blockquote>
+<p>Publiquemos nuestro reporte en la web! Compartan el link a su pagina
+web :-)</p>
+</blockquote>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkluZm9ybWVzIGRlIHR1IHRyYWJham8iDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IGZhbHNlDQogICAgaGlnaGxpZ2h0OiB0YW5nbw0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KDQpjaHVuayA8LSAiYGBgIg0KYGBgDQoNCg0KRWwgcHJpbWVyIGVqZW1wbG8gZGUgaW5mb3JtZSBxdWUgdmltb3Mgc2UgY29udmlydGnDsyBlbiB1biBhcmNoaXZvIGh0bWwuIFBlcm8gwr9xdcOpIHBhc2EgY29uIGxvcyBhcmNoaXZvcyBXb3JkIG8gUERGLCBxdWUgcHVlZGVuIHNlciBtw6FzIMO6dGlsZXMgbyBlc3BlcmFkb3MgZW4gYWxndW5hcyBzaXR1YWNpb25lcz8gUk1hcmtkb3duLCB5IHRvZG8gdW4gZWNvc2lzdGVtYSBkZSBvdHJvcyBwYXF1ZXRlcywgcGVybWl0ZSBnZW5lcmFyIGRvY3VtZW50b3MgZW4gbcO6bHRpcGxlcyBmb3JtYXRvcyB1dGlsaXphbmRvIGVsIG1pc21vIGFyY2hpdm8gZGUgdGV4dG8gcGxhbm8uDQoNCkxhIGZvcm1hIGRlIGdlbmVyYXIgZWwgZm9ybWF0byBkZWwgYXJjaGl2byBkZSBzYWxpZGEgZXMgY2FtYmlhbmRvIGxhIG9wY2nDs24gYG91dHB1dGAgZGUgbGEgY2FiZWNlcmEuDQoNCj4gVnVlbHZlIGFsIGluZm9ybWUgZGUgZWplbXBsbyB5IGJ1c2NhIGxhIGzDrW5lYSBxdWUgZW1waWV6YSBwb3IgYG91dHB1dDpgLiBDYW1iaWEgYGh0bWxfZG9jdW1lbnRgIHBvciBgcGRmX2RvY3VtZW50YC4NCg0KVGFtYmnDqW4gcG9kZXMgdXNhciBlbCBib3TDs24gImtuaXQiLCBoYWNpZW5kbyBjbGljIGVuIGxhIGZsZWNoaXRhIGRlIGxhIGRlcmVjaGEgcGFyYSB2ZXIgdG9kYXMgbGFzIG9wY2lvbmVzLiANCg0KPiBBaG9yYSB1dGlsaXphIGVsIGJvdMOzbiBwYXJhIGdlbmVyYXIgdW4gZG9jdW1lbnRvIGRlIFdvcmQuIMK/UXXDqSBjYW1iaW9zIHZlcyBlbiBlbCBlbmNhYmV6YWRvIGRlbCBhcmNoaXZvPw0KDQojIyBDb250cm9sIGRlbCBjw7NkaWdvDQoNCk51ZXN0cm8gZWplbXBsbyBwYXJlY2UgYmFzdGFudGUgb3JkZW5hZG8uIEhlbW9zIG9jdWx0YWRvIHRvZG8gZWwgY8OzZGlnbyB5IGxvcyBtZW5zYWplcyBkZSBSIHBhcmEgcXVlIHB1ZWRhcyBjb25jZW50cmFyIHR1IGF0ZW5jacOzbiBlbiBsYSB0YWJsYSB5IGxhcyBmaWd1cmFzLiBQZXJvIGVzdGUgbm8gZXMgZWwgY29tcG9ydGFtaWVudG8gcG9yIGRlZmVjdG8gZGUgdW4gYXJjaGl2byBSbWQuIFBvciBsbyBnZW5lcmFsLCBsYSBzYWxpZGEgdGVuZHLDoSB0YW50byBlbCBjw7NkaWdvIGNvbW8gc3UgcmVzdWx0YWRvLCBsbyBjdWFsIGVzdMOhIGJpZW4gY3VhbmRvIHZvcyBvIGxhIHBlcnNvbmEgcXVlIGxlZXLDoSBlbCBpbmZvcm1lIHF1aWVyZSB2ZXIgZWwgY8OzZGlnbyBxdWUgZ2VuZXJhIGVzb3MgcmVzdWx0YWRvcywgcGVybyBwb2Ryw61hIG5vIHNlciBsbyBxdWUgbGEgYXVkaWVuY2lhIGZpbmFsIGRlbCBpbmZvcm1lIHBvZHLDrWEgbmVjZXNpdGFyLiBFcyB1c3RlZCBxdWllbiBkZWNpZGUgc2kgcXVpZXJlIG1vc3RyYXIgZWwgY8OzZGlnbyBvIG5vLiANCg0KUGFyYSBjYW1iaWFyIGxhcyBvcGNpb25lcyBkZSB1biBjaHVuayBkZSBjw7NkaWdvLCB0b2RvIGxvIHF1ZSB0aWVuZSBxdWUgaGFjZXIgZXMgZW51bWVyYXIgbGFzIG9wY2lvbmVzIGRlbnRybyBkZSBsb3MgY29yY2hldGVzLiBQb3IgZWplbXBsbzoNCg0KICAgIGByIGNodW5rYHtyIG5vbWJyZS1kZWwtY2h1bmssIGVjaG8gPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFfQ0KICAgIA0KICAgIGByIGNodW5rYA0KDQpVbiBjb25qdW50byBkZSBvcGNpb25lcyBwYXJ0aWN1bGFybWVudGUgaW1wb3J0YW50ZSBzb24gbGFzIHF1ZSBjb250cm9sYW4gc2kgZWwgY8OzZGlnbyBzZSBlamVjdXRhIHkgc2kgZWwgcmVzdWx0YWRvIGRlbCBjw7NkaWdvIHBlcm1hbmVjZXLDoSBlbiBlbCBpbmZvcm1lIG8gbm86DQoNCiogYGV2YWwgPSBGQUxTRWAgaW1waWRlIHF1ZSBzZSBlamVjdXRlIGVsIGPDs2RpZ28gZGVsIGNodW5rLCBwb3IgbG8gcXVlIHRhbXBvY28gbW9zdHJhcsOhIGxvcyByZXN1bHRhZG9zLiBFcyDDunRpbCBwYXJhIG1vc3RyYXIgY8OzZGlnbyBkZSBlamVtcGxvIHNpIGVzdMOhcyBlc2NyaWJpZW5kbywgcG9yIGVqZW1wbG8sIHVuIGRvY3VtZW50byBwYXJhIGVuc2XDsWFyIFIuDQoNCiogYGVjaG8gPSBGQUxTRWAgZWplY3V0YSBlbCBjw7NkaWdvIGRlbCBjaHVuayB5IG11ZXN0cmEgbG9zIHJlc3VsdGFkb3MsIHBlcm8gb2N1bHRhIGVsIGPDs2RpZ28gZW4gZWwgaW5mb3JtZS4gRXN0byBlcyDDunRpbCBwYXJhIGVzY3JpYmlyIGluZm9ybWVzIHBhcmEgcGVyc29uYXMgcXVlIG5vIG5lY2VzaXRhbiB2ZXIgZWwgY8OzZGlnbyBSIHF1ZSBnZW5lcsOzIGVsIGdyw6FmaWNvIG8gbGEgdGFibGEuDQoNCiogYGluY2x1ZGUgPSBGQUxTRWAgZWplY3V0YSBlbCBjw7NkaWdvIHBlcm8gb2N1bHRhIHRhbnRvIGVsIGPDs2RpZ28gY29tbyBsb3MgcmVzdWx0YWRvcy4gRXMgw7p0aWwgcGFyYSBjb25maWd1cmFjacOzbiBnZW5lcmFsIGRvbmRlIHNlIGNhcmdhbiBiaWJsaW90ZWNhcy4NCg0KU2kgZXN0w6FzIGVzY3JpYmllbmRvIHVuIGluZm9ybWUgZW4gZWwgcXVlIG5vIHF1aWVyZXMgcXVlIHNlIG11ZXN0cmUgbmluZ8O6biBjw7NkaWdvLCBhw7FhZGlyIGBlY2hvID0gRkFMU0VgIGEgY2FkYSBudWV2byBjaHVuayBzZSB2dWVsdmUgdGVkaW9zby4gTGEgc29sdWNpw7NuIGVzIGNhbWJpYXIgbGEgb3BjacOzbiBnbG9iYWxtZW50ZSBwYXJhIHF1ZSBzZSBhcGxpcXVlIGEgdG9kb3MgbG9zIGNodW5rcy4gRXN0byBzZSBoYWNlIGNvbiBsYSBmdW5jacOzbiBga25pdHI6Om9wdHNfY2h1bmskc2V0KClgLCBxdWUgZXN0YWJsZWNlIGxhcyBvcGNpb25lcyBnbG9iYWxlcyBkZSBsb3MgY2h1bmtzIHF1ZSBsZSBzaWd1ZW4uIEVuY29udHJhcsOhcyBlc3RhIGZ1bmNpw7NuIGVuIGVsIHByaW1lciBjaHVuayAic2V0dXAiLg0KDQogICAgYHIgY2h1bmtge3Igc2V0dXAsIGluY2x1ZGUgPSBGQUxTRX0NCiAgICBrbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IEZBTFNFLCANCiAgICAgICAgICAgICAgICAgICAgICBtZXNzYWdlID0gRkFMU0UsDQogICAgICAgICAgICAgICAgICAgICAgd2FybmluZyA9IEZBTFNFKQ0KICAgIGByIGNodW5rYA0KICAgIA0KPiDCv1RpZW5lcyBjdXJpb3NpZGFkIHBvciBzYWJlciBjw7NtbyBmdW5jaW9uYW4gbGFzIG9wY2lvbmVzPyBDw6FtYmlhbGFzIGRlIHVuYSBlbiB1bmEgeSB0b2NhIGVsIGFyY2hpdm8gY2FkYSB2ZXogcGFyYSB2ZXIgcXXDqSBjYW1iaWEuDQoNCg0KIyMgQXV0b21hdGl6YWNpw7NuDQoNCkFsIHByaW5jaXBpbyBkZSBlc3RlIHRhbGxlciB0ZSBwZWRpbW9zIHF1ZSBjYW1iaWFyYXMgbGEgZXNwZWNpZSBkZSBwaW5nw7xpbm8gZW4gZWwgaW5mb3JtZSBkZSBlamVtcGxvLiBMYSB0YXJlYSBubyBmdWUgZsOhY2lsIHBvcnF1ZSAiUGFwdWEiIGFwYXJlY2UgdmFyaWFzIHZlY2VzIHkgZXMgZsOhY2lsIGVxdWl2b2NhcnNlLiBQYXJhbWV0cml6YXIgdW4gaW5mb3JtZSBub3MgcGVybWl0ZSBkZWZpbmlyIGVzZSB0aXBvIGRlIHBhcsOhbWV0cm9zIGVuIHVuIHNvbG8gbHVnYXIgeSBvYnRlbmVyIGRpZmVyZW50ZXMgYW7DoWxpc2lzIGEgcGFydGlyIGRlbCBtaXNtbyBhcmNoaXZvLiANCg0KUGFyYSBnZW5lcmFyIHVuIGluZm9ybWUgcGFyYW1ldHJpemFkbyBoYXkgcXVlIGHDsWFkaXIgdW4gZWxlbWVudG8gbGxhbWFkbyBgcGFyYW1zYCBhIGxhIGNhYmVjZXJhIGNvbiBsYSBsaXN0YSBkZSBwYXLDoW1ldHJvcyB5IHN1cyB2YWxvcmVzIHBvciBkZWZlY3RvLg0KDQpgYGB5YW1sDQpwYXJhbXM6DQogIGVzcGVjaWU6IFBhcMO6YQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KcGFyYW1zIDwtIGxpc3QoZXNwZWNpZSA9ICJQYXDDumEiKQ0KYGBgDQoNCkEgcGFydGlyIGRlIGFob3JhLCB0ZW5kcsOhcyBhY2Nlc28gYSB1bmEgdmFyaWFibGUgbGxhbWFkYSBgcGFyYW1zYCBxdWUgZXMgdW5hIGxpc3RhIHF1ZSBjb250aWVuZSBsb3MgcGFyw6FtZXRyb3MgeSBzdSB2YWxvci4gUGFyYSBhY2NlZGVyIGFsIHZhbG9yIGRlIGNhZGEgcGFyw6FtZXRybyBzZSB1dGlsaXphIGVsIG9wZXJhZG9yIGAkYCBkZSBsYSBzaWd1aWVudGUgbWFuZXJhOg0KDQpgYGB7cn0NCnBhcmFtcyRlc3BlY2llDQpgYGANCg0KRGUgZXN0ZSBtb2RvLCBlbCBjw7NkaWdvIG9yaWdpbmFsIHB1ZWRlIG1vZGlmaWNhcnNlIHBhcmEgdXRpbGl6YXIgZWwgdmFsb3IgZGUgbGEgZXNwZWNpZSBhbG1hY2VuYWRhIGVuIGBwYXJhbXMkZXNwZWNpZWAuDQoNCmBgYHtyIGV2YWw9RkFMU0V9DQpwaW5ndWlub3MgJT4lIA0KICBmaWx0ZXIoZXNwZWNpZSA9PSBwYXJhbXMkZXNwZWNpZSkgJT4lIA0KICBnZ3Bsb3QoYWVzKHggPSBsYXJnb19waWNvX21tLCB5ID0gYWx0b19waWNvX21tKSkgKw0KICBnZW9tX3BvaW50KGNvbG9yID0gImRhcmtvcmFuZ2UiLA0KICAgICAgICAgICAgIHNpemUgPSAzLA0KICAgICAgICAgICAgIGFscGhhID0gMC44KSArDQogIGdlb21fc21vb3RoKG1ldGhvZCA9ICJsbSIsIHNlID0gRkFMU0UsIGNvbG9yID0gImRhcmtvcmFuZ2UiKSArDQogIHRoZW1lX21pbmltYWwoKSArDQogIGxhYnModGl0bGUgPSAiRGltZW5zaW9uZXMgZGVsIHBpbmfDvGlubyIsDQogICAgICAgc3VidGl0bGUgPSBwYXN0ZSgiTG9uZ2l0dWQgeSBwcm9mdW5kaWRhZCBwYXJhIGxvcyBwaW5nw7xpbm9zIiwgcGFyYW1zJGVzcGVjaWUsICJlbiBQYWxtZXIgU3RhdGlvbiBMVEVSIiksDQogICAgICAgeCA9ICJMYXJnbyBkZWwgcGljbyAobW0pIiwNCiAgICAgICB5ID0gIkFsdG8gZGVsIHBpY28gKG1tKSIsDQogICAgICAgY29sb3IgPSAiRXNwZWNpZSBkZSBQaW5nw7xpbm8iKSANCmBgYA0KDQpBcXXDrSBjYW1iaWFtb3MgZWwgc3VidMOtdHVsbyBwYXJhIGNvbmNhdGVuYXIgcGFsYWJyYXMgY29uIGVsIHZhbG9yIGFsbWFjZW5hZG8gZW4gYHBhcmFtcyRlc3BlY2llYCwgZGUgZXN0YSBtYW5lcmEgcG9kZW1vcyBjb25zdHJ1aXIgZWwgc3VidMOtdHVsbyBkZSBmb3JtYSBwcm9nYW3DoXRpY2EuDQoNCkFob3JhIGVsIGluZm9ybWUgZXN0w6EgbGlzdG8gcGFyYSBmdW5jaW9uYXIgY29tbyB1biBpbmZvcm1lIHBhcmFtZXRyaXphZG8uDQoNCj4gUG9yIMO6bHRpbW8sIGNhbWJpYSAiUGFww7phIiBlbiBlbCB5YW1sIHBhcmEgZ2VuZXJhciB1biBudWV2byBpbmZvcm1lIHBhcmEgdW5hIGRlIGxhcyBvdHJhcyBlc3BlY2llcy4g</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkluZm9ybWVzIGRlIHR1IHRyYWJham8iDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IGZhbHNlDQogICAgaGlnaGxpZ2h0OiB0YW5nbw0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KDQpjaHVuayA8LSAiYGBgIg0KYGBgDQoNCg0KRWwgcHJpbWVyIGVqZW1wbG8gZGUgaW5mb3JtZSBxdWUgdmltb3Mgc2UgY29udmlydGnDsyBlbiB1biBhcmNoaXZvIGh0bWwuIFBlcm8gwr9xdcOpIHBhc2EgY29uIGxvcyBhcmNoaXZvcyBXb3JkIG8gUERGLCBxdWUgcHVlZGVuIHNlciBtw6FzIMO6dGlsZXMgbyBlc3BlcmFkb3MgZW4gYWxndW5hcyBzaXR1YWNpb25lcz8gUk1hcmtkb3duLCB5IHRvZG8gdW4gZWNvc2lzdGVtYSBkZSBvdHJvcyBwYXF1ZXRlcywgcGVybWl0ZSBnZW5lcmFyIGRvY3VtZW50b3MgZW4gbcO6bHRpcGxlcyBmb3JtYXRvcyB1dGlsaXphbmRvIGVsIG1pc21vIGFyY2hpdm8gZGUgdGV4dG8gcGxhbm8uDQoNCkxhIGZvcm1hIGRlIGdlbmVyYXIgZWwgZm9ybWF0byBkZWwgYXJjaGl2byBkZSBzYWxpZGEgZXMgY2FtYmlhbmRvIGxhIG9wY2nDs24gYG91dHB1dGAgZGUgbGEgY2FiZWNlcmEuDQoNCj4gVnVlbHZlIGFsIGluZm9ybWUgZGUgZWplbXBsbyB5IGJ1c2NhIGxhIGzDrW5lYSBxdWUgZW1waWV6YSBwb3IgYG91dHB1dDpgLiBDYW1iaWEgYGh0bWxfZG9jdW1lbnRgIHBvciBgcGRmX2RvY3VtZW50YC4NCg0KVGFtYmnDqW4gcG9kZXMgdXNhciBlbCBib3TDs24gImtuaXQiLCBoYWNpZW5kbyBjbGljIGVuIGxhIGZsZWNoaXRhIGRlIGxhIGRlcmVjaGEgcGFyYSB2ZXIgdG9kYXMgbGFzIG9wY2lvbmVzLiANCg0KPiBBaG9yYSB1dGlsaXphIGVsIGJvdMOzbiBwYXJhIGdlbmVyYXIgdW4gZG9jdW1lbnRvIGRlIFdvcmQuIMK/UXXDqSBjYW1iaW9zIHZlcyBlbiBlbCBlbmNhYmV6YWRvIGRlbCBhcmNoaXZvPw0KDQojIyBDb250cm9sIGRlbCBjw7NkaWdvDQoNCk51ZXN0cm8gZWplbXBsbyBwYXJlY2UgYmFzdGFudGUgb3JkZW5hZG8uIEhlbW9zIG9jdWx0YWRvIHRvZG8gZWwgY8OzZGlnbyB5IGxvcyBtZW5zYWplcyBkZSBSIHBhcmEgcXVlIHB1ZWRhcyBjb25jZW50cmFyIHR1IGF0ZW5jacOzbiBlbiBsYSB0YWJsYSB5IGxhcyBmaWd1cmFzLiBQZXJvIGVzdGUgbm8gZXMgZWwgY29tcG9ydGFtaWVudG8gcG9yIGRlZmVjdG8gZGUgdW4gYXJjaGl2byBSbWQuIFBvciBsbyBnZW5lcmFsLCBsYSBzYWxpZGEgdGVuZHLDoSB0YW50byBlbCBjw7NkaWdvIGNvbW8gc3UgcmVzdWx0YWRvLCBsbyBjdWFsIGVzdMOhIGJpZW4gY3VhbmRvIHZvcyBvIGxhIHBlcnNvbmEgcXVlIGxlZXLDoSBlbCBpbmZvcm1lIHF1aWVyZSB2ZXIgZWwgY8OzZGlnbyBxdWUgZ2VuZXJhIGVzb3MgcmVzdWx0YWRvcywgcGVybyBwb2Ryw61hIG5vIHNlciBsbyBxdWUgbGEgYXVkaWVuY2lhIGZpbmFsIGRlbCBpbmZvcm1lIHBvZHLDrWEgbmVjZXNpdGFyLiBWb3MgZGVjaWRpcyBzaSBxdWllcmVzIG1vc3RyYXIgZWwgY8OzZGlnbyBvIG5vLiANCg0KUGFyYSBjYW1iaWFyIGxhcyBvcGNpb25lcyBkZSB1biBjaHVuayBkZSBjw7NkaWdvLCB0b2RvIGxvIHF1ZSB0aWVuZSBxdWUgaGFjZXIgZXMgZW51bWVyYXIgbGFzIG9wY2lvbmVzIGRlbnRybyBkZSBsb3MgY29yY2hldGVzLiBQb3IgZWplbXBsbzoNCg0KICAgIGByIGNodW5rYHtyIG5vbWJyZS1kZWwtY2h1bmssIGVjaG8gPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFfQ0KICAgIA0KICAgIGByIGNodW5rYA0KDQpVbiBjb25qdW50byBkZSBvcGNpb25lcyBwYXJ0aWN1bGFybWVudGUgaW1wb3J0YW50ZSBzb24gbGFzIHF1ZSBjb250cm9sYW4gc2kgZWwgY8OzZGlnbyBzZSBlamVjdXRhIHkgc2kgZWwgcmVzdWx0YWRvIGRlbCBjw7NkaWdvIHBlcm1hbmVjZXLDoSBlbiBlbCBpbmZvcm1lIG8gbm86DQoNCiogYGV2YWwgPSBGQUxTRWAgaW1waWRlIHF1ZSBzZSBlamVjdXRlIGVsIGPDs2RpZ28gZGVsIGNodW5rLCBwb3IgbG8gcXVlIHRhbXBvY28gbW9zdHJhcsOhIGxvcyByZXN1bHRhZG9zLiBFcyDDunRpbCBwYXJhIG1vc3RyYXIgY8OzZGlnbyBkZSBlamVtcGxvIHNpIGVzdMOhcyBlc2NyaWJpZW5kbywgcG9yIGVqZW1wbG8sIHVuIGRvY3VtZW50byBwYXJhIGVuc2XDsWFyIFIuDQoNCiogYGVjaG8gPSBGQUxTRWAgZWplY3V0YSBlbCBjw7NkaWdvIGRlbCBjaHVuayB5IG11ZXN0cmEgbG9zIHJlc3VsdGFkb3MsIHBlcm8gb2N1bHRhIGVsIGPDs2RpZ28gZW4gZWwgaW5mb3JtZS4gRXN0byBlcyDDunRpbCBwYXJhIGVzY3JpYmlyIGluZm9ybWVzIHBhcmEgcGVyc29uYXMgcXVlIG5vIG5lY2VzaXRhbiB2ZXIgZWwgY8OzZGlnbyBSIHF1ZSBnZW5lcsOzIGVsIGdyw6FmaWNvIG8gbGEgdGFibGEuDQoNCiogYGluY2x1ZGUgPSBGQUxTRWAgZWplY3V0YSBlbCBjw7NkaWdvIHBlcm8gb2N1bHRhIHRhbnRvIGVsIGPDs2RpZ28gY29tbyBsb3MgcmVzdWx0YWRvcy4gRXMgw7p0aWwgcGFyYSBjb25maWd1cmFjacOzbiBnZW5lcmFsIGRvbmRlIHNlIGNhcmdhbiBiaWJsaW90ZWNhcy4NCg0KU2kgZXN0w6FzIGVzY3JpYmllbmRvIHVuIGluZm9ybWUgZW4gZWwgcXVlIG5vIHF1aWVyZXMgcXVlIHNlIG11ZXN0cmUgbmluZ8O6biBjw7NkaWdvLCBhw7FhZGlyIGBlY2hvID0gRkFMU0VgIGEgY2FkYSBudWV2byBjaHVuayBzZSB2dWVsdmUgdGVkaW9zby4gTGEgc29sdWNpw7NuIGVzIGNhbWJpYXIgbGEgb3BjacOzbiBnbG9iYWxtZW50ZSBwYXJhIHF1ZSBzZSBhcGxpcXVlIGEgdG9kb3MgbG9zIGNodW5rcy4gRXN0byBzZSBoYWNlIGNvbiBsYSBmdW5jacOzbiBga25pdHI6Om9wdHNfY2h1bmskc2V0KClgLCBxdWUgZXN0YWJsZWNlIGxhcyBvcGNpb25lcyBnbG9iYWxlcyBkZSBsb3MgY2h1bmtzIHF1ZSBsZSBzaWd1ZW4uIEVuY29udHJhcsOhcyBlc3RhIGZ1bmNpw7NuIGVuIGVsIHByaW1lciBjaHVuayAic2V0dXAiLg0KDQogICAgYHIgY2h1bmtge3Igc2V0dXAsIGluY2x1ZGUgPSBGQUxTRX0NCiAgICBrbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IEZBTFNFLCANCiAgICAgICAgICAgICAgICAgICAgICBtZXNzYWdlID0gRkFMU0UsDQogICAgICAgICAgICAgICAgICAgICAgd2FybmluZyA9IEZBTFNFKQ0KICAgIGByIGNodW5rYA0KICAgIA0KPiDCv1RpZW5lcyBjdXJpb3NpZGFkIHBvciBzYWJlciBjw7NtbyBmdW5jaW9uYW4gbGFzIG9wY2lvbmVzPyBDw6FtYmlhbGFzIGRlIHVuYSBlbiB1bmEgeSB0b2NhIGVsIGFyY2hpdm8gY2FkYSB2ZXogcGFyYSB2ZXIgcXXDqSBjYW1iaWEuDQoNCg0KIyMgQXV0b21hdGl6YWNpw7NuDQoNCkFsIHByaW5jaXBpbyBkZSBlc3RlIHRhbGxlciB0ZSBwZWRpbW9zIHF1ZSBjYW1iaWFyYXMgbGEgZXNwZWNpZSBkZSBwaW5nw7xpbm8gZW4gZWwgaW5mb3JtZSBkZSBlamVtcGxvLiBMYSB0YXJlYSBubyBmdWUgZsOhY2lsIHBvcnF1ZSAiUGFwdWEiIGFwYXJlY2UgdmFyaWFzIHZlY2VzIHkgZXMgZsOhY2lsIGVxdWl2b2NhcnNlLiBQYXJhbWV0cml6YXIgdW4gaW5mb3JtZSBub3MgcGVybWl0ZSBkZWZpbmlyIGVzZSB0aXBvIGRlIHBhcsOhbWV0cm9zIGVuIHVuIHNvbG8gbHVnYXIgeSBvYnRlbmVyIGRpZmVyZW50ZXMgYW7DoWxpc2lzIGEgcGFydGlyIGRlbCBtaXNtbyBhcmNoaXZvLiANCg0KUGFyYSBnZW5lcmFyIHVuIGluZm9ybWUgcGFyYW1ldHJpemFkbyBoYXkgcXVlIGHDsWFkaXIgdW4gZWxlbWVudG8gbGxhbWFkbyBgcGFyYW1zYCBhIGxhIGNhYmVjZXJhIGNvbiBsYSBsaXN0YSBkZSBwYXLDoW1ldHJvcyB5IHN1cyB2YWxvcmVzIHBvciBkZWZlY3RvLg0KDQpgYGB5YW1sDQpwYXJhbXM6DQogIGN1bHRpdmFyOiBBQ0EgODYxDQpgYGANCg0KYGBge3IsIGluY2x1ZGU9RkFMU0V9DQpwYXJhbXMgPC0gbGlzdChjdWx0aXZhciA9ICJBQ0EgODYxIikNCmBgYA0KDQpBIHBhcnRpciBkZSBhaG9yYSwgdGVuZHLDoXMgYWNjZXNvIGEgdW5hIHZhcmlhYmxlIGxsYW1hZGEgYHBhcmFtc2AgcXVlIGVzIHVuYSBsaXN0YSBxdWUgY29udGllbmUgbG9zIHBhcsOhbWV0cm9zIHkgc3UgdmFsb3IuIFBhcmEgYWNjZWRlciBhbCB2YWxvciBkZSBjYWRhIHBhcsOhbWV0cm8gc2UgdXRpbGl6YSBlbCBvcGVyYWRvciBgJGAgZGUgbGEgc2lndWllbnRlIG1hbmVyYToNCg0KYGBge3J9DQpwYXJhbXMkY3VsdGl2YXINCmBgYA0KDQpEZSBlc3RlIG1vZG8sIGVsIGPDs2RpZ28gb3JpZ2luYWwgcHVlZGUgbW9kaWZpY2Fyc2UgcGFyYSB1dGlsaXphciBlbCB2YWxvciBkZSBsYSBlc3BlY2llIGFsbWFjZW5hZGEgZW4gYHBhcmFtcyRjdWx0aXZhcmAuDQoNCmBgYHtyIGV2YWw9RkFMU0V9DQpjdWx0aXZhcmVzICU+JSANCiAgZmlsdGVyKEN1bHRpdmFyID09IHBhcmFtcyRjdWx0aXZhcikgJT4lIA0KICBnZ3Bsb3QoYWVzKHggPSBSZW5kaW1pZW50b19BanVzdGFkbywgeSA9IEFjZWl0ZV9wb3JjZW50YWplKSkgKw0KICBnZW9tX3BvaW50KGNvbG9yID0gImRhcmtvcmFuZ2UiLA0KICAgICAgICAgICAgIHNpemUgPSAzLA0KICAgICAgICAgICAgIGFscGhhID0gMC44KSArDQogIGdlb21fc21vb3RoKG1ldGhvZCA9ICJsbSIsIHNlID0gRkFMU0UsIGNvbG9yID0gImRhcmtvcmFuZ2UiKSArDQogIHRoZW1lX21pbmltYWwoKSArDQogIGxhYnModGl0bGUgPSAiUmVuZGltaWVudG8geSBwb3JjZW50YWplIGRlIGFjZWl0ZSIsDQogICAgICAgc3VidGl0bGUgPSBwYXN0ZSgiQ3VsdGl2YXIiLCBwYXJhbXMkY3VsdGl2YXIpLA0KICAgICAgIHggPSAiUmVuZGltaWVudG8gQWp1c3RhZG8gKGtnL2hhKSIsDQogICAgICAgeSA9ICJQb3JjZW50YWplIGRlIEFjZWl0ZSAoJSkiLA0KICAgICAgIGNvbG9yID0gIkN1bHRpdmFyIikgDQpgYGANCg0KQXF1w60gY2FtYmlhbW9zIGVsIHN1YnTDrXR1bG8gcGFyYSBjb25jYXRlbmFyIHBhbGFicmFzIGNvbiBlbCB2YWxvciBhbG1hY2VuYWRvIGVuIGBwYXJhbXMkY3VsdGl2YXJgLCBkZSBlc3RhIG1hbmVyYSBwb2RlbW9zIGNvbnN0cnVpciBlbCBzdWJ0w610dWxvIGRlIGZvcm1hIHByb2dhbcOhdGljYS4NCg0KQWhvcmEgZWwgaW5mb3JtZSBlc3TDoSBsaXN0byBwYXJhIGZ1bmNpb25hciBjb21vIHVuIGluZm9ybWUgcGFyYW1ldHJpemFkby4NCg0KPiBQb3Igw7psdGltbywgY2FtYmlhICJBQ0EgODYxIiBlbiBlbCB5YW1sIHBhcmEgZ2VuZXJhciB1biBudWV2byBpbmZvcm1lIHBhcmEgdW5hIGRlIGxhcyBvdHJhcyBlc3BlY2llcy4gDQoNCiMjIFB1YmxpY2FjacOzbg0KDQpRdWVyw6lzIGNvbXBhcnRpciB0dXMgcmVzdWx0YWRvcyB5IHRlbsOpcyB1biBhcmNoaXZvIFJNYXJrZG93biBvIFF1YXJ0byBlbiBlbCBxdWUgZXN0dXZpc3RlIHRyYWJhamFuZG8uIFBvZHLDrWFzIGNvbXBhcnRpciBsYSBjYXJwZXRhIGRlbCBwcm95ZWN0byBvIHVuIGxpbmsgYSB1biByZXBvc2l0b3JpbyBwZXJvIHNlcsOtYSBpZGVhbCBxdWUgY3VhbHF1aWVyIHBlcnNvbmEgcHVlZGEgdmVyIGVzb3MgaGVybW9zb3MgcmVzdWx0YWRvcyBzaW4gbmVjZXNpZGFkIGRlIGNvcnJlciBjw7NkaWdvLiBMYSBvdHJhIGFsdGVybmF0aXZhIGVzIGtuaXRlYXIgZWwgZG9jdW1lbnRvIHBhcmEgY29tcGFydGlyIHVuIFBERiBvIGFyY2hpdm8gZGUgV29yZC4gTGFzIG9wY2lvbmVzIG5vIHRlcm1pbmFuIGFow60sIFJtYXJrZG93bi9RdWFydG8gYWJyZSB1biBtdW5kbyBkZSBwb3NpYmlsaWRhZGVzIHBhcmEgdHJhYmFqYXIgY29uIGPDs2RpZ28gZGUgUiwgdGV4dG8geSBhZGVtw6FzIGNvbXBhcnRpciBsb3MgcmVzdWx0YWRvcyAoeSBjdWFscXVpZXIgb3RyYSBjb3NhISkuDQoNCiMjIFNpdGlvIHdlYiBkZSB1bmEgc29sYSBww6FnaW5hDQoNClNpIHNhYsOpcyBjw7NtbyBnZW5lcmFyIHVuIHJlcG9ydGUgZW4gZm9ybWF0byBodG1sIHVzYW5kbyBSIE1hcmtkb3duLCDCoXlhIHNhYsOpcyB0b2RvIGxvIHF1ZSBuZWNlc2l0w6FzIHBhcmEgcHVibGljYXIgdW4gc2l0aW8gd2ViIHNpbXBsZSEgTG8gw7puaWNvIHF1ZSBoYWNlIGZhbHRhIGVzIHVuIHNlcnZpY2lvIHF1ZSAqaG9zdGVlKiBlbCBhcmNoaXZvIHkgbG8gbXVlc3RyZSBhIGxvcyB2aXNpdGFudGVzLiBVbm8gZGUgZWxsb3MgZXMgW05ldGxpZnldKGh0dHBzOi8vd3d3Lm5ldGxpZnkuY29tLyksIHF1ZSBwZXJtaXRlIGNyZWFyIHVuIHNpdGlvIHdlYiBjb24gc8OzbG8gYXJyYXN0cmFyIHVuYSBjYXJwZXRhLg0KDQoqKlBlcXVlw7FvIGRldGFsbGU6Kiogc2VndXJhbWVudGUgdHUgcmVwb3J0ZSAodHUgYXJjaGl2byBSTWFya2Rvd24pIHRpZW5lIGFsZ8O6biBub21icmUgZGVzY3JpcHRpdm8gY29uc2lzdGVudGUgY29uIHN1IGNvbnRlbmlkby4gUGFyYSBxdWUgKmNvbnZlcnRpcmxvKiBlbiB1bmEgcMOhZ2luYSB3ZWIgZWwgYXJjaGl2byB0aWVuZSBxdWUgdGVuZXIgdW4gbm9tYnJlIGVzcGVjaWFsOiAiaW5kZXguaHRtbCIuIEFkZWxhbnRlLCBub21icsOhIGEgdHUgZG9jdW1lbnRvIGNvbW8gaW5kZXguUm1kIHkga25pdGVhIGEgSFRNTCBjb21vIGRlIGNvc3R1bWJyZS4NCg0KQWhvcmEgZGViZXLDrWFzIHRlbmVyIGNvbW8gcmVzdWx0YWRvIGFyY2hpdm8gbGxhbWFkbyAiaW5kZXguaHRtbCIgZW4gbGEgY2FycGV0YSBkZSB0dSBwcm95ZWN0by4gwqFGZWxpY2l0YWNpb25lcyEgQ3JlYXN0ZSB0dSBwcmltZXIgcMOhZ2luYSB3ZWIuDQoNCiMjIyBQdWJsaWNhY2nDs24NCg0KU29sbyBmYWx0YSBwdWJsaWNhciB0dSBww6FnaW5hIHdlYiBwYXJhIG5vIHZpdmEgc29sbyBlbiB0dSBjb21wdXRhZG9yYS4gVmVhbW9zIGNvbW8gc2UgaGFjZSBlbiBOZXRsaWZ5Lg0KDQpFbnRyw6EgYSA8aHR0cHM6Ly9hcHAubmV0bGlmeS5jb20vZHJvcD4geSBhcnJhc3RyYXIgbGEgY2FycGV0YSBlbiBlbCByZWN1YWRyby4gTmV0bGlmeSB2YSBhIGNyZWFyIHVuYSBww6FnaW5hIHdlYiBjb24gdW4gbm9tYnJlIGFsZWF0b3JpbyB5IHBvc2libGVtZW50ZSBpbXBvc2libGUgZGUgZGVsZXRyZWFyLCBwZXJvIGVzdMOhIHB1YmxpY2FkYSENCg0KW0FxdWkgaGF5IHVuIHZpZGVvIGNvbiBsb3MgcGFzb3MgYSBzZWd1aXJdKGh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9aFo4VHBmY0wxbDgpDQoNClRhbCB2ZXogbm90YXN0ZSBxdWUgTmV0bGlmeSBib3JyYSBsb3Mgc2l0aW9zIHdlYiBsdWVnbyBkZSAyNCBob3Jhcy4gUGFyYSBxdWUgdHUgc2l0aW8gc2VhIHBlcm1hbmVudGUgdGVuw6lzIHF1ZSBjcmVhcnRlIHVuYSBjdWVudGEgZW4gTmV0bGlmeS4gRXNvIGFkZW3DoXMgdGUgdmEgYSBwZXJtaXRpciBjYW1iaWFybGUgZWwgbm9tYnJlIGEgdHUgcMOhZ2luYSwgcG9yIGVqZW1wbG8gYWdyb3JlcG9ydGUubmV0bGlmeS5hcHANCg0KPiBQdWJsaXF1ZW1vcyBudWVzdHJvIHJlcG9ydGUgZW4gbGEgd2ViISAgQ29tcGFydGFuIGVsIGxpbmsgYSBzdSBwYWdpbmEgd2ViIDotKQ0K</div>
 
 
 
