@@ -26,40 +26,7 @@ Vamos a usar R como lenguaje de programación y RStudio como una IDE (Integrated
 
 TODO: actualizar link a proyecto
 
-Para iniciar RStudio, hacé doble click en el ícono de RStudio. Iniciar  RStudio también inicia R (en realidad, es probable que nunca abras R por sí mismo).
-
-
-<img src="img/rstudio-principal.png" alt="Pantalla principal de RStudio. Paneles de consola, entorno y archivos" />
-
-<img src="img/rstudio-cloud-principal.png" alt="Pantalla principal de RStudio Cloud. Paneles de consola, entorno y archivos" />
-
-Observa los paneles por defecto:
-
-  * Consola (toda la izquierda)
-  * Environment/History (pestaña en la parte superior derech)
-  * Files/Plots/Packages/Help (con pestañas en la parte inferior derecha)
-
-No es necesario que sepamos utilizar todo esto de inmediato. Nos familiarizaremos con más opciones y capacidades a lo largo del taller.
-
-Podemos escribir código, es decir, instrucciones para ser ejecutadas por R en la Consola. Por ejemplo, podemos calcular el resultado dos más dos escribiendo
-
-```{r}
-2 + 2
-```
-
-en la Consola y pulsando enter. 
-
-El resultado aparece justo debajo. También podemos guardar ese resultado en un objeto, en este caso llamado `x`.
-
-```{r}
-x <- 2 + 2 
-```
-
-Esa flechita es el *operador de asignación* y funciona como un `=`. Ahora el resultado se guarda en el Entorno (Environment) como una variable con nombre `x` y no se imprime en la consola. 
-
-Esto es útil cuando estamos probando el código para ver si funciona pero lo perderemos todo cuando cerremos RStudio. Lo que tenemos que hacer es guardar el código que genera su análisis. Para ello utilizamos R Scripts y archivos RMarkdown.
-
-Vamos a tener nuestra primera experiencia con R a través de RMarkdown, así que vamos a ver qué es un documento RMarkdown. Te preparamos [este informe de ejemplo](reporte_cultivares.Rmd), por favor abrilo en RStudio o en RStudio Cloud. El archivo aparecerá en un nuevo panel arriba en el lado izquierdo de la pantalla, y el panel de la consola se moverá hacia abajo.
+Vamos a trabajar con archivos de RMarkdown para generar nuestro reportes y poder guardar el código que genera nuestro análisis, así que vamos a ver qué es un documento RMarkdown. Te preparamos [este informe de ejemplo](reporte_cultivares.Rmd), por favor abrilo en RStudio o en RStudio Cloud. 
 
 
 ## RMarkdown
