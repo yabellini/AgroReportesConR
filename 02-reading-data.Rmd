@@ -52,7 +52,7 @@ A veces nuestros datos no son tan amigables y necesitamos dar más información 
 ```{r}
 library(readxl)
 
-penguinos_xls <- read_excel("datos/RNG_small.xlsx")
+cultivares_xls <- read_excel("datos/RNG_small.xlsx")
 ```
 
 Y listo, hemos leído un archivo xlsx. Por supuesto, a veces tenemos que trabajar con archivos con múltiples hojas o con datos que no están muy organizados. Esta función viene con varias opciones o argumentos para leer hojas específicas (`sheet = <nombre de la hoja>`) o un rango específico (`range` = "C1:E7"`) y otros. 
