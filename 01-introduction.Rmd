@@ -68,9 +68,8 @@ El código R se escribe dentro de "chunks (trozos)" de código. Los trozos de c�
 
 Este informe muestra información sobre un cultivar, pero podríamos cambiar algunas líneas de código para crear el mismo análisis para los otros cultivares incluidos en la base de datos.
 
-TODO: cambiar Papua por el cultivar que usemos de ejemplo
 
-> Ahora es tu turno. Sigue buscando en el código, si encuentras alguna mención a "Papúa", cámbiala por cualquiera de las otras especies. 
+> Ahora es tu turno. Sigue buscando en el código, si encuentras alguna mención a "ACA 861", cámbiala por cualquiera de los otros cultivares. 
 
 Esta tarea es un poco engorrosa si hay que cambiar muchas cosas cada vez que queremos volver a ejecutar el análisis para diferentes especies. Pero no te preocupes, aprenderemos a hacer todo más automático al final del taller. 
 
