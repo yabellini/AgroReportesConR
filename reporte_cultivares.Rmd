@@ -1,5 +1,5 @@
 ---
-title: "Pingüinos Papúa"
+title: "Cultivar ACA 861"
 output: 
   html_document:
     toc: false
@@ -16,56 +16,73 @@ library(readxl)
 
 ## Sobre los datos
 
-Los datos de **Pingüinos de Palmer** fueron recogidos y puestos a disposición por la Dra. Kristen Gorman y la [Estación Palmer en la Antártida, LTER](https://pal.lternet.edu/), que es parte de la Red de Investigación Ecológica a Largo Plazo. El conjunto de datos incluye varias características de los pingüinos Adelia, Barbijo y Papúa.
+Los datos de la **Red Nacional de Cultivares de Girasol** fueron recogidos y puestos a disposición por investigadores de la [Estación Experimental Agropecuaria Anguil del INTA](https://www.argentina.gob.ar/inta). El conjunto de datos con el que trabajamos es un subconjunto de todos los datos de la red e incluye los resultados de distintos tipo de ensayos de cultivares de girasol en varias localidades de *Argentina*.
 
 ```{r read}
-pinguinos <- read_csv("datos/pinguinos.csv")
+cultivares <- read_csv("datos/RNG_small.csv")
 
-resumen <- pinguinos %>% 
-  group_by(especie) %>% 
+resumen <- cultivares %>% 
+  group_by(Cultivar) %>% 
   summarise(count = n(),
-            masa_corporal_media = round(mean(masa_corporal_g/1000, na.rm = TRUE), 2))
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2))
 
 resumen %>% 
-  knitr::kable(col.names = c("Especie", "Cantidad", "Masa corporal media"),
+  knitr::kable(col.names = c("Cultivar", "Cantidad", "Rendimiento Ajustado Medio"),
                align = "lcc",
-               caption = "Resumen de los pingüinos en el dataset por especie.")
+               caption = "Resumen de los Cultivares en el dataset.")
 ```
 
-### Pingüinos Papúa
+### Cultivar ACA 861
 
-En esta sección centramos el análisis en la especie papúa. La longitud del pico está correlacionada positivamente con el alto del pico, los pingüinos con picos más largos suelen tener picos más altos también.
+En esta sección centramos el análisis en el cultivar ACA 861. En este gráfico observamos la relación entre el porcentaje de aceite y el rendimiento.
 
 ```{r}
-pinguinos %>% 
-  filter(especie == "Papúa") %>% 
-  ggplot(aes(x = largo_pico_mm, y = alto_pico_mm)) +
+cultivares %>% 
+  filter(Cultivar == "ACA 861") %>% 
+  ggplot(aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
   geom_point(color = "darkorange",
              size = 3,
              alpha = 0.8) +
   geom_smooth(method = "lm", se = FALSE, color = "darkorange") +
   theme_minimal() +
-  labs(title = "Dimensiones del pico de los pingüinos",
-       subtitle = "Alto y largo del pico de pingüinos Papúa en la Estación Palmer LTER",
-       x = "Largo del pico (mm)",
-       y = "Alto del pico (mm)",
-       color = "Especie") 
+  labs(title = "Rendimiento y porcentaje de aceite",
+       subtitle = "Cultivar ACA 861",
+       x = "Rendimiento Ajustado (kg/ha)",
+       y = "Porcentaje de Aceite (%)",
+       color = "Cultivar") 
 ```
 
-Las hembras y los machos de los pingüinos tienen una masa corporal diferente. Los pingüinos macho suelen ser más grandes que las hembras. 
+Este es la distribución de los rendimientos del cultivar ACA 861, los colores muestran el tipo de siembra utilizado en los ensayos. 
 
 ```{r}
-pinguinos %>% 
-  filter(especie == "Papúa") %>% 
-  ggplot(aes(x = masa_corporal_g)) +
-  geom_histogram(aes(fill = sexo),
+cultivares %>% 
+  filter(Cultivar == "ACA 861") %>%
+  ggplot(aes(x = Rendimiento_Ajustado)) +
+  geom_histogram(aes(fill = Tipo_Siembra),
                  alpha = 0.5,
                  position = "identity") +
-  scale_fill_manual(values = c("darkorange", "cyan4")) +
+  scale_fill_manual(values = c("darkorange", "cyan4", "purple")) +
   theme_minimal() +
-  labs(x = "Masa corporal (g)",
+  labs(x = "Rendimiento Ajustado (kg/ha)",
        y = "Frecuencia",
        fill = NULL,
-       title = "Masa corporal de pingüinos")
+       title = "Rendimiento por tipo de siembra")
 ```
 
+El rendimiento de un cultivar se comportan diferente según la zona geográfica. Este es un listado de localidades ordenado de mayor a menor por el rendimiento del cultivar ACA 861. 
+
+```{r listadoxrendimiento}
+rendimiento_localidad <- cultivares %>% 
+  filter(Cultivar == "ACA 861") %>%
+  group_by(Localidad) %>% 
+  summarise(count = n(),
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2)) 
+
+rendimiento_localidad <- rendimiento_localidad %>% 
+  arrange(desc(rendimiento_ajustado_medio))
+
+rendimiento_localidad %>% 
+  knitr::kable(col.names = c("Cultivar", "Cantidad", "Rendimiento Ajustado Medio"),
+               align = "lcc",
+               caption = "Resumen de los Cultivares en el dataset.")
+```
