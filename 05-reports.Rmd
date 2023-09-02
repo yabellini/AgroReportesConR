@@ -98,3 +98,27 @@ Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado e
 Ahora el informe está listo para funcionar como un informe parametrizado.
 
 > Por último, cambia "ACA 861" en el yaml para generar un nuevo informe para una de las otras especies. 
+
+## Publicación
+
+Querés compartir tus resultados y tenés un archivo RMarkdown o Quarto en el que estuviste trabajando. Podrías compartir la carpeta del proyecto o un link a un repositorio pero sería ideal que cualquier persona pueda ver esos hermosos resultados sin necesidad de correr código. La otra alternativa es knitear el documento para compartir un PDF o archivo de Word. Las opciones no terminan ahí, Rmarkdown/Quarto abre un mundo de posibilidades para trabajar con código de R, texto y además compartir los resultados (y cualquier otra cosa!).
+
+## Sitio web de una sola página
+
+Si sabés cómo generar un reporte en formato html usando R Markdown, ¡ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que *hostee* el archivo y lo muestre a los visitantes. Uno de ellos es [Netlify](https://www.netlify.com/), que permite crear un sitio web con sólo arrastrar una carpeta.
+
+**Pequeño detalle:** seguramente tu reporte (tu archivo RMarkdown) tiene algún nombre descriptivo consistente con su contenido. Para que *convertirlo* en una página web el archivo tiene que tener un nombre especial: "index.html". Adelante, nombrá a tu documento como index.Rmd y knitea a HTML como de costumbre.
+
+Ahora deberías tener como resultado archivo llamado "index.html" en la carpeta de tu proyecto. ¡Felicitaciones! Creaste tu primer página web.
+
+### Publicación
+
+Solo falta publicar tu página web para no viva solo en tu computadora. Veamos como se hace en Netlify.
+
+Entrá a <https://app.netlify.com/drop> y arrastrar la carpeta en el recuadro. Netlify va a crear una página web con un nombre aleatorio y posiblemente imposible de deletrear, pero está publicada!
+
+[Aqui hay un video con los pasos a seguir](https://www.youtube.com/watch?v=hZ8TpfcL1l8)
+
+Tal vez notaste que Netlify borra los sitios web luego de 24 horas. Para que tu sitio sea permanente tenés que crearte una cuenta en Netlify. Eso además te va a permitir cambiarle el nombre a tu página, por ejemplo agroreporte.netlify.app
+
+> Publiquemos nuestro reporte en la web!  Compartan el link a su pagina web :-)
