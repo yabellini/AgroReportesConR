@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Sobre los datos de Cultivares
 
-TODO: describir los datos
+El conjuto de datos contiene 499 observaciones con 21 variables. Estas son las variables que se registran durante los ensayos y que caracterizan el cultivar, por ejemplo rendimiento, porcentaje de aceite, días a floración y altura.  También contiene detalles sobre los ensayos, como la fecha, el tipo de siembra, la localidad donde se realizó y la época de siembra.
 
 Como queremos aprender a leer datos en R, vamos a leerlos desde archivos csv y xls.
 
@@ -52,7 +52,7 @@ A veces nuestros datos no son tan amigables y necesitamos dar más información 
 ```{r}
 library(readxl)
 
-penguinos_xls <- read_excel("datos/cultivares.xlsx")
+penguinos_xls <- read_excel("datos/RNG_small.xlsx")
 ```
 
 Y listo, hemos leído un archivo xlsx. Por supuesto, a veces tenemos que trabajar con archivos con múltiples hojas o con datos que no están muy organizados. Esta función viene con varias opciones o argumentos para leer hojas específicas (`sheet = <nombre de la hoja>`) o un rango específico (`range` = "C1:E7"`) y otros. 
