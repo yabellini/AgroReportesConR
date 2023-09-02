@@ -27,7 +27,7 @@ También podes usar el botón "knit", haciendo clic en la flechita de la derecha
 
 ## Control del código
 
-Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Es usted quien decide si quiere mostrar el código o no. 
+Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Vos decidis si quieres mostrar el código o no. 
 
 Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de los corchetes. Por ejemplo:
 
@@ -62,39 +62,39 @@ Para generar un informe parametrizado hay que añadir un elemento llamado `param
 
 ```yaml
 params:
-  especie: Papúa
+  cultivar: ACA 861
 ```
 
 ```{r, include=FALSE}
-params <- list(especie = "Papúa")
+params <- list(cultivar = "ACA 861")
 ```
 
 A partir de ahora, tendrás acceso a una variable llamada `params` que es una lista que contiene los parámetros y su valor. Para acceder al valor de cada parámetro se utiliza el operador `$` de la siguiente manera:
 
 ```{r}
-params$especie
+params$cultivar
 ```
 
-De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en `params$especie`.
+De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en `params$cultivar`.
 
 ```{r eval=FALSE}
-pinguinos %>% 
-  filter(especie == params$especie) %>% 
-  ggplot(aes(x = largo_pico_mm, y = alto_pico_mm)) +
+cultivares %>% 
+  filter(Cultivar == params$cultivar) %>% 
+  ggplot(aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
   geom_point(color = "darkorange",
              size = 3,
              alpha = 0.8) +
   geom_smooth(method = "lm", se = FALSE, color = "darkorange") +
   theme_minimal() +
-  labs(title = "Dimensiones del pingüino",
-       subtitle = paste("Longitud y profundidad para los pingüinos", params$especie, "en Palmer Station LTER"),
-       x = "Largo del pico (mm)",
-       y = "Alto del pico (mm)",
-       color = "Especie de Pingüino") 
+  labs(title = "Rendimiento y porcentaje de aceite",
+       subtitle = paste("Cultivar" params$cultivar),
+       x = "Rendimiento Ajustado (kg/ha)",
+       y = "Porcentaje de Aceite (%)",
+       color = "Cultivar") 
 ```
 
-Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en `params$especie`, de esta manera podemos construir el subtítulo de forma progamática.
+Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en `params$cultivar`, de esta manera podemos construir el subtítulo de forma progamática.
 
 Ahora el informe está listo para funcionar como un informe parametrizado.
 
-> Por último, cambia "Papúa" en el yaml para generar un nuevo informe para una de las otras especies. 
+> Por último, cambia "ACA 861" en el yaml para generar un nuevo informe para una de las otras especies. 
