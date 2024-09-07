@@ -16,13 +16,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 El conjuto de datos contiene 499 observaciones con 21 variables. Estas son las variables que se registran durante los ensayos y que caracterizan el cultivar, por ejemplo rendimiento, porcentaje de aceite, días a floración y altura.  También contiene detalles sobre los ensayos, como la fecha, el tipo de siembra, la localidad donde se realizó y la época de siembra.
 
-Como queremos aprender a leer datos en R, vamos a leerlos desde archivos csv y xls.
+Como queremos aprender a leer datos en R, vamos a leerlos desde archivos csv y xlsx.
 
 ## Leyendo archivos csv
 
 Empezaremos cargando el paquete **tidyverse**, que nos da acceso a docenas de paquetes y funciones con las que trabajar. Por ahora usaremos la función `read_csv()` para leer un archivo .csv que está almacenado en el directorio de datos. 
 
-```{r}
+```{r warning=FALSE}
 library(tidyverse)
 
 cultivares <- read_csv("datos/RNG_small.csv")
@@ -33,7 +33,7 @@ En Excel o Google Sheets, los datos se almacenan en la hoja de cálculo y se org
 
 <img src="img/view_en_rstudio.png" alt="La pestaña de visualización del data.frame con los datos de cultivares luego de llamar a la función View()" />
 
-Esta previsualización es lo más parecida a la que tenemos en una hoja de cálculo. Podemos llegar a este panel ejecutando `View(cultivares)` en la consola. Hay otras funciones que nos sirven para visualizar nuestros datos.  Vamos a utilizar una de ellas:
+Esta previsualización es lo más parecida a la que tenemos en una hoja de cálculo. Podemos llegar a este panel ejecutando `view(cultivares)` en la consola. Hay otras funciones que nos sirven para visualizar nuestros datos.  Vamos a utilizar una de ellas:
 
 ```{r}
 glimpse(cultivares)
@@ -49,13 +49,13 @@ A veces nuestros datos no son tan amigables y necesitamos dar más información 
 
 ¿Cómo podemos trabajar con archivos xlsx? Necesitaremos otro paquete de R, **readxl** que ya está instalado en el proyecto RStudio Cloud, solo necesitamos cargar la librería. En este caso la función se llama `read_excel()`.
 
-```{r}
+```{r warning=FALSE}
 library(readxl)
 
 cultivares_xls <- read_excel("datos/RNG_small.xlsx")
 ```
 
-Y listo, hemos leído un archivo xlsx. Por supuesto, a veces tenemos que trabajar con archivos con múltiples hojas o con datos que no están muy organizados. Esta función viene con varias opciones o argumentos para leer hojas específicas (`sheet = <nombre de la hoja>`) o un rango específico (`range` = "C1:E7"`) y otros. 
+Y listo, hemos leído un archivo xlsx. Por supuesto, a veces tenemos que trabajar con archivos con múltiples hojas o con datos que no están muy organizados. Esta función viene con varias opciones o argumentos para leer hojas específicas (`sheet = <nombre de la hoja>`) o un rango específico (`range = "C1:E7"`) y otros. 
 
 Ahora que tenemos los datos leídos en R, es el momento de analizar esos datos. 
 

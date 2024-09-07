@@ -17,7 +17,7 @@ chunk <- "```"
 
 El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? RMarkdown, y todo un ecosistema de otros paquetes, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.
 
-La forma de generar el formato del archivo de salida es cambiando la opción `output` de la cabecera.
+La forma de generar el formato del archivo de salida es cambiando la opción `output` del encabezado.
 
 > Vuelve al informe de ejemplo y busca la línea que empieza por `output:`. Cambia `html_document` por `pdf_document`.
 
@@ -29,7 +29,7 @@ También podes usar el botón "knit", haciendo clic en la flechita de la derecha
 
 Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Vos decidis si quieres mostrar el código o no. 
 
-Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de los corchetes. Por ejemplo:
+Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de las llaves. Por ejemplo:
 
     `r chunk`{r nombre-del-chunk, echo = FALSE, message = FALSE}
     
@@ -41,7 +41,7 @@ Un conjunto de opciones particularmente importante son las que controlan si el c
 
 * `echo = FALSE` ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.
 
-* `include = FALSE` ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan bibliotecas.
+* `include = FALSE` ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan las librerías.
 
 Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir `echo = FALSE` a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. Esto se hace con la función `knitr::opts_chunk$set()`, que establece las opciones globales de los chunks que le siguen. Encontrarás esta función en el primer chunk "setup".
 
@@ -56,7 +56,7 @@ Si estás escribiendo un informe en el que no quieres que se muestre ningún có
 
 ## Automatización
 
-Al principio de este taller te pedimos que cambiaras la especie de pingüino en el informe de ejemplo. La tarea no fue fácil porque "Papua" aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo. 
+Al principio de este taller te pedimos que cambiaras el cultivar en el informe de ejemplo. La tarea no fue fácil porque "ACA 861" aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo. 
 
 Para generar un informe parametrizado hay que añadir un elemento llamado `params` a la cabecera con la lista de parámetros y sus valores por defecto.
 
@@ -93,7 +93,7 @@ cultivares %>%
        color = "Cultivar") 
 ```
 
-Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en `params$cultivar`, de esta manera podemos construir el subtítulo de forma progamática.
+Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en `params$cultivar`, de esta manera podemos construir el subtítulo de forma programática.
 
 Ahora el informe está listo para funcionar como un informe parametrizado.
 
@@ -115,7 +115,7 @@ Ahora deberías tener como resultado archivo llamado "index.html" en la carpeta 
 
 Solo falta publicar tu página web para no viva solo en tu computadora. Veamos como se hace en Netlify.
 
-Entrá a <https://app.netlify.com/drop> y arrastrar la carpeta en el recuadro. Netlify va a crear una página web con un nombre aleatorio y posiblemente imposible de deletrear, pero está publicada!
+Entrá a <https://app.netlify.com/drop> y arrastrar la carpeta que contiene el archivo index.html en el recuadro. Netlify va a crear una página web con un nombre aleatorio y posiblemente imposible de deletrear, pero está publicada!
 
 [Aqui hay un video con los pasos a seguir](https://www.youtube.com/watch?v=hZ8TpfcL1l8)
 

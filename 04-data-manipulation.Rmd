@@ -31,7 +31,7 @@ Podemos utilizar `group_by()` para agrupar nuestros datos por **cultivar** y `su
 
 cultivares %>% 
   group_by(Cultivar) %>% 
-  summarise(count = n(),
+  summarise(cantidad = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2))
 
 ```
@@ -42,7 +42,7 @@ La función `n()` devuelve el número de casos y la función `mean` calcula la m
 
 ```{r}
 cultivares %>% 
-  summarise(count = n(),
+  summarise(cantidad = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2))
 ```
 
@@ -53,7 +53,7 @@ Ahora, queremos la media del rendimiento en toneladas y con dos decimales. Podem
 ```{r}
 cultivares %>% 
   group_by(Cultivar) %>% 
-  summarise(count = n(),
+  summarise(cantidad = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado/1000, na.rm = TRUE), 2))
 
 ```
@@ -67,7 +67,7 @@ Así que vamos a añadir una asignación de variable a esa primera línea:
 ```{r}
 resumen <- cultivares %>% 
   group_by(Cultivar) %>% 
-  summarise(count = n(),
+  summarise(cantidad = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado/1000, na.rm = TRUE), 2))
 ```
 
@@ -96,9 +96,9 @@ Podemos añadir una nueva variable (llamada `prop`) que represente la proporció
 
 cultivares %>% 
   group_by(Localidad) %>% 
-  summarise(count = n(),
+  summarise(cantidad = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2)) %>%
-  mutate(prop = count/nrow(cultivares))
+  mutate(prop = cantidad/nrow(cultivares))
 
 ```
 
@@ -106,7 +106,7 @@ cultivares %>%
 
 En nuestro informe también realizamos un gráfico de un cultivar específico. Para ello necesitamos mantener sólo los datos del cultivar que queremos analizar.  Utilizamos la función `filter()` para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.
 
-Podemos utilizar operadores lógicos (`>`, `<`, `>=`, `<=`, `==`) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición (que sea igual a) para datos de tipo texto (la columna especie).
+Podemos utilizar operadores lógicos (`>`, `<`, `>=`, `<=`, `==`) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición ("que sea igual a") para datos de tipo texto (la columna especie).
 
 ```{r}
 cultivares %>% 

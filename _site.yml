@@ -19,7 +19,7 @@ navbar:
       href: reporte_cultivares.html
   right:
     - text: Repo
-      href: 
+      href: https://github.com/yabellini/AgroReportesConR
 output_dir: "docs"
 output:
   html_document:
