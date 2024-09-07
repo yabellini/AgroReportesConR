@@ -13,7 +13,7 @@
 
 <title>Manipulando datos</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -54,7 +54,7 @@
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -89,11 +89,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -102,14 +102,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -373,7 +373,9 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown-header">Repo</li>
+        <li>
+  <a href="https://github.com/yabellini/AgroReportesConR">Repo</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -420,32 +422,32 @@ rendimiento media de cada cultivar de nuestro conjunto de datos.</p>
 por <strong>cultivar</strong> y <code>summarize()</code> para calcular
 el número de ensayos y el <strong>rendimiento_ajustado</strong> medio
 para cada grupo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 19 × 3
-##    Cultivar        count rendimiento_ajustado_medio
-##    &lt;chr&gt;           &lt;int&gt;                      &lt;dbl&gt;
-##  1 ACA 203             3                      2309 
-##  2 ACA 203 CL         57                      3089.
-##  3 ACA 203 CL DM       3                      3771.
-##  4 ACA 211 CL          9                      2870.
-##  5 ACA 350 CL PLUS    18                      3439.
-##  6 ACA 769             1                      3744 
-##  7 ACA 861           185                      3004.
-##  8 ACA 862             1                      3483 
-##  9 ACA 862 HO         14                      2673.
-## 10 ACA 863            82                      3022.
-## 11 ACA 864 DM         31                      3474.
-## 12 ACA 865            12                      3256.
-## 13 ACA 866 HO         21                      2846.
-## 14 ACA 867            43                      3394.
-## 15 ACA 868 HO         15                      3645.
-## 16 ACA 876             1                      1691 
-## 17 ACA 884             1                      1654 
-## 18 ACA 885             1                      1574 
-## 19 ACA 886             1                      1588</code></pre>
+##    Cultivar        cantidad rendimiento_ajustado_medio
+##    &lt;chr&gt;              &lt;int&gt;                      &lt;dbl&gt;
+##  1 ACA 203                3                      2309 
+##  2 ACA 203 CL            57                      3089.
+##  3 ACA 203 CL DM          3                      3771.
+##  4 ACA 211 CL             9                      2870.
+##  5 ACA 350 CL PLUS       18                      3439.
+##  6 ACA 769                1                      3744 
+##  7 ACA 861              185                      3004.
+##  8 ACA 862                1                      3483 
+##  9 ACA 862 HO            14                      2673.
+## 10 ACA 863               82                      3022.
+## 11 ACA 864 DM            31                      3474.
+## 12 ACA 865               12                      3256.
+## 13 ACA 866 HO            21                      2846.
+## 14 ACA 867               43                      3394.
+## 15 ACA 868 HO            15                      3645.
+## 16 ACA 876                1                      1691 
+## 17 ACA 884                1                      1654 
+## 18 ACA 885                1                      1574 
+## 19 ACA 886                1                      1588</code></pre>
 <p>La función <code>n()</code> devuelve el número de casos y la función
 <code>mean</code> calcula la media o promedio. El parámetro
 <code>na.rm = TRUE</code> indica a la función que elimine los valores
@@ -454,45 +456,45 @@ faltantes (<code>NA</code>) antes de realizar el cálculo.</p>
 <p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de
 <code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
 </blockquote>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
-##   count rendimiento_ajustado_medio
-##   &lt;int&gt;                      &lt;dbl&gt;
-## 1   499                      3094.</code></pre>
+##   cantidad rendimiento_ajustado_medio
+##      &lt;int&gt;                      &lt;dbl&gt;
+## 1      499                      3094.</code></pre>
 <p>Así que si no agrupamos por el cultivar primero, obtendremos una sola
 estadística de resumen (n y media en este caso) para todo el conjunto de
 datos.</p>
 <p>Ahora, queremos la media del rendimiento en toneladas y con dos
 decimales. Podemos cambiar nuestra llamada a <code>summarise()</code>
 para obtener ese cálculo.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 19 × 3
-##    Cultivar        count rendimiento_ajustado_medio
-##    &lt;chr&gt;           &lt;int&gt;                      &lt;dbl&gt;
-##  1 ACA 203             3                       2.31
-##  2 ACA 203 CL         57                       3.09
-##  3 ACA 203 CL DM       3                       3.77
-##  4 ACA 211 CL          9                       2.87
-##  5 ACA 350 CL PLUS    18                       3.44
-##  6 ACA 769             1                       3.74
-##  7 ACA 861           185                       3   
-##  8 ACA 862             1                       3.48
-##  9 ACA 862 HO         14                       2.67
-## 10 ACA 863            82                       3.02
-## 11 ACA 864 DM         31                       3.47
-## 12 ACA 865            12                       3.26
-## 13 ACA 866 HO         21                       2.85
-## 14 ACA 867            43                       3.39
-## 15 ACA 868 HO         15                       3.65
-## 16 ACA 876             1                       1.69
-## 17 ACA 884             1                       1.65
-## 18 ACA 885             1                       1.57
-## 19 ACA 886             1                       1.59</code></pre>
+##    Cultivar        cantidad rendimiento_ajustado_medio
+##    &lt;chr&gt;              &lt;int&gt;                      &lt;dbl&gt;
+##  1 ACA 203                3                       2.31
+##  2 ACA 203 CL            57                       3.09
+##  3 ACA 203 CL DM          3                       3.77
+##  4 ACA 211 CL             9                       2.87
+##  5 ACA 350 CL PLUS       18                       3.44
+##  6 ACA 769                1                       3.74
+##  7 ACA 861              185                       3   
+##  8 ACA 862                1                       3.48
+##  9 ACA 862 HO            14                       2.67
+## 10 ACA 863               82                       3.02
+## 11 ACA 864 DM            31                       3.47
+## 12 ACA 865               12                       3.26
+## 13 ACA 866 HO            21                       2.85
+## 14 ACA 867               43                       3.39
+## 15 ACA 868 HO            15                       3.65
+## 16 ACA 876                1                       1.69
+## 17 ACA 884                1                       1.65
+## 18 ACA 885                1                       1.57
+## 19 ACA 886                1                       1.59</code></pre>
 <p>Primero dividimos el rendimiento ajustado por 1000 para transformarlo
 de kilogramos a toneladas y luego utilizamos la función
 <code>round()</code> para redondear a sólo dos decimales.</p>
@@ -501,10 +503,10 @@ resumida como una variable para poder utilizarla en posteriores análisis
 y formatos.</p>
 <p>Así que vamos a añadir una asignación de variable a esa primera
 línea:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
 </div>
 <div id="dándole-formato-a-la-tabla" class="section level2">
 <h2>Dándole formato a la tabla</h2>
@@ -514,10 +516,10 @@ variables debe ser informativo para una persona (de momento son nombres
 útiles para una computadora), y podemos añadirle un título y cambiar la
 alineación de los números.</p>
 <p>Podemos hacerlo con la función <code>kable</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Cultivar&quot;</span>, <span class="st">&quot;Cantidad&quot;</span>, <span class="st">&quot;Rendimiento Ajustado Medio&quot;</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">&quot;lcc&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Resumen de los Cultivares en el dataset.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Cultivar&quot;</span>, <span class="st">&quot;Cantidad&quot;</span>, <span class="st">&quot;Rendimiento Ajustado Medio&quot;</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">&quot;lcc&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Resumen de los Cultivares en el dataset.&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Resumen de los Cultivares en el dataset.</caption>
 <thead>
@@ -636,24 +638,24 @@ hacemos con la función <code>mutate()</code>.</p>
 <p>Podemos añadir una nueva variable (llamada <code>prop</code>) que
 represente la proporción de ensayos en cada <strong>localidad</strong>
 con el uso de <code>mutate()</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> count<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cantidad<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span></code></pre></div>
 <pre><code>## # A tibble: 58 × 4
-##    Localidad count rendimiento_ajustado_medio    prop
-##    &lt;chr&gt;     &lt;int&gt;                      &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Anguil       21                      3156. 0.0421 
-##  2 Ascasubi      5                      4996. 0.0100 
-##  3 Asturias      7                      4216. 0.0140 
-##  4 Balcarce     59                      2856. 0.118  
-##  5 Barrow       34                      2665. 0.0681 
-##  6 Bellocq      31                      3899. 0.0621 
-##  7 Bolívar       5                      3931  0.0100 
-##  8 Bordenave     3                      4624  0.00601
-##  9 Bulnes       11                      2980. 0.0220 
-## 10 Carhue        2                      2879  0.00401
+##    Localidad cantidad rendimiento_ajustado_medio    prop
+##    &lt;chr&gt;        &lt;int&gt;                      &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Anguil          21                      3156. 0.0421 
+##  2 Ascasubi         5                      4996. 0.0100 
+##  3 Asturias         7                      4216. 0.0140 
+##  4 Balcarce        59                      2856. 0.118  
+##  5 Barrow          34                      2665. 0.0681 
+##  6 Bellocq         31                      3899. 0.0621 
+##  7 Bolívar          5                      3931  0.0100 
+##  8 Bordenave        3                      4624  0.00601
+##  9 Bulnes          11                      2980. 0.0220 
+## 10 Carhue           2                      2879  0.00401
 ## # ℹ 48 more rows</code></pre>
 </div>
 <div id="filtrando-los-datos" class="section level2">
@@ -667,10 +669,10 @@ data.frame con sólo las filas que satisfacen algunas condiciones.</p>
 <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>,
 <code>==</code>) para crear condiciones a partir de variables numéricas.
 Estos operadores también son útiles para fechas y cadenas de texto. El
-siguiente código aplica una condición (que sea igual a) para datos de
+siguiente código aplica una condición (“que sea igual a”) para datos de
 tipo texto (la columna especie).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">&quot;ACA 861&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">&quot;ACA 861&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 185 × 21
 ##    Cultivar Empresa Floracion_dias Altura_cm Densidad_sem Rendimiento
 ##    &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
@@ -700,7 +702,7 @@ con un rendimiento mayor a 5000 kg/ha.</p>
 </blockquote>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1hbmlwdWxhbmRvIGRhdG9zIg0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlDQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiBmYWxzZQ0KICAgIGhpZ2hsaWdodDogdGFuZ28NCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldCgNCgllY2hvID0gVFJVRSwNCgltZXNzYWdlID0gRkFMU0UsDQoJd2FybmluZyA9IEZBTFNFDQopDQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpDQpgYGANCg0KIyMgQ3JlYW5kbyB0YWJsYXMgZGUgcmVzdW1lbg0KDQpFbiB1bmEgaG9qYSBkZSBjw6FsY3VsbywgbGFzIHRhYmxhcyBkaW7DoW1pY2FzIG8gcGl2b3QgdGFibGVzIHNvbiBwb3RlbnRlcyBoZXJyYW1pZW50YXMgcGFyYSByZXN1bWlyIGxvcyBkYXRvcyBkZSBkaWZlcmVudGVzIG1hbmVyYXMuIFBvZGVtb3MgY3JlYXIgZXN0YXMgdGFibGFzIHV0aWxpemFuZG8gbGFzIGZ1bmNpb25lcyBgZ3JvdXBfYnlgIHkgYHN1bW1hcml6ZWAgZGVsIHBhcXVldGUgZHBseXIuIA0KDQpFY2hlbW9zIHVuIHZpc3Rhem8gYSBudWVzdHJvIGluZm9ybWUsIGp1c3RvIGRlc3B1w6lzIGRlIGxlZXIgbG9zIGRhdG9zLCBjcmVhbW9zIHVuYSB0YWJsYSBkZSByZXN1bWVuIGNvbiBlbCBuw7ptZXJvIGRlIGVuc2F5b3MgeSBlbCByZW5kaW1pZW50byBtZWRpYSBkZSBjYWRhIGN1bHRpdmFyIGRlIG51ZXN0cm8gY29uanVudG8gZGUgZGF0b3MuDQoNClBvZGVtb3MgdXRpbGl6YXIgYGdyb3VwX2J5KClgIHBhcmEgYWdydXBhciBudWVzdHJvcyBkYXRvcyBwb3IgKipjdWx0aXZhcioqIHkgYHN1bW1hcml6ZSgpYCBwYXJhIGNhbGN1bGFyIGVsIG7Dum1lcm8gZGUgZW5zYXlvcyB5IGVsICoqcmVuZGltaWVudG9fYWp1c3RhZG8qKiBtZWRpbyBwYXJhIGNhZGEgZ3J1cG8uDQoNCmBgYHtyfQ0KDQpjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoQ3VsdGl2YXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLA0KICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLCBuYS5ybSA9IFRSVUUpLCAyKSkNCg0KYGBgDQoNCkxhIGZ1bmNpw7NuIGBuKClgIGRldnVlbHZlIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSBmdW5jacOzbiBgbWVhbmAgY2FsY3VsYSBsYSBtZWRpYSBvIHByb21lZGlvLiBFbCBwYXLDoW1ldHJvIGBuYS5ybSA9IFRSVUVgIGluZGljYSBhIGxhIGZ1bmNpw7NuIHF1ZSBlbGltaW5lIGxvcyB2YWxvcmVzIGZhbHRhbnRlcyAoYE5BYCkgYW50ZXMgZGUgcmVhbGl6YXIgZWwgY8OhbGN1bG8uDQoNCj4gUHJlZ3VudGE6IMK/UXXDqSBwYXNhIHNpIG5vIHNlIHV0aWxpemEgYGdyb3VwX2J5KClgIGFudGVzIGRlIGBzdW1tYXJpc2UoKWA/IFByb2LDqW1vc2xvIHkgZGlzY3V0YW1vcyBsbyBxdWUgb2N1cnJlLg0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBzdW1tYXJpc2UoY291bnQgPSBuKCksDQogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8sIG5hLnJtID0gVFJVRSksIDIpKQ0KYGBgDQoNCkFzw60gcXVlIHNpIG5vIGFncnVwYW1vcyBwb3IgZWwgY3VsdGl2YXIgcHJpbWVybywgb2J0ZW5kcmVtb3MgdW5hIHNvbGEgZXN0YWTDrXN0aWNhIGRlIHJlc3VtZW4gKG4geSBtZWRpYSBlbiBlc3RlIGNhc28pIHBhcmEgdG9kbyBlbCBjb25qdW50byBkZSBkYXRvcy4NCg0KQWhvcmEsIHF1ZXJlbW9zIGxhIG1lZGlhIGRlbCByZW5kaW1pZW50byBlbiB0b25lbGFkYXMgeSBjb24gZG9zIGRlY2ltYWxlcy4gUG9kZW1vcyBjYW1iaWFyIG51ZXN0cmEgbGxhbWFkYSBhIGBzdW1tYXJpc2UoKWAgcGFyYSBvYnRlbmVyIGVzZSBjw6FsY3Vsby4gIA0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBncm91cF9ieShDdWx0aXZhcikgJT4lIA0KICBzdW1tYXJpc2UoY291bnQgPSBuKCksDQogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8vMTAwMCwgbmEucm0gPSBUUlVFKSwgMikpDQoNCmBgYA0KDQpQcmltZXJvIGRpdmlkaW1vcyBlbCByZW5kaW1pZW50byBhanVzdGFkbyBwb3IgMTAwMCBwYXJhIHRyYW5zZm9ybWFybG8gZGUga2lsb2dyYW1vcyBhIHRvbmVsYWRhcyB5IGx1ZWdvIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYHJvdW5kKClgIHBhcmEgcmVkb25kZWFyIGEgc8OzbG8gZG9zIGRlY2ltYWxlcy4NCg0KQWhvcmEgZXN0YW1vcyBlbiBlbCBwdW50byBlbiBlbCBxdWUgcXVlcmVtb3MgZ3VhcmRhciBlc3RhIGluZm9ybWFjacOzbiByZXN1bWlkYSBjb21vIHVuYSB2YXJpYWJsZSBwYXJhIHBvZGVyIHV0aWxpemFybGEgZW4gcG9zdGVyaW9yZXMgYW7DoWxpc2lzIHkgZm9ybWF0b3MuDQoNCkFzw60gcXVlIHZhbW9zIGEgYcOxYWRpciB1bmEgYXNpZ25hY2nDs24gZGUgdmFyaWFibGUgYSBlc2EgcHJpbWVyYSBsw61uZWE6DQoNCmBgYHtyfQ0KcmVzdW1lbiA8LSBjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoQ3VsdGl2YXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLA0KICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKQ0KYGBgDQoNCiMjIETDoW5kb2xlIGZvcm1hdG8gYSBsYSB0YWJsYQ0KDQpQYXJhIHF1ZSBudWVzdHJhIHRhYmxhIHNlIHZlYSBtZWpvciBlbiB1biBpbmZvcm1lLCB0ZW5lbW9zIHF1ZSBjYW1iaWFyIGFsZ3Vub3MgZGUgc3VzIGVsZW1lbnRvcy4gUG9yIGVqZW1wbG8sIGVsIG5vbWJyZSBkZSBsYXMgdmFyaWFibGVzIGRlYmUgc2VyIGluZm9ybWF0aXZvIHBhcmEgdW5hIHBlcnNvbmEgKGRlIG1vbWVudG8gc29uIG5vbWJyZXMgw7p0aWxlcyBwYXJhIHVuYSBjb21wdXRhZG9yYSksIHkgcG9kZW1vcyBhw7FhZGlybGUgdW4gdMOtdHVsbyB5IGNhbWJpYXIgbGEgYWxpbmVhY2nDs24gZGUgbG9zIG7Dum1lcm9zLg0KDQpQb2RlbW9zIGhhY2VybG8gY29uIGxhIGZ1bmNpw7NuIGBrYWJsZWAuDQoNCmBgYHtyfQ0KcmVzdW1lbiAlPiUgDQogIGtuaXRyOjprYWJsZShjb2wubmFtZXMgPSBjKCJDdWx0aXZhciIsICJDYW50aWRhZCIsICJSZW5kaW1pZW50byBBanVzdGFkbyBNZWRpbyIpLA0KICAgICAgICAgICAgICAgYWxpZ24gPSAibGNjIiwNCiAgICAgICAgICAgICAgIGNhcHRpb24gPSAiUmVzdW1lbiBkZSBsb3MgQ3VsdGl2YXJlcyBlbiBlbCBkYXRhc2V0LiIpDQpgYGANCg0KUG9kZW1vcyBoYWNlciBtdWNobyBtw6FzIGNvbiBvdHJhcyBmdW5jaW9uZXMgKG8gInZlcmJvcyIpIGRlIGRwbHlyLiBWZWFtb3MgYWxndW5vcyBtw6FzLg0KDQojIyBDcmVhbmRvIG51ZXZhcyB2YXJpYWJsZXMNCg0KTXVjaGFzIHZlY2VzIHF1ZXJyZW1vcyB0cmFiYWphciBjb24gaW5mb3JtYWNpw7NuIHF1ZSBzZSBkZXJpdmEgZGUgbG9zIGRhdG9zIG9yaWdpbmFsZXMuIEVzdG8gc2Ugc3VlbGUgaGFjZXIgYcOxYWRpZW5kbyB1bmEgbnVldmEgY29sdW1uYS4gTG8gaGFjZW1vcyBjb24gbGEgZnVuY2nDs24gYG11dGF0ZSgpYC4NCg0KUG9kZW1vcyBhw7FhZGlyIHVuYSBudWV2YSB2YXJpYWJsZSAobGxhbWFkYSBgcHJvcGApIHF1ZSByZXByZXNlbnRlIGxhIHByb3BvcmNpw7NuIGRlIGVuc2F5b3MgZW4gY2FkYSAqKmxvY2FsaWRhZCoqIGNvbiBlbCB1c28gZGUgYG11dGF0ZSgpYC4gDQoNCmBgYHtyfQ0KDQpjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoTG9jYWxpZGFkKSAlPiUgDQogIHN1bW1hcmlzZShjb3VudCA9IG4oKSwNCiAgICAgICAgICAgIHJlbmRpbWllbnRvX2FqdXN0YWRvX21lZGlvID0gcm91bmQobWVhbihSZW5kaW1pZW50b19BanVzdGFkbywgbmEucm0gPSBUUlVFKSwgMikpICU+JQ0KICBtdXRhdGUocHJvcCA9IGNvdW50L25yb3coY3VsdGl2YXJlcykpDQoNCmBgYA0KDQojIyBGaWx0cmFuZG8gbG9zIGRhdG9zDQoNCkVuIG51ZXN0cm8gaW5mb3JtZSB0YW1iacOpbiByZWFsaXphbW9zIHVuIGdyw6FmaWNvIGRlIHVuIGN1bHRpdmFyIGVzcGVjw61maWNvLiBQYXJhIGVsbG8gbmVjZXNpdGFtb3MgbWFudGVuZXIgc8OzbG8gbG9zIGRhdG9zIGRlbCBjdWx0aXZhciBxdWUgcXVlcmVtb3MgYW5hbGl6YXIuICBVdGlsaXphbW9zIGxhIGZ1bmNpw7NuIGBmaWx0ZXIoKWAgcGFyYSBmaWx0cmFyIGZpbGFzIGRlIHVuIGRhdGEuZnJhbWUsIGVzdGEgZnVuY2nDs24gZGV2dWVsdmUgdW4gbnVldm8gZGF0YS5mcmFtZSBjb24gc8OzbG8gbGFzIGZpbGFzIHF1ZSBzYXRpc2ZhY2VuIGFsZ3VuYXMgY29uZGljaW9uZXMuDQoNClBvZGVtb3MgdXRpbGl6YXIgb3BlcmFkb3JlcyBsw7NnaWNvcyAoYD5gLCBgPGAsIGA+PWAsIGA8PWAsIGA9PWApIHBhcmEgY3JlYXIgY29uZGljaW9uZXMgYSBwYXJ0aXIgZGUgdmFyaWFibGVzIG51bcOpcmljYXMuIEVzdG9zIG9wZXJhZG9yZXMgdGFtYmnDqW4gc29uIMO6dGlsZXMgcGFyYSBmZWNoYXMgeSBjYWRlbmFzIGRlIHRleHRvLiBFbCBzaWd1aWVudGUgY8OzZGlnbyBhcGxpY2EgdW5hIGNvbmRpY2nDs24gKHF1ZSBzZWEgaWd1YWwgYSkgcGFyYSBkYXRvcyBkZSB0aXBvIHRleHRvIChsYSBjb2x1bW5hIGVzcGVjaWUpLg0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBmaWx0ZXIoQ3VsdGl2YXIgPT0gIkFDQSA4NjEiKQ0KYGBgDQoNCj4gQWN0aXZpZGFkOiBFc2NyaWJlIGVsIGPDs2RpZ28gbmVjZXNhcmlvIHBhcmEgZmlsdHJhciB0b2RvcyBsb3MgZW5zYXlvcyBkZSBsYSBsb2NhbGlkYWQgQW5ndWlsLg0KDQo+IEFjdGl2aWRhZDogQWhvcmEgZXNjcmliZSBlbCBjw7NkaWdvIHBhcmEgZmlsdHJhciB0b2RvcyBsb3MgY3VsdGl2YXJlcyBjb24gdW4gcmVuZGltaWVudG8gbWF5b3IgYSA1MDAwIGtnL2hhLg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1hbmlwdWxhbmRvIGRhdG9zIg0Kb3V0cHV0OiANCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlDQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiBmYWxzZQ0KICAgIGhpZ2hsaWdodDogdGFuZ28NCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldCgNCgllY2hvID0gVFJVRSwNCgltZXNzYWdlID0gRkFMU0UsDQoJd2FybmluZyA9IEZBTFNFDQopDQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpDQpgYGANCg0KIyMgQ3JlYW5kbyB0YWJsYXMgZGUgcmVzdW1lbg0KDQpFbiB1bmEgaG9qYSBkZSBjw6FsY3VsbywgbGFzIHRhYmxhcyBkaW7DoW1pY2FzIG8gcGl2b3QgdGFibGVzIHNvbiBwb3RlbnRlcyBoZXJyYW1pZW50YXMgcGFyYSByZXN1bWlyIGxvcyBkYXRvcyBkZSBkaWZlcmVudGVzIG1hbmVyYXMuIFBvZGVtb3MgY3JlYXIgZXN0YXMgdGFibGFzIHV0aWxpemFuZG8gbGFzIGZ1bmNpb25lcyBgZ3JvdXBfYnlgIHkgYHN1bW1hcml6ZWAgZGVsIHBhcXVldGUgZHBseXIuIA0KDQpFY2hlbW9zIHVuIHZpc3Rhem8gYSBudWVzdHJvIGluZm9ybWUsIGp1c3RvIGRlc3B1w6lzIGRlIGxlZXIgbG9zIGRhdG9zLCBjcmVhbW9zIHVuYSB0YWJsYSBkZSByZXN1bWVuIGNvbiBlbCBuw7ptZXJvIGRlIGVuc2F5b3MgeSBlbCByZW5kaW1pZW50byBtZWRpYSBkZSBjYWRhIGN1bHRpdmFyIGRlIG51ZXN0cm8gY29uanVudG8gZGUgZGF0b3MuDQoNClBvZGVtb3MgdXRpbGl6YXIgYGdyb3VwX2J5KClgIHBhcmEgYWdydXBhciBudWVzdHJvcyBkYXRvcyBwb3IgKipjdWx0aXZhcioqIHkgYHN1bW1hcml6ZSgpYCBwYXJhIGNhbGN1bGFyIGVsIG7Dum1lcm8gZGUgZW5zYXlvcyB5IGVsICoqcmVuZGltaWVudG9fYWp1c3RhZG8qKiBtZWRpbyBwYXJhIGNhZGEgZ3J1cG8uDQoNCmBgYHtyfQ0KDQpjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoQ3VsdGl2YXIpICU+JSANCiAgc3VtbWFyaXNlKGNhbnRpZGFkID0gbigpLA0KICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLCBuYS5ybSA9IFRSVUUpLCAyKSkNCg0KYGBgDQoNCkxhIGZ1bmNpw7NuIGBuKClgIGRldnVlbHZlIGVsIG7Dum1lcm8gZGUgY2Fzb3MgeSBsYSBmdW5jacOzbiBgbWVhbmAgY2FsY3VsYSBsYSBtZWRpYSBvIHByb21lZGlvLiBFbCBwYXLDoW1ldHJvIGBuYS5ybSA9IFRSVUVgIGluZGljYSBhIGxhIGZ1bmNpw7NuIHF1ZSBlbGltaW5lIGxvcyB2YWxvcmVzIGZhbHRhbnRlcyAoYE5BYCkgYW50ZXMgZGUgcmVhbGl6YXIgZWwgY8OhbGN1bG8uDQoNCj4gUHJlZ3VudGE6IMK/UXXDqSBwYXNhIHNpIG5vIHNlIHV0aWxpemEgYGdyb3VwX2J5KClgIGFudGVzIGRlIGBzdW1tYXJpc2UoKWA/IFByb2LDqW1vc2xvIHkgZGlzY3V0YW1vcyBsbyBxdWUgb2N1cnJlLg0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBzdW1tYXJpc2UoY2FudGlkYWQgPSBuKCksDQogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8sIG5hLnJtID0gVFJVRSksIDIpKQ0KYGBgDQoNCkFzw60gcXVlIHNpIG5vIGFncnVwYW1vcyBwb3IgZWwgY3VsdGl2YXIgcHJpbWVybywgb2J0ZW5kcmVtb3MgdW5hIHNvbGEgZXN0YWTDrXN0aWNhIGRlIHJlc3VtZW4gKG4geSBtZWRpYSBlbiBlc3RlIGNhc28pIHBhcmEgdG9kbyBlbCBjb25qdW50byBkZSBkYXRvcy4NCg0KQWhvcmEsIHF1ZXJlbW9zIGxhIG1lZGlhIGRlbCByZW5kaW1pZW50byBlbiB0b25lbGFkYXMgeSBjb24gZG9zIGRlY2ltYWxlcy4gUG9kZW1vcyBjYW1iaWFyIG51ZXN0cmEgbGxhbWFkYSBhIGBzdW1tYXJpc2UoKWAgcGFyYSBvYnRlbmVyIGVzZSBjw6FsY3Vsby4gIA0KDQpgYGB7cn0NCmN1bHRpdmFyZXMgJT4lIA0KICBncm91cF9ieShDdWx0aXZhcikgJT4lIA0KICBzdW1tYXJpc2UoY2FudGlkYWQgPSBuKCksDQogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8vMTAwMCwgbmEucm0gPSBUUlVFKSwgMikpDQoNCmBgYA0KDQpQcmltZXJvIGRpdmlkaW1vcyBlbCByZW5kaW1pZW50byBhanVzdGFkbyBwb3IgMTAwMCBwYXJhIHRyYW5zZm9ybWFybG8gZGUga2lsb2dyYW1vcyBhIHRvbmVsYWRhcyB5IGx1ZWdvIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYHJvdW5kKClgIHBhcmEgcmVkb25kZWFyIGEgc8OzbG8gZG9zIGRlY2ltYWxlcy4NCg0KQWhvcmEgZXN0YW1vcyBlbiBlbCBwdW50byBlbiBlbCBxdWUgcXVlcmVtb3MgZ3VhcmRhciBlc3RhIGluZm9ybWFjacOzbiByZXN1bWlkYSBjb21vIHVuYSB2YXJpYWJsZSBwYXJhIHBvZGVyIHV0aWxpemFybGEgZW4gcG9zdGVyaW9yZXMgYW7DoWxpc2lzIHkgZm9ybWF0b3MuDQoNCkFzw60gcXVlIHZhbW9zIGEgYcOxYWRpciB1bmEgYXNpZ25hY2nDs24gZGUgdmFyaWFibGUgYSBlc2EgcHJpbWVyYSBsw61uZWE6DQoNCmBgYHtyfQ0KcmVzdW1lbiA8LSBjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoQ3VsdGl2YXIpICU+JSANCiAgc3VtbWFyaXNlKGNhbnRpZGFkID0gbigpLA0KICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKQ0KYGBgDQoNCiMjIETDoW5kb2xlIGZvcm1hdG8gYSBsYSB0YWJsYQ0KDQpQYXJhIHF1ZSBudWVzdHJhIHRhYmxhIHNlIHZlYSBtZWpvciBlbiB1biBpbmZvcm1lLCB0ZW5lbW9zIHF1ZSBjYW1iaWFyIGFsZ3Vub3MgZGUgc3VzIGVsZW1lbnRvcy4gUG9yIGVqZW1wbG8sIGVsIG5vbWJyZSBkZSBsYXMgdmFyaWFibGVzIGRlYmUgc2VyIGluZm9ybWF0aXZvIHBhcmEgdW5hIHBlcnNvbmEgKGRlIG1vbWVudG8gc29uIG5vbWJyZXMgw7p0aWxlcyBwYXJhIHVuYSBjb21wdXRhZG9yYSksIHkgcG9kZW1vcyBhw7FhZGlybGUgdW4gdMOtdHVsbyB5IGNhbWJpYXIgbGEgYWxpbmVhY2nDs24gZGUgbG9zIG7Dum1lcm9zLg0KDQpQb2RlbW9zIGhhY2VybG8gY29uIGxhIGZ1bmNpw7NuIGBrYWJsZWAuDQoNCmBgYHtyfQ0KcmVzdW1lbiAlPiUgDQogIGtuaXRyOjprYWJsZShjb2wubmFtZXMgPSBjKCJDdWx0aXZhciIsICJDYW50aWRhZCIsICJSZW5kaW1pZW50byBBanVzdGFkbyBNZWRpbyIpLA0KICAgICAgICAgICAgICAgYWxpZ24gPSAibGNjIiwNCiAgICAgICAgICAgICAgIGNhcHRpb24gPSAiUmVzdW1lbiBkZSBsb3MgQ3VsdGl2YXJlcyBlbiBlbCBkYXRhc2V0LiIpDQpgYGANCg0KUG9kZW1vcyBoYWNlciBtdWNobyBtw6FzIGNvbiBvdHJhcyBmdW5jaW9uZXMgKG8gInZlcmJvcyIpIGRlIGRwbHlyLiBWZWFtb3MgYWxndW5vcyBtw6FzLg0KDQojIyBDcmVhbmRvIG51ZXZhcyB2YXJpYWJsZXMNCg0KTXVjaGFzIHZlY2VzIHF1ZXJyZW1vcyB0cmFiYWphciBjb24gaW5mb3JtYWNpw7NuIHF1ZSBzZSBkZXJpdmEgZGUgbG9zIGRhdG9zIG9yaWdpbmFsZXMuIEVzdG8gc2Ugc3VlbGUgaGFjZXIgYcOxYWRpZW5kbyB1bmEgbnVldmEgY29sdW1uYS4gTG8gaGFjZW1vcyBjb24gbGEgZnVuY2nDs24gYG11dGF0ZSgpYC4NCg0KUG9kZW1vcyBhw7FhZGlyIHVuYSBudWV2YSB2YXJpYWJsZSAobGxhbWFkYSBgcHJvcGApIHF1ZSByZXByZXNlbnRlIGxhIHByb3BvcmNpw7NuIGRlIGVuc2F5b3MgZW4gY2FkYSAqKmxvY2FsaWRhZCoqIGNvbiBlbCB1c28gZGUgYG11dGF0ZSgpYC4gDQoNCmBgYHtyfQ0KDQpjdWx0aXZhcmVzICU+JSANCiAgZ3JvdXBfYnkoTG9jYWxpZGFkKSAlPiUgDQogIHN1bW1hcmlzZShjYW50aWRhZCA9IG4oKSwNCiAgICAgICAgICAgIHJlbmRpbWllbnRvX2FqdXN0YWRvX21lZGlvID0gcm91bmQobWVhbihSZW5kaW1pZW50b19BanVzdGFkbywgbmEucm0gPSBUUlVFKSwgMikpICU+JQ0KICBtdXRhdGUocHJvcCA9IGNhbnRpZGFkL25yb3coY3VsdGl2YXJlcykpDQoNCmBgYA0KDQojIyBGaWx0cmFuZG8gbG9zIGRhdG9zDQoNCkVuIG51ZXN0cm8gaW5mb3JtZSB0YW1iacOpbiByZWFsaXphbW9zIHVuIGdyw6FmaWNvIGRlIHVuIGN1bHRpdmFyIGVzcGVjw61maWNvLiBQYXJhIGVsbG8gbmVjZXNpdGFtb3MgbWFudGVuZXIgc8OzbG8gbG9zIGRhdG9zIGRlbCBjdWx0aXZhciBxdWUgcXVlcmVtb3MgYW5hbGl6YXIuICBVdGlsaXphbW9zIGxhIGZ1bmNpw7NuIGBmaWx0ZXIoKWAgcGFyYSBmaWx0cmFyIGZpbGFzIGRlIHVuIGRhdGEuZnJhbWUsIGVzdGEgZnVuY2nDs24gZGV2dWVsdmUgdW4gbnVldm8gZGF0YS5mcmFtZSBjb24gc8OzbG8gbGFzIGZpbGFzIHF1ZSBzYXRpc2ZhY2VuIGFsZ3VuYXMgY29uZGljaW9uZXMuDQoNClBvZGVtb3MgdXRpbGl6YXIgb3BlcmFkb3JlcyBsw7NnaWNvcyAoYD5gLCBgPGAsIGA+PWAsIGA8PWAsIGA9PWApIHBhcmEgY3JlYXIgY29uZGljaW9uZXMgYSBwYXJ0aXIgZGUgdmFyaWFibGVzIG51bcOpcmljYXMuIEVzdG9zIG9wZXJhZG9yZXMgdGFtYmnDqW4gc29uIMO6dGlsZXMgcGFyYSBmZWNoYXMgeSBjYWRlbmFzIGRlIHRleHRvLiBFbCBzaWd1aWVudGUgY8OzZGlnbyBhcGxpY2EgdW5hIGNvbmRpY2nDs24gKCJxdWUgc2VhIGlndWFsIGEiKSBwYXJhIGRhdG9zIGRlIHRpcG8gdGV4dG8gKGxhIGNvbHVtbmEgZXNwZWNpZSkuDQoNCmBgYHtyfQ0KY3VsdGl2YXJlcyAlPiUgDQogIGZpbHRlcihDdWx0aXZhciA9PSAiQUNBIDg2MSIpDQpgYGANCg0KPiBBY3RpdmlkYWQ6IEVzY3JpYmUgZWwgY8OzZGlnbyBuZWNlc2FyaW8gcGFyYSBmaWx0cmFyIHRvZG9zIGxvcyBlbnNheW9zIGRlIGxhIGxvY2FsaWRhZCBBbmd1aWwuDQoNCj4gQWN0aXZpZGFkOiBBaG9yYSBlc2NyaWJlIGVsIGPDs2RpZ28gcGFyYSBmaWx0cmFyIHRvZG9zIGxvcyBjdWx0aXZhcmVzIGNvbiB1biByZW5kaW1pZW50byBtYXlvciBhIDUwMDAga2cvaGEuDQoNCg==</div>
 
 
 
