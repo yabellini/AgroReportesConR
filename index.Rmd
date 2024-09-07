@@ -12,7 +12,7 @@ En cada sección incluimos actividades junto con ejemplos. Queremos que estos ej
 
 ### Antes de comenzar
 
-Durante este taller utilizaremos RStudio Cloud. Si quieres trabajar localmente en tu computadora usaremos R y RStudio. Por favor, [sigue estas instrucciones para prepararte antes del taller](prepare.html).
+Durante este taller utilizaremos Posit Cloud (una versión de RStudio en al nube). Si quieres trabajar localmente en tu computadora usaremos R y RStudio. Por favor, [sigue estas instrucciones para prepararte antes del taller](prepare.html).
 
 ### Agenda
 
@@ -40,7 +40,7 @@ Yanina Bellini Saibene. rOpenSci Community Manager. Fue investigadora en el Inst
 
 **Pao Corrales**
 
-<img src="img/pao_circle.png" alt="Foto de Pao" width="100" height="100" align="left" style="margin:10px"/> Paola Corrales. Doctora de la Universidad de Buenos Aires. Trabaja en ciencias de la atmósfera aplicando técnicas de asimilación de datos para mejorar los pronósticos a corto plazo de eventos severos en Argentina. Es trainer e instructora de [The Carpentries](https://carpentries.org/) e instructora certificada de [RStudio](https://education.rstudio.com/trainers/people/corrales+paola/). También ha contribuido a proyectos de traducción de materiales de The Carpentries, al libro Teaching Tech Together y R base. Forma parte de Expedición Ciencia, una organización sin ánimo de lucro con sede en Argentina, donde dirige proyectos educativos como campamentos y talleres de ciencia para estudiantes y profesores de ciencias de primaria y secundaria. Es profesora de la Licenciatura y la diplomatura en Ciencias de Datos de la Universidad Guillermo Brown.  También desarrolla materiales de licencia abierta para enseñar y aprender R desde cero. 
+<img src="img/pao_circle.png" alt="Foto de Pao" width="100" height="100" align="left" style="margin:10px"/> Paola Corrales. Doctora en ciencias de la atmósfera de la Universidad de Buenos Aires. Trabajó en ciencias de la atmósfera aplicando técnicas de asimilación de datos para mejorar los pronósticos a corto plazo de eventos severos en Argentina y actualmente trabaja en Monash University explorando extremos en el clima y tiempo en Australia. Es trainer e instructora de [The Carpentries](https://carpentries.org/) e instructora certificada de [RStudio](https://education.rstudio.com/trainers/people/corrales+paola/). También ha contribuido a proyectos de traducción de materiales de The Carpentries, al libro Teaching Tech Together y R base. Forma parte de Expedición Ciencia, una organización sin ánimo de lucro con sede en Argentina, donde dirige proyectos educativos como campamentos y talleres de ciencia para estudiantes y profesores de ciencias de primaria y secundaria. Es profesora en la Licenciatura en Ciencias de Datos de la Universidad Austral.  También desarrolla materiales de licencia abierta para enseñar y aprender R desde cero. 
 
 [paobcorrales.github.io](https://github.com/paocorrales) | [\@paobcorrales](https://twitter.com/PaobCorrales)
 
