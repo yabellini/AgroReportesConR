@@ -13,7 +13,7 @@
 
 <title>Cultivar ACA 861</title>
 
-<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -30,6 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -56,6 +58,11 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
 
 
 
@@ -216,6 +223,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -283,6 +293,13 @@ $(document).ready(function () {
 </div><!--/.navbar -->
 
 <div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
 
 
 
@@ -690,6 +707,7 @@ por el rendimiento del cultivar ACA 861.</p>
 </div>
 </div>
 
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ3VsdGl2YXIgQUNBIDg2MSIKb3V0cHV0OiAKICBodG1sX2RvY3VtZW50OgogICAgY29kZV9kb3dubG9hZDogdHJ1ZQogICAgdG9jOiBmYWxzZQotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IEZBTFNFLCAKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2UgPSBGQUxTRSwKICAgICAgICAgICAgICAgICAgICAgIHdhcm5pbmcgPSBGQUxTRSkKCmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCiMjIFNvYnJlIGxvcyBkYXRvcwoKTG9zIGRhdG9zIGRlIGxhICoqUmVkIE5hY2lvbmFsIGRlIEN1bHRpdmFyZXMgZGUgR2lyYXNvbCoqIGZ1ZXJvbiByZWNvZ2lkb3MgeSBwdWVzdG9zIGEgZGlzcG9zaWNpw7NuIHBvciBpbnZlc3RpZ2Fkb3JlcyBkZSBsYSBbRXN0YWNpw7NuIEV4cGVyaW1lbnRhbCBBZ3JvcGVjdWFyaWEgQW5ndWlsIGRlbCBJTlRBXShodHRwczovL3d3dy5hcmdlbnRpbmEuZ29iLmFyL2ludGEpLiBFbCBjb25qdW50byBkZSBkYXRvcyBjb24gZWwgcXVlIHRyYWJhamFtb3MgZXMgdW4gc3ViY29uanVudG8gZGUgdG9kb3MgbG9zIGRhdG9zIGRlIGxhIHJlZCBlIGluY2x1eWUgbG9zIHJlc3VsdGFkb3MgZGUgZGlzdGludG9zIHRpcG8gZGUgZW5zYXlvcyBkZSBjdWx0aXZhcmVzIGRlIGdpcmFzb2wgZW4gdmFyaWFzIGxvY2FsaWRhZGVzIGRlICpBcmdlbnRpbmEqLgoKYGBge3IgcmVhZH0KY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpCgpyZXN1bWVuIDwtIGN1bHRpdmFyZXMgJT4lIAogIGdyb3VwX2J5KEN1bHRpdmFyKSAlPiUgCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpLAogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8sIG5hLnJtID0gVFJVRSksIDIpKQoKcmVzdW1lbiAlPiUgCiAga25pdHI6OmthYmxlKGNvbC5uYW1lcyA9IGMoIkxvY2FsaWRhZCIsICJDYW50aWRhZCIsICJSZW5kaW1pZW50byBBanVzdGFkbyBNZWRpbyIpLAogICAgICAgICAgICAgICBhbGlnbiA9ICJsY2MiLAogICAgICAgICAgICAgICBjYXB0aW9uID0gIlJlc3VtZW4gZGUgbG9zIEN1bHRpdmFyZXMgZW4gZWwgZGF0YXNldC4iKQpgYGAKCiMjIyBDdWx0aXZhciBBQ0EgODYxCgpFbiBlc3RhIHNlY2Npw7NuIGNlbnRyYW1vcyBlbCBhbsOhbGlzaXMgZW4gZWwgY3VsdGl2YXIgQUNBIDg2MS4gRW4gZXN0ZSBncsOhZmljbyBvYnNlcnZhbW9zIGxhIHJlbGFjacOzbiBlbnRyZSBlbCBwb3JjZW50YWplIGRlIGFjZWl0ZSB5IGVsIHJlbmRpbWllbnRvLgoKYGBge3J9CmN1bHRpdmFyZXMgJT4lIAogIGZpbHRlcihDdWx0aXZhciA9PSAiQUNBIDg2MSIpICU+JSAKICBnZ3Bsb3QoYWVzKHggPSBSZW5kaW1pZW50b19BanVzdGFkbywgeSA9IEFjZWl0ZV9wb3JjZW50YWplKSkgKwogIGdlb21fcG9pbnQoY29sb3IgPSAiZGFya29yYW5nZSIsCiAgICAgICAgICAgICBzaXplID0gMywKICAgICAgICAgICAgIGFscGhhID0gMC44KSArCiAgZ2VvbV9zbW9vdGgobWV0aG9kID0gImxtIiwgc2UgPSBGQUxTRSwgY29sb3IgPSAiZGFya29yYW5nZSIpICsKICB0aGVtZV9taW5pbWFsKCkgKwogIGxhYnModGl0bGUgPSAiUmVuZGltaWVudG8geSBwb3JjZW50YWplIGRlIGFjZWl0ZSIsCiAgICAgICBzdWJ0aXRsZSA9ICJDdWx0aXZhciBBQ0EgODYxIiwKICAgICAgIHggPSAiUmVuZGltaWVudG8gQWp1c3RhZG8gKGtnL2hhKSIsCiAgICAgICB5ID0gIlBvcmNlbnRhamUgZGUgQWNlaXRlICglKSIsCiAgICAgICBjb2xvciA9ICJDdWx0aXZhciIpIApgYGAKCkVzdGUgZXMgbGEgZGlzdHJpYnVjacOzbiBkZSBsb3MgcmVuZGltaWVudG9zIGRlbCBjdWx0aXZhciBBQ0EgODYxLCBsb3MgY29sb3JlcyBtdWVzdHJhbiBlbCB0aXBvIGRlIHNpZW1icmEgdXRpbGl6YWRvIGVuIGxvcyBlbnNheW9zLiAKCmBgYHtyfQpjdWx0aXZhcmVzICU+JSAKICBmaWx0ZXIoQ3VsdGl2YXIgPT0gIkFDQSA4NjEiKSAlPiUKICBnZ3Bsb3QoYWVzKHggPSBSZW5kaW1pZW50b19BanVzdGFkbykpICsKICBnZW9tX2hpc3RvZ3JhbShhZXMoZmlsbCA9IFRpcG9fU2llbWJyYSksCiAgICAgICAgICAgICAgICAgYWxwaGEgPSAwLjUsCiAgICAgICAgICAgICAgICAgcG9zaXRpb24gPSAiaWRlbnRpdHkiKSArCiAgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gYygiZGFya29yYW5nZSIsICJjeWFuNCIsICJwdXJwbGUiKSkgKwogIHRoZW1lX21pbmltYWwoKSArCiAgbGFicyh4ID0gIlJlbmRpbWllbnRvIEFqdXN0YWRvIChrZy9oYSkiLAogICAgICAgeSA9ICJGcmVjdWVuY2lhIiwKICAgICAgIGZpbGwgPSBOVUxMLAogICAgICAgdGl0bGUgPSAiUmVuZGltaWVudG8gcG9yIHRpcG8gZGUgc2llbWJyYSIpCmBgYAoKRWwgcmVuZGltaWVudG8gZGUgdW4gY3VsdGl2YXIgc2UgY29tcG9ydGFuIGRpZmVyZW50ZSBzZWfDum4gbGEgem9uYSBnZW9ncsOhZmljYS4gRXN0ZSBlcyB1biBsaXN0YWRvIGRlIGxvY2FsaWRhZGVzIG9yZGVuYWRvIGRlIG1heW9yIGEgbWVub3IgcG9yIGVsIHJlbmRpbWllbnRvIGRlbCBjdWx0aXZhciBBQ0EgODYxLiAKCmBgYHtyIGxpc3RhZG94cmVuZGltaWVudG99CnJlbmRpbWllbnRvX2xvY2FsaWRhZCA8LSBjdWx0aXZhcmVzICU+JSAKICBmaWx0ZXIoQ3VsdGl2YXIgPT0gIkFDQSA4NjEiKSAlPiUKICBncm91cF9ieShMb2NhbGlkYWQpICU+JSAKICBzdW1tYXJpc2UoY291bnQgPSBuKCksCiAgICAgICAgICAgIHJlbmRpbWllbnRvX2FqdXN0YWRvX21lZGlvID0gcm91bmQobWVhbihSZW5kaW1pZW50b19BanVzdGFkbywgbmEucm0gPSBUUlVFKSwgMikpIAoKcmVuZGltaWVudG9fbG9jYWxpZGFkIDwtIHJlbmRpbWllbnRvX2xvY2FsaWRhZCAlPiUgCiAgYXJyYW5nZShkZXNjKHJlbmRpbWllbnRvX2FqdXN0YWRvX21lZGlvKSkKCnJlbmRpbWllbnRvX2xvY2FsaWRhZCAlPiUKICBrbml0cjo6a2FibGUoY29sLm5hbWVzID0gYygiQ3VsdGl2YXIiLCAiQ2FudGlkYWQiLCAiUmVuZGltaWVudG8gQWp1c3RhZG8gTWVkaW8iKSwKICAgICAgICAgICAgICAgYWxpZ24gPSAibGNjIiwKICAgICAgICAgICAgICAgY2FwdGlvbiA9ICJSZXN1bWVuIGRlIGxvcyBDdWx0aXZhcmVzIGVuIGVsIGRhdGFzZXQuIikKYGBg</div>
 
 
 
@@ -723,6 +741,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("reporte_cultivares.Rmd");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
