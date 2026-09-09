@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Seminario de Aplicación"
+  navbar:
+    left:
+      - text: "Antes de comenzar"
+        href: prepare.qmd
+      - text: "Temas"
+        menu:
+          - text: "Introducción y reportes"
+            href: 01-introduction.qmd
+          - text: "Leyendo datos"
+            href: 02-reading-data.qmd
+          - text: "Graficando datos"
+            href: 03-plotting-data.qmd
+          - text: "Maninpulación de datos"
+            href: 04-data-manipulation.qmd
+          - text: "Comunicando nuestro trabajo"
+            href: 05-reports.qmd
+      - text: "Ejemplo"
+        href: reporte_cultivares.qmd
+    right:
+      - text: "Repo"
+        href: https://github.com/yabellini/AgroReportesConR
+
+format:
+  html:
+    toc: true
+    theme: cosmo
