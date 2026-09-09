@@ -1,60 +1,29 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
 
-<head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-
-
-<title>Manipulando datos</title>
-
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/navigation-1.1/sourceembed.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-
-
-<style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
-<style type="text/css" data-origin="pandoc">
+<title>Manipulando datos – Seminario de Aplicación</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -65,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -79,679 +48,1022 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
-  {  background-color: #f8f8f8; }
+  {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #204a87; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #8f5902; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #204a87; font-weight: bold; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-
 </style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    var j = 0;
-    while (j < rules.length) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
-        j++;
-        continue;
-      }
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') {
-        j++;
-        continue;
-      }
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0a95de2c3be981c2e03029825b16c585.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-89e5a52b8dd8a0bdc4ebd6e7b82352b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
-})();
-</script>
-
-
-<style type="text/css">
-#rmd-source-code {
-  display: none;
-}
-</style>
-
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
-</style>
-
-
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-
-
+}</script>
 
 
 </head>
 
-<body>
+<body class="nav-fixed quarto-light">
 
-
-<div class="container-fluid main-container">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">Seminario de Aplicación</a>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Seminario de Aplicación</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./prepare.html"> 
+<span class="menu-text">Antes de comenzar</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-temas" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Temas</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-temas">    
+        <li>
+    <a class="dropdown-item" href="./01-introduction.html">
+ <span class="dropdown-text">Introducción y reportes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./02-reading-data.html">
+ <span class="dropdown-text">Leyendo datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-plotting-data.html">
+ <span class="dropdown-text">Graficando datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./04-data-manipulation.html">
+ <span class="dropdown-text">Maninpulación de datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./05-reports.html">
+ <span class="dropdown-text">Comunicando nuestro trabajo</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./reporte_cultivares.html"> 
+<span class="menu-text">Ejemplo</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/yabellini/AgroReportesConR"> 
+<span class="menu-text">Repo</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="prepare.html">Antes de comenzar</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Temas
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="01-introduction.html">Introducción y reportes</a>
-    </li>
-    <li>
-      <a href="02-reading-data.html">Leyendo datos</a>
-    </li>
-    <li>
-      <a href="03-plotting-data.html">Graficando datos</a>
-    </li>
-    <li>
-      <a href="04-data-manipulation.html">Maninpulación de datos</a>
-    </li>
-    <li>
-      <a href="05-reports.html">Comunicando nuestro trabajo</a>
-    </li>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Manipulando datos</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#creando-tablas-de-resumen" id="toc-creando-tablas-de-resumen">Creando tablas de resumen</a></li>
+  <li><a href="#dándole-formato-a-la-tabla" id="toc-dándole-formato-a-la-tabla">Dándole formato a la tabla</a></li>
+  <li><a href="#creando-nuevas-variables" id="toc-creando-nuevas-variables">Creando nuevas variables</a></li>
+  <li><a href="#filtrando-los-datos" id="toc-filtrando-los-datos">Filtrando los datos</a></li>
   </ul>
-</li>
-<li>
-  <a href="reporte_cultivares.html">Ejemplo</a>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/yabellini/AgroReportesConR">Repo</a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
-</ul>
+</nav>
+<section id="creando-tablas-de-resumen" class="level2">
+<h2 class="anchored" data-anchor-id="creando-tablas-de-resumen">Creando tablas de resumen</h2>
+<p>En una hoja de cálculo, las tablas dinámicas o pivot tables son potentes herramientas para resumir los datos de diferentes maneras. Podemos crear estas tablas utilizando las funciones <code>group_by</code> y <code>summarize</code> del paquete dplyr.</p>
+<p>Echemos un vistazo a nuestro informe, justo después de leer los datos, creamos una tabla de resumen con el número de ensayos y el rendimiento media de cada cultivar de nuestro conjunto de datos.</p>
+<p>Podemos utilizar <code>group_by()</code> para agrupar nuestros datos por <strong>cultivar</strong> y <code>summarize()</code> para calcular el número de ensayos y el <strong>rendimiento_ajustado</strong> medio para cada grupo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 19 × 3
+   Cultivar        cantidad rendimiento_ajustado_medio
+   &lt;chr&gt;              &lt;int&gt;                      &lt;dbl&gt;
+ 1 ACA 203                3                      2309 
+ 2 ACA 203 CL            57                      3089.
+ 3 ACA 203 CL DM          3                      3771.
+ 4 ACA 211 CL             9                      2870.
+ 5 ACA 350 CL PLUS       18                      3439.
+ 6 ACA 769                1                      3744 
+ 7 ACA 861              185                      3004.
+ 8 ACA 862                1                      3483 
+ 9 ACA 862 HO            14                      2673.
+10 ACA 863               82                      3022.
+11 ACA 864 DM            31                      3474.
+12 ACA 865               12                      3256.
+13 ACA 866 HO            21                      2846.
+14 ACA 867               43                      3394.
+15 ACA 868 HO            15                      3645.
+16 ACA 876                1                      1691 
+17 ACA 884                1                      1654 
+18 ACA 885                1                      1574 
+19 ACA 886                1                      1588 </code></pre>
 </div>
-
-
-
-<h1 class="title toc-ignore">Manipulando datos</h1>
-
 </div>
-
-<div id="TOC">
-<ul>
-<li><a href="#creando-tablas-de-resumen"
-id="toc-creando-tablas-de-resumen">Creando tablas de resumen</a></li>
-<li><a href="#d%C3%A1ndole-formato-a-la-tabla"
-id="toc-dándole-formato-a-la-tabla">Dándole formato a la tabla</a></li>
-<li><a href="#creando-nuevas-variables"
-id="toc-creando-nuevas-variables">Creando nuevas variables</a></li>
-<li><a href="#filtrando-los-datos"
-id="toc-filtrando-los-datos">Filtrando los datos</a></li>
-</ul>
-</div>
-
-<div id="creando-tablas-de-resumen" class="section level2">
-<h2>Creando tablas de resumen</h2>
-<p>En una hoja de cálculo, las tablas dinámicas o pivot tables son
-potentes herramientas para resumir los datos de diferentes maneras.
-Podemos crear estas tablas utilizando las funciones
-<code>group_by</code> y <code>summarize</code> del paquete dplyr.</p>
-<p>Echemos un vistazo a nuestro informe, justo después de leer los
-datos, creamos una tabla de resumen con el número de ensayos y el
-rendimiento media de cada cultivar de nuestro conjunto de datos.</p>
-<p>Podemos utilizar <code>group_by()</code> para agrupar nuestros datos
-por <strong>cultivar</strong> y <code>summarize()</code> para calcular
-el número de ensayos y el <strong>rendimiento_ajustado</strong> medio
-para cada grupo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 19 × 3
-##    Cultivar        cantidad rendimiento_ajustado_medio
-##    &lt;chr&gt;              &lt;int&gt;                      &lt;dbl&gt;
-##  1 ACA 203                3                      2309 
-##  2 ACA 203 CL            57                      3089.
-##  3 ACA 203 CL DM          3                      3771.
-##  4 ACA 211 CL             9                      2870.
-##  5 ACA 350 CL PLUS       18                      3439.
-##  6 ACA 769                1                      3744 
-##  7 ACA 861              185                      3004.
-##  8 ACA 862                1                      3483 
-##  9 ACA 862 HO            14                      2673.
-## 10 ACA 863               82                      3022.
-## 11 ACA 864 DM            31                      3474.
-## 12 ACA 865               12                      3256.
-## 13 ACA 866 HO            21                      2846.
-## 14 ACA 867               43                      3394.
-## 15 ACA 868 HO            15                      3645.
-## 16 ACA 876                1                      1691 
-## 17 ACA 884                1                      1654 
-## 18 ACA 885                1                      1574 
-## 19 ACA 886                1                      1588</code></pre>
-<p>La función <code>n()</code> devuelve el número de casos y la función
-<code>mean</code> calcula la media o promedio. El parámetro
-<code>na.rm = TRUE</code> indica a la función que elimine los valores
-faltantes (<code>NA</code>) antes de realizar el cálculo.</p>
-<blockquote>
-<p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de
-<code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
+<p>La función <code>n()</code> devuelve el número de casos y la función <code>mean</code> calcula la media o promedio. El parámetro <code>na.rm = TRUE</code> indica a la función que elimine los valores faltantes (<code>NA</code>) antes de realizar el cálculo.</p>
+<blockquote class="blockquote">
+<p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de <code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
 </blockquote>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 2
-##   cantidad rendimiento_ajustado_medio
-##      &lt;int&gt;                      &lt;dbl&gt;
-## 1      499                      3094.</code></pre>
-<p>Así que si no agrupamos por el cultivar primero, obtendremos una sola
-estadística de resumen (n y media en este caso) para todo el conjunto de
-datos.</p>
-<p>Ahora, queremos la media del rendimiento en toneladas y con dos
-decimales. Podemos cambiar nuestra llamada a <code>summarise()</code>
-para obtener ese cálculo.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 19 × 3
-##    Cultivar        cantidad rendimiento_ajustado_medio
-##    &lt;chr&gt;              &lt;int&gt;                      &lt;dbl&gt;
-##  1 ACA 203                3                       2.31
-##  2 ACA 203 CL            57                       3.09
-##  3 ACA 203 CL DM          3                       3.77
-##  4 ACA 211 CL             9                       2.87
-##  5 ACA 350 CL PLUS       18                       3.44
-##  6 ACA 769                1                       3.74
-##  7 ACA 861              185                       3   
-##  8 ACA 862                1                       3.48
-##  9 ACA 862 HO            14                       2.67
-## 10 ACA 863               82                       3.02
-## 11 ACA 864 DM            31                       3.47
-## 12 ACA 865               12                       3.26
-## 13 ACA 866 HO            21                       2.85
-## 14 ACA 867               43                       3.39
-## 15 ACA 868 HO            15                       3.65
-## 16 ACA 876                1                       1.69
-## 17 ACA 884                1                       1.65
-## 18 ACA 885                1                       1.57
-## 19 ACA 886                1                       1.59</code></pre>
-<p>Primero dividimos el rendimiento ajustado por 1000 para transformarlo
-de kilogramos a toneladas y luego utilizamos la función
-<code>round()</code> para redondear a sólo dos decimales.</p>
-<p>Ahora estamos en el punto en el que queremos guardar esta información
-resumida como una variable para poder utilizarla en posteriores análisis
-y formatos.</p>
-<p>Así que vamos a añadir una asignación de variable a esa primera
-línea:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  cantidad rendimiento_ajustado_medio
+     &lt;int&gt;                      &lt;dbl&gt;
+1      499                      3094.</code></pre>
 </div>
-<div id="dándole-formato-a-la-tabla" class="section level2">
-<h2>Dándole formato a la tabla</h2>
-<p>Para que nuestra tabla se vea mejor en un informe, tenemos que
-cambiar algunos de sus elementos. Por ejemplo, el nombre de las
-variables debe ser informativo para una persona (de momento son nombres
-útiles para una computadora), y podemos añadirle un título y cambiar la
-alineación de los números.</p>
+</div>
+<p>Así que si no agrupamos por el cultivar primero, obtendremos una sola estadística de resumen (n y media en este caso) para todo el conjunto de datos.</p>
+<p>Ahora, queremos la media del rendimiento en toneladas y con dos decimales. Podemos cambiar nuestra llamada a <code>summarise()</code> para obtener ese cálculo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 19 × 3
+   Cultivar        cantidad rendimiento_ajustado_medio
+   &lt;chr&gt;              &lt;int&gt;                      &lt;dbl&gt;
+ 1 ACA 203                3                       2.31
+ 2 ACA 203 CL            57                       3.09
+ 3 ACA 203 CL DM          3                       3.77
+ 4 ACA 211 CL             9                       2.87
+ 5 ACA 350 CL PLUS       18                       3.44
+ 6 ACA 769                1                       3.74
+ 7 ACA 861              185                       3   
+ 8 ACA 862                1                       3.48
+ 9 ACA 862 HO            14                       2.67
+10 ACA 863               82                       3.02
+11 ACA 864 DM            31                       3.47
+12 ACA 865               12                       3.26
+13 ACA 866 HO            21                       2.85
+14 ACA 867               43                       3.39
+15 ACA 868 HO            15                       3.65
+16 ACA 876                1                       1.69
+17 ACA 884                1                       1.65
+18 ACA 885                1                       1.57
+19 ACA 886                1                       1.59</code></pre>
+</div>
+</div>
+<p>Primero dividimos el rendimiento ajustado por 1000 para transformarlo de kilogramos a toneladas y luego utilizamos la función <code>round()</code> para redondear a sólo dos decimales.</p>
+<p>Ahora estamos en el punto en el que queremos guardar esta información resumida como una variable para poder utilizarla en posteriores análisis y formatos.</p>
+<p>Así que vamos a añadir una asignación de variable a esa primera línea:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="dándole-formato-a-la-tabla" class="level2">
+<h2 class="anchored" data-anchor-id="dándole-formato-a-la-tabla">Dándole formato a la tabla</h2>
+<p>Para que nuestra tabla se vea mejor en un informe, tenemos que cambiar algunos de sus elementos. Por ejemplo, el nombre de las variables debe ser informativo para una persona (de momento son nombres útiles para una computadora), y podemos añadirle un título y cambiar la alineación de los números.</p>
 <p>Podemos hacerlo con la función <code>kable</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Cultivar&quot;</span>, <span class="st">&quot;Cantidad&quot;</span>, <span class="st">&quot;Rendimiento Ajustado Medio&quot;</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">&quot;lcc&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Resumen de los Cultivares en el dataset.&quot;</span>)</span></code></pre></div>
-<table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Cultivar"</span>, <span class="st">"Cantidad"</span>, <span class="st">"Rendimiento Ajustado Medio"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"lcc"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Resumen de los Cultivares en el dataset."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <caption>Resumen de los Cultivares en el dataset.</caption>
 <thead>
 <tr class="header">
-<th align="left">Cultivar</th>
-<th align="center">Cantidad</th>
-<th align="center">Rendimiento Ajustado Medio</th>
+<th style="text-align: left;">Cultivar</th>
+<th style="text-align: center;">Cantidad</th>
+<th style="text-align: center;">Rendimiento Ajustado Medio</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">ACA 203</td>
-<td align="center">3</td>
-<td align="center">2.31</td>
+<td style="text-align: left;">ACA 203</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2.31</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 203 CL</td>
-<td align="center">57</td>
-<td align="center">3.09</td>
+<td style="text-align: left;">ACA 203 CL</td>
+<td style="text-align: center;">57</td>
+<td style="text-align: center;">3.09</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 203 CL DM</td>
-<td align="center">3</td>
-<td align="center">3.77</td>
+<td style="text-align: left;">ACA 203 CL DM</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3.77</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 211 CL</td>
-<td align="center">9</td>
-<td align="center">2.87</td>
+<td style="text-align: left;">ACA 211 CL</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">2.87</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 350 CL PLUS</td>
-<td align="center">18</td>
-<td align="center">3.44</td>
+<td style="text-align: left;">ACA 350 CL PLUS</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">3.44</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 769</td>
-<td align="center">1</td>
-<td align="center">3.74</td>
+<td style="text-align: left;">ACA 769</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3.74</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 861</td>
-<td align="center">185</td>
-<td align="center">3.00</td>
+<td style="text-align: left;">ACA 861</td>
+<td style="text-align: center;">185</td>
+<td style="text-align: center;">3.00</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 862</td>
-<td align="center">1</td>
-<td align="center">3.48</td>
+<td style="text-align: left;">ACA 862</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3.48</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 862 HO</td>
-<td align="center">14</td>
-<td align="center">2.67</td>
+<td style="text-align: left;">ACA 862 HO</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">2.67</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 863</td>
-<td align="center">82</td>
-<td align="center">3.02</td>
+<td style="text-align: left;">ACA 863</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">3.02</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 864 DM</td>
-<td align="center">31</td>
-<td align="center">3.47</td>
+<td style="text-align: left;">ACA 864 DM</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">3.47</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 865</td>
-<td align="center">12</td>
-<td align="center">3.26</td>
+<td style="text-align: left;">ACA 865</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">3.26</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 866 HO</td>
-<td align="center">21</td>
-<td align="center">2.85</td>
+<td style="text-align: left;">ACA 866 HO</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">2.85</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 867</td>
-<td align="center">43</td>
-<td align="center">3.39</td>
+<td style="text-align: left;">ACA 867</td>
+<td style="text-align: center;">43</td>
+<td style="text-align: center;">3.39</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 868 HO</td>
-<td align="center">15</td>
-<td align="center">3.65</td>
+<td style="text-align: left;">ACA 868 HO</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">3.65</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 876</td>
-<td align="center">1</td>
-<td align="center">1.69</td>
+<td style="text-align: left;">ACA 876</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.69</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 884</td>
-<td align="center">1</td>
-<td align="center">1.65</td>
+<td style="text-align: left;">ACA 884</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.65</td>
 </tr>
 <tr class="even">
-<td align="left">ACA 885</td>
-<td align="center">1</td>
-<td align="center">1.57</td>
+<td style="text-align: left;">ACA 885</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.57</td>
 </tr>
 <tr class="odd">
-<td align="left">ACA 886</td>
-<td align="center">1</td>
-<td align="center">1.59</td>
+<td style="text-align: left;">ACA 886</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.59</td>
 </tr>
 </tbody>
 </table>
-<p>Podemos hacer mucho más con otras funciones (o “verbos”) de dplyr.
-Veamos algunos más.</p>
 </div>
-<div id="creando-nuevas-variables" class="section level2">
-<h2>Creando nuevas variables</h2>
-<p>Muchas veces querremos trabajar con información que se deriva de los
-datos originales. Esto se suele hacer añadiendo una nueva columna. Lo
-hacemos con la función <code>mutate()</code>.</p>
-<p>Podemos añadir una nueva variable (llamada <code>prop</code>) que
-represente la proporción de ensayos en cada <strong>localidad</strong>
-con el uso de <code>mutate()</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cantidad<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span></code></pre></div>
-<pre><code>## # A tibble: 58 × 4
-##    Localidad cantidad rendimiento_ajustado_medio    prop
-##    &lt;chr&gt;        &lt;int&gt;                      &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Anguil          21                      3156. 0.0421 
-##  2 Ascasubi         5                      4996. 0.0100 
-##  3 Asturias         7                      4216. 0.0140 
-##  4 Balcarce        59                      2856. 0.118  
-##  5 Barrow          34                      2665. 0.0681 
-##  6 Bellocq         31                      3899. 0.0621 
-##  7 Bolívar          5                      3931  0.0100 
-##  8 Bordenave        3                      4624  0.00601
-##  9 Bulnes          11                      2980. 0.0220 
-## 10 Carhue           2                      2879  0.00401
-## # ℹ 48 more rows</code></pre>
 </div>
-<div id="filtrando-los-datos" class="section level2">
-<h2>Filtrando los datos</h2>
-<p>En nuestro informe también realizamos un gráfico de un cultivar
-específico. Para ello necesitamos mantener sólo los datos del cultivar
-que queremos analizar. Utilizamos la función <code>filter()</code> para
-filtrar filas de un data.frame, esta función devuelve un nuevo
-data.frame con sólo las filas que satisfacen algunas condiciones.</p>
-<p>Podemos utilizar operadores lógicos (<code>&gt;</code>,
-<code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>,
-<code>==</code>) para crear condiciones a partir de variables numéricas.
-Estos operadores también son útiles para fechas y cadenas de texto. El
-siguiente código aplica una condición (“que sea igual a”) para datos de
-tipo texto (la columna especie).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">&quot;ACA 861&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 185 × 21
-##    Cultivar Empresa Floracion_dias Altura_cm Densidad_sem Rendimiento
-##    &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-##  1 ACA 861  ACA                 62       181        66229        4571
-##  2 ACA 861  ACA                 68       129        53345        2598
-##  3 ACA 861  ACA                 74       149        54286        2902
-##  4 ACA 861  ACA                 73       156        42682        3097
-##  5 ACA 861  ACA                 61       155        44818        3316
-##  6 ACA 861  ACA                 68        NA        44193        4140
-##  7 ACA 861  ACA                 69       167        40001        4201
-##  8 ACA 861  ACA                 69       168        40650        3200
-##  9 ACA 861  ACA                 72       173        56260        3858
-## 10 ACA 861  ACA                 71        NA        52858        4464
-## # ℹ 175 more rows
-## # ℹ 15 more variables: Aceite_porcentaje &lt;dbl&gt;, Rendimiento_Ajustado &lt;dbl&gt;,
-## #   Campania &lt;chr&gt;, Localidad &lt;chr&gt;, Latitud &lt;dbl&gt;, Longitud &lt;dbl&gt;,
-## #   Ensayo &lt;chr&gt;, `Tipo Ensayo` &lt;chr&gt;, Epoca &lt;chr&gt;, Distancia_surcos &lt;dbl&gt;,
-## #   Tipo_Siembra &lt;chr&gt;, Densidad_siembra &lt;dbl&gt;, Fecha_Siembra &lt;chr&gt;,
-## #   Testigo &lt;chr&gt;, Visible &lt;chr&gt;</code></pre>
-<blockquote>
-<p>Actividad: Escribe el código necesario para filtrar todos los ensayos
-de la localidad Anguil.</p>
+<p>Podemos hacer mucho más con otras funciones (o “verbos”) de dplyr. Veamos algunos más.</p>
+</section>
+<section id="creando-nuevas-variables" class="level2">
+<h2 class="anchored" data-anchor-id="creando-nuevas-variables">Creando nuevas variables</h2>
+<p>Muchas veces querremos trabajar con información que se deriva de los datos originales. Esto se suele hacer añadiendo una nueva columna. Lo hacemos con la función <code>mutate()</code>.</p>
+<p>Podemos añadir una nueva variable (llamada <code>prop</code>) que represente la proporción de ensayos en cada <strong>localidad</strong> con el uso de <code>mutate()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cantidad<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 58 × 4
+   Localidad cantidad rendimiento_ajustado_medio    prop
+   &lt;chr&gt;        &lt;int&gt;                      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Anguil          21                      3156. 0.0421 
+ 2 Ascasubi         5                      4996. 0.0100 
+ 3 Asturias         7                      4216. 0.0140 
+ 4 Balcarce        59                      2856. 0.118  
+ 5 Barrow          34                      2665. 0.0681 
+ 6 Bellocq         31                      3899. 0.0621 
+ 7 Bolívar          5                      3931  0.0100 
+ 8 Bordenave        3                      4624  0.00601
+ 9 Bulnes          11                      2980. 0.0220 
+10 Carhue           2                      2879  0.00401
+# ℹ 48 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="filtrando-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="filtrando-los-datos">Filtrando los datos</h2>
+<p>En nuestro informe también realizamos un gráfico de un cultivar específico. Para ello necesitamos mantener sólo los datos del cultivar que queremos analizar. Utilizamos la función <code>filter()</code> para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.</p>
+<p>Podemos utilizar operadores lógicos (<code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición (“que sea igual a”) para datos de tipo texto (la columna especie).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">"ACA 861"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 185 × 21
+   Cultivar Empresa Floracion_dias Altura_cm Densidad_sem Rendimiento
+   &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1 ACA 861  ACA                 62       181        66229        4571
+ 2 ACA 861  ACA                 68       129        53345        2598
+ 3 ACA 861  ACA                 74       149        54286        2902
+ 4 ACA 861  ACA                 73       156        42682        3097
+ 5 ACA 861  ACA                 61       155        44818        3316
+ 6 ACA 861  ACA                 68        NA        44193        4140
+ 7 ACA 861  ACA                 69       167        40001        4201
+ 8 ACA 861  ACA                 69       168        40650        3200
+ 9 ACA 861  ACA                 72       173        56260        3858
+10 ACA 861  ACA                 71        NA        52858        4464
+# ℹ 175 more rows
+# ℹ 15 more variables: Aceite_porcentaje &lt;dbl&gt;, Rendimiento_Ajustado &lt;dbl&gt;,
+#   Campania &lt;chr&gt;, Localidad &lt;chr&gt;, Latitud &lt;dbl&gt;, Longitud &lt;dbl&gt;,
+#   Ensayo &lt;chr&gt;, `Tipo Ensayo` &lt;chr&gt;, Epoca &lt;chr&gt;, Distancia_surcos &lt;dbl&gt;,
+#   Tipo_Siembra &lt;chr&gt;, Densidad_siembra &lt;dbl&gt;, Fecha_Siembra &lt;chr&gt;,
+#   Testigo &lt;chr&gt;, Visible &lt;chr&gt;</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Actividad: Escribe el código necesario para filtrar todos los ensayos de la localidad Anguil.</p>
 </blockquote>
-<blockquote>
-<p>Actividad: Ahora escribe el código para filtrar todos los cultivares
-con un rendimiento mayor a 5000 kg/ha.</p>
+<blockquote class="blockquote">
+<p>Actividad: Ahora escribe el código para filtrar todos los cultivares con un rendimiento mayor a 5000 kg/ha.</p>
 </blockquote>
-</div>
-
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuaXB1bGFuZG8gZGF0b3MiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiBmYWxzZQogICAgaGlnaGxpZ2h0OiB0YW5nbwotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCgllY2hvID0gVFJVRSwKCW1lc3NhZ2UgPSBGQUxTRSwKCXdhcm5pbmcgPSBGQUxTRQopCgpsaWJyYXJ5KHRpZHl2ZXJzZSkKY3VsdGl2YXJlcyA8LSByZWFkX2NzdigiZGF0b3MvUk5HX3NtYWxsLmNzdiIpCmBgYAoKIyMgQ3JlYW5kbyB0YWJsYXMgZGUgcmVzdW1lbgoKRW4gdW5hIGhvamEgZGUgY8OhbGN1bG8sIGxhcyB0YWJsYXMgZGluw6FtaWNhcyBvIHBpdm90IHRhYmxlcyBzb24gcG90ZW50ZXMgaGVycmFtaWVudGFzIHBhcmEgcmVzdW1pciBsb3MgZGF0b3MgZGUgZGlmZXJlbnRlcyBtYW5lcmFzLiBQb2RlbW9zIGNyZWFyIGVzdGFzIHRhYmxhcyB1dGlsaXphbmRvIGxhcyBmdW5jaW9uZXMgYGdyb3VwX2J5YCB5IGBzdW1tYXJpemVgIGRlbCBwYXF1ZXRlIGRwbHlyLiAKCkVjaGVtb3MgdW4gdmlzdGF6byBhIG51ZXN0cm8gaW5mb3JtZSwganVzdG8gZGVzcHXDqXMgZGUgbGVlciBsb3MgZGF0b3MsIGNyZWFtb3MgdW5hIHRhYmxhIGRlIHJlc3VtZW4gY29uIGVsIG7Dum1lcm8gZGUgZW5zYXlvcyB5IGVsIHJlbmRpbWllbnRvIG1lZGlhIGRlIGNhZGEgY3VsdGl2YXIgZGUgbnVlc3RybyBjb25qdW50byBkZSBkYXRvcy4KClBvZGVtb3MgdXRpbGl6YXIgYGdyb3VwX2J5KClgIHBhcmEgYWdydXBhciBudWVzdHJvcyBkYXRvcyBwb3IgKipjdWx0aXZhcioqIHkgYHN1bW1hcml6ZSgpYCBwYXJhIGNhbGN1bGFyIGVsIG7Dum1lcm8gZGUgZW5zYXlvcyB5IGVsICoqcmVuZGltaWVudG9fYWp1c3RhZG8qKiBtZWRpbyBwYXJhIGNhZGEgZ3J1cG8uCgpgYGB7cn0KCmN1bHRpdmFyZXMgJT4lIAogIGdyb3VwX2J5KEN1bHRpdmFyKSAlPiUgCiAgc3VtbWFyaXNlKGNhbnRpZGFkID0gbigpLAogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8sIG5hLnJtID0gVFJVRSksIDIpKQoKYGBgCgpMYSBmdW5jacOzbiBgbigpYCBkZXZ1ZWx2ZSBlbCBuw7ptZXJvIGRlIGNhc29zIHkgbGEgZnVuY2nDs24gYG1lYW5gIGNhbGN1bGEgbGEgbWVkaWEgbyBwcm9tZWRpby4gRWwgcGFyw6FtZXRybyBgbmEucm0gPSBUUlVFYCBpbmRpY2EgYSBsYSBmdW5jacOzbiBxdWUgZWxpbWluZSBsb3MgdmFsb3JlcyBmYWx0YW50ZXMgKGBOQWApIGFudGVzIGRlIHJlYWxpemFyIGVsIGPDoWxjdWxvLgoKPiBQcmVndW50YTogwr9RdcOpIHBhc2Egc2kgbm8gc2UgdXRpbGl6YSBgZ3JvdXBfYnkoKWAgYW50ZXMgZGUgYHN1bW1hcmlzZSgpYD8gUHJvYsOpbW9zbG8geSBkaXNjdXRhbW9zIGxvIHF1ZSBvY3VycmUuCgpgYGB7cn0KY3VsdGl2YXJlcyAlPiUgCiAgc3VtbWFyaXNlKGNhbnRpZGFkID0gbigpLAogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8sIG5hLnJtID0gVFJVRSksIDIpKQpgYGAKCkFzw60gcXVlIHNpIG5vIGFncnVwYW1vcyBwb3IgZWwgY3VsdGl2YXIgcHJpbWVybywgb2J0ZW5kcmVtb3MgdW5hIHNvbGEgZXN0YWTDrXN0aWNhIGRlIHJlc3VtZW4gKG4geSBtZWRpYSBlbiBlc3RlIGNhc28pIHBhcmEgdG9kbyBlbCBjb25qdW50byBkZSBkYXRvcy4KCkFob3JhLCBxdWVyZW1vcyBsYSBtZWRpYSBkZWwgcmVuZGltaWVudG8gZW4gdG9uZWxhZGFzIHkgY29uIGRvcyBkZWNpbWFsZXMuIFBvZGVtb3MgY2FtYmlhciBudWVzdHJhIGxsYW1hZGEgYSBgc3VtbWFyaXNlKClgIHBhcmEgb2J0ZW5lciBlc2UgY8OhbGN1bG8uICAKCmBgYHtyfQpjdWx0aXZhcmVzICU+JSAKICBncm91cF9ieShDdWx0aXZhcikgJT4lIAogIHN1bW1hcmlzZShjYW50aWRhZCA9IG4oKSwKICAgICAgICAgICAgcmVuZGltaWVudG9fYWp1c3RhZG9fbWVkaW8gPSByb3VuZChtZWFuKFJlbmRpbWllbnRvX0FqdXN0YWRvLzEwMDAsIG5hLnJtID0gVFJVRSksIDIpKQoKYGBgCgpQcmltZXJvIGRpdmlkaW1vcyBlbCByZW5kaW1pZW50byBhanVzdGFkbyBwb3IgMTAwMCBwYXJhIHRyYW5zZm9ybWFybG8gZGUga2lsb2dyYW1vcyBhIHRvbmVsYWRhcyB5IGx1ZWdvIHV0aWxpemFtb3MgbGEgZnVuY2nDs24gYHJvdW5kKClgIHBhcmEgcmVkb25kZWFyIGEgc8OzbG8gZG9zIGRlY2ltYWxlcy4KCkFob3JhIGVzdGFtb3MgZW4gZWwgcHVudG8gZW4gZWwgcXVlIHF1ZXJlbW9zIGd1YXJkYXIgZXN0YSBpbmZvcm1hY2nDs24gcmVzdW1pZGEgY29tbyB1bmEgdmFyaWFibGUgcGFyYSBwb2RlciB1dGlsaXphcmxhIGVuIHBvc3RlcmlvcmVzIGFuw6FsaXNpcyB5IGZvcm1hdG9zLgoKQXPDrSBxdWUgdmFtb3MgYSBhw7FhZGlyIHVuYSBhc2lnbmFjacOzbiBkZSB2YXJpYWJsZSBhIGVzYSBwcmltZXJhIGzDrW5lYToKCmBgYHtyfQpyZXN1bWVuIDwtIGN1bHRpdmFyZXMgJT4lIAogIGdyb3VwX2J5KEN1bHRpdmFyKSAlPiUgCiAgc3VtbWFyaXNlKGNhbnRpZGFkID0gbigpLAogICAgICAgICAgICByZW5kaW1pZW50b19hanVzdGFkb19tZWRpbyA9IHJvdW5kKG1lYW4oUmVuZGltaWVudG9fQWp1c3RhZG8vMTAwMCwgbmEucm0gPSBUUlVFKSwgMikpCmBgYAoKIyMgRMOhbmRvbGUgZm9ybWF0byBhIGxhIHRhYmxhCgpQYXJhIHF1ZSBudWVzdHJhIHRhYmxhIHNlIHZlYSBtZWpvciBlbiB1biBpbmZvcm1lLCB0ZW5lbW9zIHF1ZSBjYW1iaWFyIGFsZ3Vub3MgZGUgc3VzIGVsZW1lbnRvcy4gUG9yIGVqZW1wbG8sIGVsIG5vbWJyZSBkZSBsYXMgdmFyaWFibGVzIGRlYmUgc2VyIGluZm9ybWF0aXZvIHBhcmEgdW5hIHBlcnNvbmEgKGRlIG1vbWVudG8gc29uIG5vbWJyZXMgw7p0aWxlcyBwYXJhIHVuYSBjb21wdXRhZG9yYSksIHkgcG9kZW1vcyBhw7FhZGlybGUgdW4gdMOtdHVsbyB5IGNhbWJpYXIgbGEgYWxpbmVhY2nDs24gZGUgbG9zIG7Dum1lcm9zLgoKUG9kZW1vcyBoYWNlcmxvIGNvbiBsYSBmdW5jacOzbiBga2FibGVgLgoKYGBge3J9CnJlc3VtZW4gJT4lIAogIGtuaXRyOjprYWJsZShjb2wubmFtZXMgPSBjKCJDdWx0aXZhciIsICJDYW50aWRhZCIsICJSZW5kaW1pZW50byBBanVzdGFkbyBNZWRpbyIpLAogICAgICAgICAgICAgICBhbGlnbiA9ICJsY2MiLAogICAgICAgICAgICAgICBjYXB0aW9uID0gIlJlc3VtZW4gZGUgbG9zIEN1bHRpdmFyZXMgZW4gZWwgZGF0YXNldC4iKQpgYGAKClBvZGVtb3MgaGFjZXIgbXVjaG8gbcOhcyBjb24gb3RyYXMgZnVuY2lvbmVzIChvICJ2ZXJib3MiKSBkZSBkcGx5ci4gVmVhbW9zIGFsZ3Vub3MgbcOhcy4KCiMjIENyZWFuZG8gbnVldmFzIHZhcmlhYmxlcwoKTXVjaGFzIHZlY2VzIHF1ZXJyZW1vcyB0cmFiYWphciBjb24gaW5mb3JtYWNpw7NuIHF1ZSBzZSBkZXJpdmEgZGUgbG9zIGRhdG9zIG9yaWdpbmFsZXMuIEVzdG8gc2Ugc3VlbGUgaGFjZXIgYcOxYWRpZW5kbyB1bmEgbnVldmEgY29sdW1uYS4gTG8gaGFjZW1vcyBjb24gbGEgZnVuY2nDs24gYG11dGF0ZSgpYC4KClBvZGVtb3MgYcOxYWRpciB1bmEgbnVldmEgdmFyaWFibGUgKGxsYW1hZGEgYHByb3BgKSBxdWUgcmVwcmVzZW50ZSBsYSBwcm9wb3JjacOzbiBkZSBlbnNheW9zIGVuIGNhZGEgKipsb2NhbGlkYWQqKiBjb24gZWwgdXNvIGRlIGBtdXRhdGUoKWAuIAoKYGBge3J9CgpjdWx0aXZhcmVzICU+JSAKICBncm91cF9ieShMb2NhbGlkYWQpICU+JSAKICBzdW1tYXJpc2UoY2FudGlkYWQgPSBuKCksCiAgICAgICAgICAgIHJlbmRpbWllbnRvX2FqdXN0YWRvX21lZGlvID0gcm91bmQobWVhbihSZW5kaW1pZW50b19BanVzdGFkbywgbmEucm0gPSBUUlVFKSwgMikpICU+JQogIG11dGF0ZShwcm9wID0gY2FudGlkYWQvbnJvdyhjdWx0aXZhcmVzKSkKCmBgYAoKIyMgRmlsdHJhbmRvIGxvcyBkYXRvcwoKRW4gbnVlc3RybyBpbmZvcm1lIHRhbWJpw6luIHJlYWxpemFtb3MgdW4gZ3LDoWZpY28gZGUgdW4gY3VsdGl2YXIgZXNwZWPDrWZpY28uIFBhcmEgZWxsbyBuZWNlc2l0YW1vcyBtYW50ZW5lciBzw7NsbyBsb3MgZGF0b3MgZGVsIGN1bHRpdmFyIHF1ZSBxdWVyZW1vcyBhbmFsaXphci4gIFV0aWxpemFtb3MgbGEgZnVuY2nDs24gYGZpbHRlcigpYCBwYXJhIGZpbHRyYXIgZmlsYXMgZGUgdW4gZGF0YS5mcmFtZSwgZXN0YSBmdW5jacOzbiBkZXZ1ZWx2ZSB1biBudWV2byBkYXRhLmZyYW1lIGNvbiBzw7NsbyBsYXMgZmlsYXMgcXVlIHNhdGlzZmFjZW4gYWxndW5hcyBjb25kaWNpb25lcy4KClBvZGVtb3MgdXRpbGl6YXIgb3BlcmFkb3JlcyBsw7NnaWNvcyAoYD5gLCBgPGAsIGA+PWAsIGA8PWAsIGA9PWApIHBhcmEgY3JlYXIgY29uZGljaW9uZXMgYSBwYXJ0aXIgZGUgdmFyaWFibGVzIG51bcOpcmljYXMuIEVzdG9zIG9wZXJhZG9yZXMgdGFtYmnDqW4gc29uIMO6dGlsZXMgcGFyYSBmZWNoYXMgeSBjYWRlbmFzIGRlIHRleHRvLiBFbCBzaWd1aWVudGUgY8OzZGlnbyBhcGxpY2EgdW5hIGNvbmRpY2nDs24gKCJxdWUgc2VhIGlndWFsIGEiKSBwYXJhIGRhdG9zIGRlIHRpcG8gdGV4dG8gKGxhIGNvbHVtbmEgZXNwZWNpZSkuCgpgYGB7cn0KY3VsdGl2YXJlcyAlPiUgCiAgZmlsdGVyKEN1bHRpdmFyID09ICJBQ0EgODYxIikKYGBgCgo+IEFjdGl2aWRhZDogRXNjcmliZSBlbCBjw7NkaWdvIG5lY2VzYXJpbyBwYXJhIGZpbHRyYXIgdG9kb3MgbG9zIGVuc2F5b3MgZGUgbGEgbG9jYWxpZGFkIEFuZ3VpbC4KCj4gQWN0aXZpZGFkOiBBaG9yYSBlc2NyaWJlIGVsIGPDs2RpZ28gcGFyYSBmaWx0cmFyIHRvZG9zIGxvcyBjdWx0aXZhcmVzIGNvbiB1biByZW5kaW1pZW50byBtYXlvciBhIDUwMDAga2cvaGEuCgo=</div>
 
 
+<!-- -->
 
-</div>
+</section>
 
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
   });
-});
-</script>
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Manipulando datos"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: body</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight-style: tango</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">echo =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">warning =</span> <span class="cn">FALSE</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>cultivares <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"datos/RNG_small.csv"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creando tablas de resumen</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>En una hoja de cálculo, las tablas dinámicas o pivot tables son potentes herramientas para resumir los datos de diferentes maneras. Podemos crear estas tablas utilizando las funciones <span class="in">`group_by`</span> y <span class="in">`summarize`</span> del paquete dplyr. </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>Echemos un vistazo a nuestro informe, justo después de leer los datos, creamos una tabla de resumen con el número de ensayos y el rendimiento media de cada cultivar de nuestro conjunto de datos.</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>Podemos utilizar <span class="in">`group_by()`</span> para agrupar nuestros datos por **cultivar** y `summarize()` para calcular el número de ensayos y el **rendimiento_ajustado** medio para cada grupo.</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>La función <span class="in">`n()`</span> devuelve el número de casos y la función <span class="in">`mean`</span> calcula la media o promedio. El parámetro <span class="in">`na.rm = TRUE`</span> indica a la función que elimine los valores faltantes (<span class="in">`NA`</span>) antes de realizar el cálculo.</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Pregunta: ¿Qué pasa si no se utiliza </span><span class="in">`group_by()`</span><span class="at"> antes de </span><span class="in">`summarise()`</span><span class="at">? Probémoslo y discutamos lo que ocurre.</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>Así que si no agrupamos por el cultivar primero, obtendremos una sola estadística de resumen (n y media en este caso) para todo el conjunto de datos.</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>Ahora, queremos la media del rendimiento en toneladas y con dos decimales. Podemos cambiar nuestra llamada a <span class="in">`summarise()`</span> para obtener ese cálculo.  </span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>Primero dividimos el rendimiento ajustado por 1000 para transformarlo de kilogramos a toneladas y luego utilizamos la función <span class="in">`round()`</span> para redondear a sólo dos decimales.</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>Ahora estamos en el punto en el que queremos guardar esta información resumida como una variable para poder utilizarla en posteriores análisis y formatos.</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>Así que vamos a añadir una asignación de variable a esa primera línea:</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dándole formato a la tabla</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>Para que nuestra tabla se vea mejor en un informe, tenemos que cambiar algunos de sus elementos. Por ejemplo, el nombre de las variables debe ser informativo para una persona (de momento son nombres útiles para una computadora), y podemos añadirle un título y cambiar la alineación de los números.</span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>Podemos hacerlo con la función <span class="in">`kable`</span>.</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Cultivar"</span>, <span class="st">"Cantidad"</span>, <span class="st">"Rendimiento Ajustado Medio"</span>),</span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"lcc"</span>,</span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Resumen de los Cultivares en el dataset."</span>)</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>Podemos hacer mucho más con otras funciones (o "verbos") de dplyr. Veamos algunos más.</span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creando nuevas variables</span></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>Muchas veces querremos trabajar con información que se deriva de los datos originales. Esto se suele hacer añadiendo una nueva columna. Lo hacemos con la función <span class="in">`mutate()`</span>.</span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>Podemos añadir una nueva variable (llamada <span class="in">`prop`</span>) que represente la proporción de ensayos en cada **localidad** con el uso de <span class="in">`mutate()`</span>. </span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cantidad<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filtrando los datos</span></span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a>En nuestro informe también realizamos un gráfico de un cultivar específico. Para ello necesitamos mantener sólo los datos del cultivar que queremos analizar.  Utilizamos la función <span class="in">`filter()`</span> para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.</span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a>Podemos utilizar operadores lógicos (<span class="in">`&gt;`</span>, <span class="in">`&lt;`</span>, <span class="in">`&gt;=`</span>, <span class="in">`&lt;=`</span>, <span class="in">`==`</span>) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición ("que sea igual a") para datos de tipo texto (la columna especie).</span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">"ACA 861"</span>)</span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Actividad: Escribe el código necesario para filtrar todos los ensayos de la localidad Anguil.</span></span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Actividad: Ahora escribe el código para filtrar todos los cultivares con un rendimiento mayor a 5000 kg/ha.</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
 
-<!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeSourceEmbed("04-data-manipulation.Rmd");
-});
-</script>
 
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
-</body>
-</html>
+</body></html>

@@ -1,0 +1,118 @@
+---
+title: "Manipulando datos"
+format:
+  html:
+    code-tools: true
+    toc: true
+    toc-location: body
+    highlight-style: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+library(tidyverse)
+cultivares <- read_csv("datos/RNG_small.csv")
+```
+
+## Creando tablas de resumen
+
+En una hoja de cálculo, las tablas dinámicas o pivot tables son potentes herramientas para resumir los datos de diferentes maneras. Podemos crear estas tablas utilizando las funciones `group_by` y `summarize` del paquete dplyr. 
+
+Echemos un vistazo a nuestro informe, justo después de leer los datos, creamos una tabla de resumen con el número de ensayos y el rendimiento media de cada cultivar de nuestro conjunto de datos.
+
+Podemos utilizar `group_by()` para agrupar nuestros datos por **cultivar** y `summarize()` para calcular el número de ensayos y el **rendimiento_ajustado** medio para cada grupo.
+
+```{r}
+
+cultivares %>% 
+  group_by(Cultivar) %>% 
+  summarise(cantidad = n(),
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2))
+
+```
+
+La función `n()` devuelve el número de casos y la función `mean` calcula la media o promedio. El parámetro `na.rm = TRUE` indica a la función que elimine los valores faltantes (`NA`) antes de realizar el cálculo.
+
+> Pregunta: ¿Qué pasa si no se utiliza `group_by()` antes de `summarise()`? Probémoslo y discutamos lo que ocurre.
+
+```{r}
+cultivares %>% 
+  summarise(cantidad = n(),
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2))
+```
+
+Así que si no agrupamos por el cultivar primero, obtendremos una sola estadística de resumen (n y media en este caso) para todo el conjunto de datos.
+
+Ahora, queremos la media del rendimiento en toneladas y con dos decimales. Podemos cambiar nuestra llamada a `summarise()` para obtener ese cálculo.  
+
+```{r}
+cultivares %>% 
+  group_by(Cultivar) %>% 
+  summarise(cantidad = n(),
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado/1000, na.rm = TRUE), 2))
+
+```
+
+Primero dividimos el rendimiento ajustado por 1000 para transformarlo de kilogramos a toneladas y luego utilizamos la función `round()` para redondear a sólo dos decimales.
+
+Ahora estamos en el punto en el que queremos guardar esta información resumida como una variable para poder utilizarla en posteriores análisis y formatos.
+
+Así que vamos a añadir una asignación de variable a esa primera línea:
+
+```{r}
+resumen <- cultivares %>% 
+  group_by(Cultivar) %>% 
+  summarise(cantidad = n(),
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado/1000, na.rm = TRUE), 2))
+```
+
+## Dándole formato a la tabla
+
+Para que nuestra tabla se vea mejor en un informe, tenemos que cambiar algunos de sus elementos. Por ejemplo, el nombre de las variables debe ser informativo para una persona (de momento son nombres útiles para una computadora), y podemos añadirle un título y cambiar la alineación de los números.
+
+Podemos hacerlo con la función `kable`.
+
+```{r}
+resumen %>% 
+  knitr::kable(col.names = c("Cultivar", "Cantidad", "Rendimiento Ajustado Medio"),
+               align = "lcc",
+               caption = "Resumen de los Cultivares en el dataset.")
+```
+
+Podemos hacer mucho más con otras funciones (o "verbos") de dplyr. Veamos algunos más.
+
+## Creando nuevas variables
+
+Muchas veces querremos trabajar con información que se deriva de los datos originales. Esto se suele hacer añadiendo una nueva columna. Lo hacemos con la función `mutate()`.
+
+Podemos añadir una nueva variable (llamada `prop`) que represente la proporción de ensayos en cada **localidad** con el uso de `mutate()`. 
+
+```{r}
+
+cultivares %>% 
+  group_by(Localidad) %>% 
+  summarise(cantidad = n(),
+            rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2)) %>%
+  mutate(prop = cantidad/nrow(cultivares))
+
+```
+
+## Filtrando los datos
+
+En nuestro informe también realizamos un gráfico de un cultivar específico. Para ello necesitamos mantener sólo los datos del cultivar que queremos analizar.  Utilizamos la función `filter()` para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.
+
+Podemos utilizar operadores lógicos (`>`, `<`, `>=`, `<=`, `==`) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición ("que sea igual a") para datos de tipo texto (la columna especie).
+
+```{r}
+cultivares %>% 
+  filter(Cultivar == "ACA 861")
+```
+
+> Actividad: Escribe el código necesario para filtrar todos los ensayos de la localidad Anguil.
+
+> Actividad: Ahora escribe el código para filtrar todos los cultivares con un rendimiento mayor a 5000 kg/ha.
