@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-0a95de2c3be981c2e03029825b16c585.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66755d2c2f3977518410b2f4923afc6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-89e5a52b8dd8a0bdc4ebd6e7b82352b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -212,81 +212,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   </ul>
 </nav>
-<p>El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? RMarkdown, y todo un ecosistema de otros paquetes, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.</p>
-<p>La forma de generar el formato del archivo de salida es cambiando la opción <code>output</code> del encabezado.</p>
+<p>El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? Quarto, y todo un ecosistema de otras herramientas, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.</p>
+<p>La forma de generar el formato del archivo de salida es cambiando la opción <code>format</code> del encabezado.</p>
 <blockquote class="blockquote">
-<p>Vuelve al informe de ejemplo y busca la línea que empieza por <code>output:</code>. Cambia <code>html_document</code> por <code>pdf_document</code>.</p>
+<p>Vuelve al informe de ejemplo y busca el bloque <code>format:</code> del encabezado. Reemplazalo por <code>format: pdf</code>. Guarda el archivo y hacé clic en el botón <strong>Render</strong> (la flecha azul) en la parte superior del documento.</p>
 </blockquote>
-<p>También podes usar el botón “knit”, haciendo clic en la flechita de la derecha para ver todas las opciones.</p>
+<p>También podés tener varios formatos disponibles al mismo tiempo, sin necesidad de editar el encabezado cada vez que querés cambiar de uno a otro. Si escribís algo así en el YAML:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>el botón <strong>Render</strong> va a mostrar una flechita a la derecha con un menú desplegable donde podés elegir a qué formato renderizar.</p>
 <blockquote class="blockquote">
-<p>Ahora utiliza el botón para generar un documento de Word. ¿Qué cambios ves en el encabezado del archivo?</p>
+<p>Ahora agregá <code>docx: default</code> junto a los otros formatos en el encabezado y usá el menú del botón Render para generar un documento de Word. ¿Qué cambios ves en el encabezado del archivo?</p>
 </blockquote>
 <section id="control-del-código" class="level2">
 <h2 class="anchored" data-anchor-id="control-del-código">Control del código</h2>
-<p>Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Vos decidis si quieres mostrar el código o no.</p>
-<p>Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de las llaves. Por ejemplo:</p>
-<pre><code>```{r nombre-del-chunk, echo = FALSE, message = FALSE}
+<p>Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Quarto. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Vos decidís si querés mostrar el código o no.</p>
+<p>Para cambiar las opciones de un chunk de código en Quarto, se escriben dentro del mismo chunk, en líneas que empiezan con <code>#|</code> (se las conoce como opciones “estilo Quarto”). Por ejemplo:</p>
+<pre><code>```{r}
+#| echo: false
+#| message: false
 
 ```</code></pre>
+<p>Si estás trabajando con el editor visual de RStudio no necesitás escribir estas líneas a mano: cada chunk tiene, arriba a la derecha, un ícono con forma de engranaje ⚙️ que abre un panel con las opciones más comunes (mostrar u ocultar el código, los mensajes, las advertencias, etc.) para que las marques con un clic.</p>
 <p>Un conjunto de opciones particularmente importante son las que controlan si el código se ejecuta y si el resultado del código permanecerá en el informe o no:</p>
 <ul>
-<li><p><code>eval = FALSE</code> impide que se ejecute el código del chunk, por lo que tampoco mostrará los resultados. Es útil para mostrar código de ejemplo si estás escribiendo, por ejemplo, un documento para enseñar R.</p></li>
-<li><p><code>echo = FALSE</code> ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.</p></li>
-<li><p><code>include = FALSE</code> ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan las librerías.</p></li>
+<li><p><code>eval: false</code> impide que se ejecute el código del chunk, por lo que tampoco mostrará los resultados. Es útil para mostrar código de ejemplo si estás escribiendo, por ejemplo, un documento para enseñar R.</p></li>
+<li><p><code>echo: false</code> ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.</p></li>
+<li><p><code>include: false</code> ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan las librerías.</p></li>
 </ul>
-<p>Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir <code>echo = FALSE</code> a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. Esto se hace con la función <code>knitr::opts_chunk$set()</code>, que establece las opciones globales de los chunks que le siguen. Encontrarás esta función en el primer chunk “setup”.</p>
-<pre><code>```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE, 
-                  message = FALSE,
-                  warning = FALSE)
-```</code></pre>
+<p>Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir <code>#| echo: false</code> a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. En Quarto esto se hace directamente en el encabezado YAML del documento, con la opción <code>execute</code>, sin necesidad de escribir ningún código de R:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
-<p>¿Tienes curiosidad por saber cómo funcionan las opciones? Cámbialas de una en una y toca el archivo cada vez para ver qué cambia.</p>
+<p>¿Tienes curiosidad por saber cómo funcionan las opciones? Agregá el bloque <code>execute</code> de arriba al encabezado de tu documento (junto a <code>format</code>), cambiá los valores de una en una y volvé a hacer clic en <strong>Render</strong> cada vez para ver qué cambia.</p>
 </blockquote>
 </section>
 <section id="automatización" class="level2">
 <h2 class="anchored" data-anchor-id="automatización">Automatización</h2>
 <p>Al principio de este taller te pedimos que cambiaras el cultivar en el informe de ejemplo. La tarea no fue fácil porque “ACA 861” aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo.</p>
 <p>Para generar un informe parametrizado hay que añadir un elemento llamado <code>params</code> a la cabecera con la lista de parámetros y sus valores por defecto.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cultivar</span><span class="kw">:</span><span class="at"> ACA 861</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cultivar</span><span class="kw">:</span><span class="at"> ACA 861</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A partir de ahora, tendrás acceso a una variable llamada <code>params</code> que es una lista que contiene los parámetros y su valor. Para acceder al valor de cada parámetro se utiliza el operador <code>$</code> de la siguiente manera:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>cultivar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>cultivar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "ACA 861"</code></pre>
 </div>
 </div>
 <p>De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en <code>params$cultivar</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> params<span class="sc">$</span>cultivar) <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkorange"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rendimiento y porcentaje de aceite"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Cultivar"</span>, params<span class="sc">$</span>cultivar),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Rendimiento Ajustado (kg/ha)"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Porcentaje de Aceite (%)"</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Cultivar"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> params<span class="sc">$</span>cultivar) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkorange"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rendimiento y porcentaje de aceite"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Cultivar"</span>, params<span class="sc">$</span>cultivar),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Rendimiento Ajustado (kg/ha)"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Porcentaje de Aceite (%)"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Cultivar"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en <code>params$cultivar</code>, de esta manera podemos construir el subtítulo de forma programática.</p>
 <p>Ahora el informe está listo para funcionar como un informe parametrizado.</p>
 <blockquote class="blockquote">
-<p>Por último, cambia “ACA 861” en el yaml para generar un nuevo informe para una de las otras especies.</p>
+<p>Por último, cambia “ACA 861” en el yaml para generar un nuevo informe para una de las otras especies y hacé clic en <strong>Render</strong>.</p>
 </blockquote>
 </section>
 <section id="publicación" class="level2">
 <h2 class="anchored" data-anchor-id="publicación">Publicación</h2>
-<p>Querés compartir tus resultados y tenés un archivo RMarkdown o Quarto en el que estuviste trabajando. Podrías compartir la carpeta del proyecto o un link a un repositorio pero sería ideal que cualquier persona pueda ver esos hermosos resultados sin necesidad de correr código. La otra alternativa es knitear el documento para compartir un PDF o archivo de Word. Las opciones no terminan ahí, Rmarkdown/Quarto abre un mundo de posibilidades para trabajar con código de R, texto y además compartir los resultados (y cualquier otra cosa!).</p>
+<p>Querés compartir tus resultados y tenés un archivo Quarto en el que estuviste trabajando. Podrías compartir la carpeta del proyecto o un link a un repositorio pero sería ideal que cualquier persona pueda ver esos hermosos resultados sin necesidad de correr código. La otra alternativa es renderizar el documento (con el botón <strong>Render</strong>) para compartir un PDF o archivo de Word. Las opciones no terminan ahí, Quarto abre un mundo de posibilidades para trabajar con código de R (¡o de Python, Julia u Observable!), texto y además compartir los resultados (y cualquier otra cosa!).</p>
 </section>
 <section id="sitio-web-de-una-sola-página" class="level2">
 <h2 class="anchored" data-anchor-id="sitio-web-de-una-sola-página">Sitio web de una sola página</h2>
-<p>Si sabés cómo generar un reporte en formato html usando R Markdown, ¡ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que <em>hostee</em> el archivo y lo muestre a los visitantes. Uno de ellos es <a href="https://www.netlify.com/">Netlify</a>, que permite crear un sitio web con sólo arrastrar una carpeta.</p>
-<p><strong>Pequeño detalle:</strong> seguramente tu reporte (tu archivo RMarkdown) tiene algún nombre descriptivo consistente con su contenido. Para que <em>convertirlo</em> en una página web el archivo tiene que tener un nombre especial: “index.html”. Adelante, nombrá a tu documento como index.Rmd y knitea a HTML como de costumbre.</p>
+<p>Si sabés cómo generar un reporte en formato html usando Quarto, ¡ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que <em>hostee</em> el archivo y lo muestre a los visitantes. Uno de ellos es <a href="https://www.netlify.com/">Netlify</a>, que permite crear un sitio web con sólo arrastrar una carpeta.</p>
+<p><strong>Pequeño detalle:</strong> seguramente tu reporte (tu archivo Quarto) tiene algún nombre descriptivo consistente con su contenido. Para que <em>convertirlo</em> en una página web el archivo tiene que tener un nombre especial: “index.html”. Adelante, nombrá a tu documento como <code>index.qmd</code> y hacé clic en <strong>Render</strong> para generar el HTML como de costumbre.</p>
 <p>Ahora deberías tener como resultado archivo llamado “index.html” en la carpeta de tu proyecto. ¡Felicitaciones! Creaste tu primer página web.</p>
 <section id="publicación-1" class="level3">
 <h3 class="anchored" data-anchor-id="publicación-1">Publicación</h3>
@@ -756,130 +763,144 @@ knitr::opts_chunk$set(echo = FALSE,
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Informes de tu trabajo"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: body</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight-style: tango</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>chunk <span class="ot">&lt;-</span> <span class="st">"```"</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? RMarkdown, y todo un ecosistema de otros paquetes, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>La forma de generar el formato del archivo de salida es cambiando la opción <span class="in">`output`</span> del encabezado.</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Vuelve al informe de ejemplo y busca la línea que empieza por </span><span class="in">`output:`</span><span class="at">. Cambia </span><span class="in">`html_document`</span><span class="at"> por </span><span class="in">`pdf_document`</span><span class="at">.</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>También podes usar el botón "knit", haciendo clic en la flechita de la derecha para ver todas las opciones. </span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Ahora utiliza el botón para generar un documento de Word. ¿Qué cambios ves en el encabezado del archivo?</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Control del código</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Rmd. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Vos decidis si quieres mostrar el código o no. </span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>Para cambiar las opciones de un chunk de código, todo lo que tiene que hacer es enumerar las opciones dentro de las llaves. Por ejemplo:</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="in">    `r chunk`{r nombre-del-chunk, echo = FALSE, message = FALSE}</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="in">    `r chunk`</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>Un conjunto de opciones particularmente importante son las que controlan si el código se ejecuta y si el resultado del código permanecerá en el informe o no:</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`eval = FALSE`</span> impide que se ejecute el código del chunk, por lo que tampoco mostrará los resultados. Es útil para mostrar código de ejemplo si estás escribiendo, por ejemplo, un documento para enseñar R.</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`echo = FALSE`</span> ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`include = FALSE`</span> ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan las librerías.</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir <span class="in">`echo = FALSE`</span> a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. Esto se hace con la función <span class="in">`knitr::opts_chunk$set()`</span>, que establece las opciones globales de los chunks que le siguen. Encontrarás esta función en el primer chunk "setup".</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="in">    `r chunk`{r setup, include = FALSE}</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="in">    knitr::opts_chunk$set(echo = FALSE, </span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="in">                      message = FALSE,</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="in">                      warning = FALSE)</span></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="in">    `r chunk`</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Tienes curiosidad por saber cómo funcionan las opciones? Cámbialas de una en una y toca el archivo cada vez para ver qué cambia.</span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Automatización</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>Al principio de este taller te pedimos que cambiaras el cultivar en el informe de ejemplo. La tarea no fue fácil porque "ACA 861" aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo. </span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>Para generar un informe parametrizado hay que añadir un elemento llamado <span class="in">`params`</span> a la cabecera con la lista de parámetros y sus valores por defecto.</span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cultivar</span><span class="kw">:</span><span class="at"> ACA 861</span></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cultivar =</span> <span class="st">"ACA 861"</span>)</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>A partir de ahora, tendrás acceso a una variable llamada <span class="in">`params`</span> que es una lista que contiene los parámetros y su valor. Para acceder al valor de cada parámetro se utiliza el operador <span class="in">`$`</span> de la siguiente manera:</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>cultivar</span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en <span class="in">`params$cultivar`</span>.</span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> params<span class="sc">$</span>cultivar) <span class="sc">|&gt;</span> </span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkorange"</span>,</span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rendimiento y porcentaje de aceite"</span>,</span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Cultivar"</span>, params<span class="sc">$</span>cultivar),</span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Rendimiento Ajustado (kg/ha)"</span>,</span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Porcentaje de Aceite (%)"</span>,</span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Cultivar"</span>) </span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en <span class="in">`params$cultivar`</span>, de esta manera podemos construir el subtítulo de forma programática.</span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>Ahora el informe está listo para funcionar como un informe parametrizado.</span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Por último, cambia "ACA 861" en el yaml para generar un nuevo informe para una de las otras especies. </span></span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## Publicación</span></span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>Querés compartir tus resultados y tenés un archivo RMarkdown o Quarto en el que estuviste trabajando. Podrías compartir la carpeta del proyecto o un link a un repositorio pero sería ideal que cualquier persona pueda ver esos hermosos resultados sin necesidad de correr código. La otra alternativa es knitear el documento para compartir un PDF o archivo de Word. Las opciones no terminan ahí, Rmarkdown/Quarto abre un mundo de posibilidades para trabajar con código de R, texto y además compartir los resultados (y cualquier otra cosa!).</span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sitio web de una sola página</span></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>Si sabés cómo generar un reporte en formato html usando R Markdown, ¡ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que *hostee* el archivo y lo muestre a los visitantes. Uno de ellos es <span class="co">[</span><span class="ot">Netlify</span><span class="co">](https://www.netlify.com/)</span>, que permite crear un sitio web con sólo arrastrar una carpeta.</span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>**Pequeño detalle:** seguramente tu reporte (tu archivo RMarkdown) tiene algún nombre descriptivo consistente con su contenido. Para que *convertirlo* en una página web el archivo tiene que tener un nombre especial: "index.html". Adelante, nombrá a tu documento como index.Rmd y knitea a HTML como de costumbre.</span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>Ahora deberías tener como resultado archivo llamado "index.html" en la carpeta de tu proyecto. ¡Felicitaciones! Creaste tu primer página web.</span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### Publicación</span></span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>Solo falta publicar tu página web para no viva solo en tu computadora. Veamos como se hace en Netlify.</span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>Entrá a <span class="ot">&lt;https://app.netlify.com/drop&gt;</span> y arrastrar la carpeta que contiene el archivo index.html en el recuadro. Netlify va a crear una página web con un nombre aleatorio y posiblemente imposible de deletrear, pero está publicada!</span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Aqui hay un video con los pasos a seguir</span><span class="co">](https://www.youtube.com/watch?v=hZ8TpfcL1l8)</span></span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>Tal vez notaste que Netlify borra los sitios web luego de 24 horas. Para que tu sitio sea permanente tenés que crearte una cuenta en Netlify. Eso además te va a permitir cambiarle el nombre a tu página, por ejemplo agroreporte.netlify.app</span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Publiquemos nuestro reporte en la web!  Compartan el link a su pagina web :-)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Informes de tu trabajo"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: body</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight-style: tango</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>chunk <span class="ot">&lt;-</span> <span class="st">"```"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>El primer ejemplo de informe que vimos se convirtió en un archivo html. Pero ¿qué pasa con los archivos Word o PDF, que pueden ser más útiles o esperados en algunas situaciones? Quarto, y todo un ecosistema de otras herramientas, permite generar documentos en múltiples formatos utilizando el mismo archivo de texto plano.</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>La forma de generar el formato del archivo de salida es cambiando la opción <span class="in">`format`</span> del encabezado.</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Vuelve al informe de ejemplo y busca el bloque </span><span class="in">`format:`</span><span class="at"> del encabezado. Reemplazalo por </span><span class="in">`format: pdf`</span><span class="at">. Guarda el archivo y hacé clic en el botón **Render** (la flecha azul) en la parte superior del documento.</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>También podés tener varios formatos disponibles al mismo tiempo, sin necesidad de editar el encabezado cada vez que querés cambiar de uno a otro. Si escribís algo así en el YAML:</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>el botón **Render** va a mostrar una flechita a la derecha con un menú desplegable donde podés elegir a qué formato renderizar. </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Ahora agregá </span><span class="in">`docx: default`</span><span class="at"> junto a los otros formatos en el encabezado y usá el menú del botón Render para generar un documento de Word. ¿Qué cambios ves en el encabezado del archivo?</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Control del código</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>Nuestro ejemplo parece bastante ordenado. Hemos ocultado todo el código y los mensajes de R para que puedas concentrar tu atención en la tabla y las figuras. Pero este no es el comportamiento por defecto de un archivo Quarto. Por lo general, la salida tendrá tanto el código como su resultado, lo cual está bien cuando vos o la persona que leerá el informe quiere ver el código que genera esos resultados, pero podría no ser lo que la audiencia final del informe podría necesitar. Vos decidís si querés mostrar el código o no. </span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>Para cambiar las opciones de un chunk de código en Quarto, se escriben dentro del mismo chunk, en líneas que empiezan con <span class="in">`#|`</span> (se las conoce como opciones "estilo Quarto"). Por ejemplo:</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="in">    `r chunk`{r}</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="in">    #| echo: false</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="in">    #| message: false</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="in">    `r chunk`</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>Si estás trabajando con el editor visual de RStudio no necesitás escribir estas líneas a mano: cada chunk tiene, arriba a la derecha, un ícono con forma de engranaje ⚙️ que abre un panel con las opciones más comunes (mostrar u ocultar el código, los mensajes, las advertencias, etc.) para que las marques con un clic.</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>Un conjunto de opciones particularmente importante son las que controlan si el código se ejecuta y si el resultado del código permanecerá en el informe o no:</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`eval: false`</span> impide que se ejecute el código del chunk, por lo que tampoco mostrará los resultados. Es útil para mostrar código de ejemplo si estás escribiendo, por ejemplo, un documento para enseñar R.</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`echo: false`</span> ejecuta el código del chunk y muestra los resultados, pero oculta el código en el informe. Esto es útil para escribir informes para personas que no necesitan ver el código R que generó el gráfico o la tabla.</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`include: false`</span> ejecuta el código pero oculta tanto el código como los resultados. Es útil para configuración general donde se cargan las librerías.</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>Si estás escribiendo un informe en el que no quieres que se muestre ningún código, añadir <span class="in">`#| echo: false`</span> a cada nuevo chunk se vuelve tedioso. La solución es cambiar la opción globalmente para que se aplique a todos los chunks. En Quarto esto se hace directamente en el encabezado YAML del documento, con la opción <span class="in">`execute`</span>, sin necesidad de escribir ningún código de R:</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Tienes curiosidad por saber cómo funcionan las opciones? Agregá el bloque </span><span class="in">`execute`</span><span class="at"> de arriba al encabezado de tu documento (junto a </span><span class="in">`format`</span><span class="at">), cambiá los valores de una en una y volvé a hacer clic en **Render** cada vez para ver qué cambia.</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Automatización</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>Al principio de este taller te pedimos que cambiaras el cultivar en el informe de ejemplo. La tarea no fue fácil porque "ACA 861" aparece varias veces y es fácil equivocarse. Parametrizar un informe nos permite definir ese tipo de parámetros en un solo lugar y obtener diferentes análisis a partir del mismo archivo. </span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>Para generar un informe parametrizado hay que añadir un elemento llamado <span class="in">`params`</span> a la cabecera con la lista de parámetros y sus valores por defecto.</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="in">```yaml</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cultivar</span><span class="kw">:</span><span class="at"> ACA 861</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cultivar =</span> <span class="st">"ACA 861"</span>)</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>A partir de ahora, tendrás acceso a una variable llamada <span class="in">`params`</span> que es una lista que contiene los parámetros y su valor. Para acceder al valor de cada parámetro se utiliza el operador <span class="in">`$`</span> de la siguiente manera:</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>cultivar</span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en <span class="in">`params$cultivar`</span>.</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> params<span class="sc">$</span>cultivar) <span class="sc">|&gt;</span> </span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Rendimiento_Ajustado, <span class="at">y =</span> Aceite_porcentaje)) <span class="sc">+</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkorange"</span>,</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rendimiento y porcentaje de aceite"</span>,</span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Cultivar"</span>, params<span class="sc">$</span>cultivar),</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Rendimiento Ajustado (kg/ha)"</span>,</span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Porcentaje de Aceite (%)"</span>,</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Cultivar"</span>) </span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>Aquí cambiamos el subtítulo para concatenar palabras con el valor almacenado en <span class="in">`params$cultivar`</span>, de esta manera podemos construir el subtítulo de forma programática.</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>Ahora el informe está listo para funcionar como un informe parametrizado.</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Por último, cambia "ACA 861" en el yaml para generar un nuevo informe para una de las otras especies y hacé clic en **Render**. </span></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Publicación</span></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a>Querés compartir tus resultados y tenés un archivo Quarto en el que estuviste trabajando. Podrías compartir la carpeta del proyecto o un link a un repositorio pero sería ideal que cualquier persona pueda ver esos hermosos resultados sin necesidad de correr código. La otra alternativa es renderizar el documento (con el botón **Render**) para compartir un PDF o archivo de Word. Las opciones no terminan ahí, Quarto abre un mundo de posibilidades para trabajar con código de R (¡o de Python, Julia u Observable!), texto y además compartir los resultados (y cualquier otra cosa!).</span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sitio web de una sola página</span></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>Si sabés cómo generar un reporte en formato html usando Quarto, ¡ya sabés todo lo que necesitás para publicar un sitio web simple! Lo único que hace falta es un servicio que *hostee* el archivo y lo muestre a los visitantes. Uno de ellos es <span class="co">[</span><span class="ot">Netlify</span><span class="co">](https://www.netlify.com/)</span>, que permite crear un sitio web con sólo arrastrar una carpeta.</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>**Pequeño detalle:** seguramente tu reporte (tu archivo Quarto) tiene algún nombre descriptivo consistente con su contenido. Para que *convertirlo* en una página web el archivo tiene que tener un nombre especial: "index.html". Adelante, nombrá a tu documento como `index.qmd` y hacé clic en **Render** para generar el HTML como de costumbre.</span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>Ahora deberías tener como resultado archivo llamado "index.html" en la carpeta de tu proyecto. ¡Felicitaciones! Creaste tu primer página web.</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Publicación</span></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>Solo falta publicar tu página web para no viva solo en tu computadora. Veamos como se hace en Netlify.</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>Entrá a <span class="ot">&lt;https://app.netlify.com/drop&gt;</span> y arrastrar la carpeta que contiene el archivo index.html en el recuadro. Netlify va a crear una página web con un nombre aleatorio y posiblemente imposible de deletrear, pero está publicada!</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Aqui hay un video con los pasos a seguir</span><span class="co">](https://www.youtube.com/watch?v=hZ8TpfcL1l8)</span></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>Tal vez notaste que Netlify borra los sitios web luego de 24 horas. Para que tu sitio sea permanente tenés que crearte una cuenta en Netlify. Eso además te va a permitir cambiarle el nombre a tu página, por ejemplo agroreporte.netlify.app</span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Publiquemos nuestro reporte en la web!  Compartan el link a su pagina web :-)</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
