@@ -41,11 +41,11 @@ Ahora veamos cómo es nuestro Informe de Cultivares.
       * Las secciones blancas son el texto de Markdown
 * Hay texto negro, azul y verde.
 
-> Sigamos adelante y "previsualicemos" el documento haciendo clic en laflechita azul (<img src="img/knit-boton.png">) en la parte superior del archivo Quarto. 
+> Sigamos adelante y "previsualicemos" el documento haciendo clic en laflechita azul (![](img/render-boton.png)) en la parte superior del archivo Quarto. 
 
 ¡Acabamos de crear un archivo html! Se trata de una única página web que estamos viendo localmente en nuestros propias computadoras. Al generar este documento Quarto, R ha formateado el texto markdown y ha ejecutado el código R.
 
-<img src="img/markdown-knit.png" alt="Quarto a la izquierda. Documento generado a la derecha"/>
+![](img/markdown-knit.png){fig-alt="Quarto a la izquierda. Documento generado a la derecha."}
 
 ### Texto markdown
 

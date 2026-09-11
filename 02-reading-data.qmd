@@ -30,8 +30,7 @@ cultivares <- read_csv("datos/RNG_small.csv")
 
 En Excel o Google Sheets, los datos se almacenan en la hoja de cálculo y se organizan en celdas. En R, se almacenan en objetos. Cuando leemos un archivo csv, los datos van directo a un data.frame llamado `cultivares` y están listos para ser utilizados. En la solapa "Environment" podemos ver el objeto `cultivares`, y si hacemos clic en ese objeto los datos se abrirán en una nueva pestaña para que veamos que pinta tiene. 
 
-
-<img src="img/view_en_rstudio.png" alt="La pestaña de visualización del data.frame con los datos de cultivares luego de llamar a la función View()" />
+![](img/view_en_rstudio.png){fig-alt="La pestaña de visualización del data.frame con los datos de cultivares luego de llamar a la función View()"}
 
 Esta previsualización es lo más parecida a la que tenemos en una hoja de cálculo. Podemos llegar a este panel ejecutando `view(cultivares)` en la consola. Hay otras funciones que nos sirven para visualizar nuestros datos.  Vamos a utilizar una de ellas:
 
