@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-0a95de2c3be981c2e03029825b16c585.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-89e5a52b8dd8a0bdc4ebd6e7b82352b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-66755d2c2f3977518410b2f4923afc6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -215,8 +215,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Echemos un vistazo a nuestro informe, justo después de leer los datos, creamos una tabla de resumen con el número de ensayos y el rendimiento media de cada cultivar de nuestro conjunto de datos.</p>
 <p>Podemos utilizar <code>group_by()</code> para agrupar nuestros datos por <strong>cultivar</strong> y <code>summarize()</code> para calcular el número de ensayos y el <strong>rendimiento_ajustado</strong> medio para cada grupo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">|&gt;</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -249,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Pregunta: ¿Qué pasa si no se utiliza <code>group_by()</code> antes de <code>summarise()</code>? Probémoslo y discutamos lo que ocurre.</p>
 </blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -262,8 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Así que si no agrupamos por el cultivar primero, obtendremos una sola estadística de resumen (n y media en este caso) para todo el conjunto de datos.</p>
 <p>Ahora, queremos la media del rendimiento en toneladas y con dos decimales. Podemos cambiar nuestra llamada a <code>summarise()</code> para obtener ese cálculo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -295,8 +295,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Ahora estamos en el punto en el que queremos guardar esta información resumida como una variable para poder utilizarla en posteriores análisis y formatos.</p>
 <p>Así que vamos a añadir una asignación de variable a esa primera línea:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Para que nuestra tabla se vea mejor en un informe, tenemos que cambiar algunos de sus elementos. Por ejemplo, el nombre de las variables debe ser informativo para una persona (de momento son nombres útiles para una computadora), y podemos añadirle un título y cambiar la alineación de los números.</p>
 <p>Podemos hacerlo con la función <code>kable</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Cultivar"</span>, <span class="st">"Cantidad"</span>, <span class="st">"Rendimiento Ajustado Medio"</span>),</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"lcc"</span>,</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Resumen de los Cultivares en el dataset."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -427,10 +427,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Muchas veces querremos trabajar con información que se deriva de los datos originales. Esto se suele hacer añadiendo una nueva columna. Lo hacemos con la función <code>mutate()</code>.</p>
 <p>Podemos añadir una nueva variable (llamada <code>prop</code>) que represente la proporción de ensayos en cada <strong>localidad</strong> con el uso de <code>mutate()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cantidad<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 58 × 4
@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>En nuestro informe también realizamos un gráfico de un cultivar específico. Para ello necesitamos mantener sólo los datos del cultivar que queremos analizar. Utilizamos la función <code>filter()</code> para filtrar filas de un data.frame, esta función devuelve un nuevo data.frame con sólo las filas que satisfacen algunas condiciones.</p>
 <p>Podemos utilizar operadores lógicos (<code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición (“que sea igual a”) para datos de tipo texto (la columna especie).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">"ACA 861"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 185 × 21
@@ -973,8 +973,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>Podemos utilizar <span class="in">`group_by()`</span> para agrupar nuestros datos por **cultivar** y `summarize()` para calcular el número de ensayos y el **rendimiento_ajustado** medio para cada grupo.</span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">|&gt;</span> </span>
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
 <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
@@ -985,7 +985,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Pregunta: ¿Qué pasa si no se utiliza </span><span class="in">`group_by()`</span><span class="at"> antes de </span><span class="in">`summarise()`</span><span class="at">? Probémoslo y discutamos lo que ocurre.</span></span>
 <span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
 <span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
 <span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -995,8 +995,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>Ahora, queremos la media del rendimiento en toneladas y con dos decimales. Podemos cambiar nuestra llamada a <span class="in">`summarise()`</span> para obtener ese cálculo.  </span>
 <span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">|&gt;</span> </span>
 <span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
 <span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
@@ -1009,8 +1009,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>Así que vamos a añadir una asignación de variable a esa primera línea:</span>
 <span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cultivar) <span class="sc">|&gt;</span> </span>
 <span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
 <span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
 <span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1022,7 +1022,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>Podemos hacerlo con la función <span class="in">`kable`</span>.</span>
 <span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">%&gt;%</span> </span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">|&gt;</span> </span>
 <span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Cultivar"</span>, <span class="st">"Cantidad"</span>, <span class="st">"Rendimiento Ajustado Medio"</span>),</span>
 <span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"lcc"</span>,</span>
 <span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"Resumen de los Cultivares en el dataset."</span>)</span>
@@ -1037,10 +1037,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>Podemos añadir una nueva variable (llamada <span class="in">`prop`</span>) que represente la proporción de ensayos en cada **localidad** con el uso de <span class="in">`mutate()`</span>. </span>
 <span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
-<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Localidad) <span class="sc">|&gt;</span> </span>
 <span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cantidad =</span> <span class="fu">n</span>(),</span>
-<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>            <span class="at">rendimiento_ajustado_medio =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Rendimiento_Ajustado, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cantidad<span class="sc">/</span><span class="fu">nrow</span>(cultivares))</span>
 <span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1052,7 +1052,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a>Podemos utilizar operadores lógicos (<span class="in">`&gt;`</span>, <span class="in">`&lt;`</span>, <span class="in">`&gt;=`</span>, <span class="in">`&lt;=`</span>, <span class="in">`==`</span>) para crear condiciones a partir de variables numéricas. Estos operadores también son útiles para fechas y cadenas de texto. El siguiente código aplica una condición ("que sea igual a") para datos de tipo texto (la columna especie).</span>
 <span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">%&gt;%</span> </span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>cultivares <span class="sc">|&gt;</span> </span>
 <span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Cultivar <span class="sc">==</span> <span class="st">"ACA 861"</span>)</span>
 <span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a></span>

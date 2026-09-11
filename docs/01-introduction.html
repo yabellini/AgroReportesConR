@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-0a95de2c3be981c2e03029825b16c585.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-89e5a52b8dd8a0bdc4ebd6e7b82352b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-66755d2c2f3977518410b2f4923afc6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -227,19 +227,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="quarto" class="level2">
 <h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
-<p>Un archivo Quarto es un archivo de texto plano, con algunas reglas y una sintaxis especial que nos permite escribir código y texto juntos. Cuando se “teje” (<em>knit</em>), el código se evaluará y ejecutará y el texto se formateará de manera que se cree un informe o documento reproducible que sea agradable de leer y que contenga todo tu trabajo.</p>
+<p>Un archivo Quarto es un archivo de texto plano, con algunas reglas y una sintaxis especial que nos permite escribir código y texto juntos. Cuando se previsualiza, el código se evaluará y ejecutará y el texto se formateará de manera que se cree un informe o documento reproducible que sea agradable de leer y que contenga todo tu trabajo.</p>
 <p>Esto es realmente crítico para la reproducibilidad. También nos ahorra tiempo y puede ayudar en las tareas de automatización. Este documento recreará tus figuras por ti en el mismo documento donde estás escribiendo el texto que las explica. Esto le ahorrará el esfuerzo de hacer un análisis, guardar un gráfico en un archivo, copiar y pegar ese gráfico en Word o Power Point o Google Slides, y tener que hacerlo todo de nuevo después de descubrir un error de tipeo.</p>
 <p>Ahora veamos cómo es nuestro Informe de Cultivares.</p>
 <ul>
 <li>La parte superior tiene el Título y el tipo de salida (que en este caso es un documento HTML).</li>
-<li>Debajo hay secciones alternas <em>blancas</em> y <em>grises</em>. Estas son las dos secciones principales que componen un archivo RMarkdown: * Las secciones grises son el código R * Las secciones blancas son el texto de Markdown</li>
+<li>Debajo hay secciones alternas <em>blancas</em> y <em>grises</em>. Estas son las dos secciones principales que componen un archivo Quarto: * Las secciones grises son el código R * Las secciones blancas son el texto de Markdown</li>
 <li>Hay texto negro, azul y verde.</li>
 </ul>
 <blockquote class="blockquote">
-<p>Sigamos adelante y “tejamos (knit)” el documento haciendo clic en el ovillo de hilo azul (<img src="img/knit-boton.png">) en la parte superior del archivo RMarkdown.</p>
+<p>Sigamos adelante y “previsualicemos” el documento haciendo clic en laflechita azul (<img src="img/knit-boton.png">) en la parte superior del archivo Quarto.</p>
 </blockquote>
-<p>¡Acabamos de crear un archivo html! Se trata de una única página web que estamos viendo localmente en nuestros propias computadoras. Al generar este documento RMarkdown, R ha formateado el texto markdown y ha ejecutado el código R.</p>
-<p><img src="img/markdown-knit.png" alt="Rmarkdown a la izquierda. Documento generado a la derecha"></p>
+<p>¡Acabamos de crear un archivo html! Se trata de una única página web que estamos viendo localmente en nuestros propias computadoras. Al generar este documento Quarto, R ha formateado el texto markdown y ha ejecutado el código R.</p>
+<p><img src="img/markdown-knit.png" alt="Quarto a la izquierda. Documento generado a la derecha"></p>
 <section id="texto-markdown" class="level3">
 <h3 class="anchored" data-anchor-id="texto-markdown">Texto markdown</h3>
 <p>Podes ver una guia sobre rmarkdown <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/spanish/rmarkdown_es.pdf">en esta guía rápida</a>, pero aquí hay una sintaxis mínima para empezar:</p>
@@ -747,23 +747,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quarto</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>Un archivo Quarto es un archivo de texto plano, con algunas reglas y una sintaxis especial que nos permite escribir código y texto juntos. Cuando se "teje" (*knit*), el código se evaluará y ejecutará y el texto se formateará de manera que se cree un informe o documento reproducible que sea agradable de leer y que contenga todo tu trabajo.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>Un archivo Quarto es un archivo de texto plano, con algunas reglas y una sintaxis especial que nos permite escribir código y texto juntos. Cuando se previsualiza, el código se evaluará y ejecutará y el texto se formateará de manera que se cree un informe o documento reproducible que sea agradable de leer y que contenga todo tu trabajo.</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>Esto es realmente crítico para la reproducibilidad. También nos ahorra tiempo y puede ayudar en las tareas de automatización. Este documento recreará tus figuras por ti en el mismo documento donde estás escribiendo el texto que las explica. Esto le ahorrará el esfuerzo de hacer un análisis, guardar un gráfico en un archivo, copiar y pegar ese gráfico en Word o Power Point o Google Slides, y tener que hacerlo todo de nuevo después de descubrir un error de tipeo.</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Ahora veamos cómo es nuestro Informe de Cultivares.</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>La parte superior tiene el Título y el tipo de salida (que en este caso es un documento HTML).</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Debajo hay secciones alternas _blancas_ y _grises_. Estas son las dos secciones principales que componen un archivo RMarkdown:</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Debajo hay secciones alternas _blancas_ y _grises_. Estas son las dos secciones principales que componen un archivo Quarto:</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">      * </span>Las secciones grises son el código R</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">      * </span>Las secciones blancas son el texto de Markdown</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hay texto negro, azul y verde.</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Sigamos adelante y "tejamos (knit)" el documento haciendo clic en el ovillo de hilo azul (</span><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"img/knit-boton.png"</span><span class="dt">&gt;</span><span class="at">) en la parte superior del archivo RMarkdown. </span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Sigamos adelante y "previsualicemos" el documento haciendo clic en laflechita azul (</span><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"img/knit-boton.png"</span><span class="dt">&gt;</span><span class="at">) en la parte superior del archivo Quarto. </span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>¡Acabamos de crear un archivo html! Se trata de una única página web que estamos viendo localmente en nuestros propias computadoras. Al generar este documento RMarkdown, R ha formateado el texto markdown y ha ejecutado el código R.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>¡Acabamos de crear un archivo html! Se trata de una única página web que estamos viendo localmente en nuestros propias computadoras. Al generar este documento Quarto, R ha formateado el texto markdown y ha ejecutado el código R.</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"img/markdown-knit.png"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Rmarkdown a la izquierda. Documento generado a la derecha"</span><span class="dt">/&gt;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"img/markdown-knit.png"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Quarto a la izquierda. Documento generado a la derecha"</span><span class="dt">/&gt;</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### Texto markdown</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
