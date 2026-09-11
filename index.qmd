@@ -36,13 +36,22 @@ Este es un cronograma tentativo.
 
 Yanina Bellini Saibene. rOpenSci Community Manager. Fue investigadora en el Instituto Nacional de Tecnología Agropecuaria (1998-2022) en temas de AgTech. También desarrolla software para apoyar la investigación y la educación. Es profesora de grado y posgrado en varias universidades de Argentina y Uruguay, enseñando Ciencia de Datos aplicada y desarrollando cursos abiertos y tutoriales para enseñar habilidades técnicas en el manejo de datos. Es formadora, instructora y miembro del Executive Council de [The Carpentries](https://carpentries.org/) e instructora certificada de [RStudio](https://education.rstudio.com/trainers/people/bellini_saibene+yanina/).  Forma parte del equipo de R-Ladies Global.
 
-[yabellini.netlify.com](https://yabellini.netlify.com/) | [\@yabellini](https://twitter.com/yabellini)
+[yabellini.netlify.com](https://yabellini.netlify.com/) | [\@yabellini](https://rstats.me/@yabellini)
 
 **Pao Corrales**
 
 <img src="img/pao_circle.png" alt="Foto de Pao" width="100" height="100" align="left" style="margin:10px"/> Paola Corrales. Doctora en ciencias de la atmósfera de la Universidad de Buenos Aires. Trabajó en ciencias de la atmósfera aplicando técnicas de asimilación de datos para mejorar los pronósticos a corto plazo de eventos severos en Argentina y actualmente trabaja en Monash University explorando extremos en el clima y tiempo en Australia. Es trainer e instructora de [The Carpentries](https://carpentries.org/) e instructora certificada de [RStudio](https://education.rstudio.com/trainers/people/corrales+paola/). También ha contribuido a proyectos de traducción de materiales de The Carpentries, al libro Teaching Tech Together y R base. Forma parte de Expedición Ciencia, una organización sin ánimo de lucro con sede en Argentina, donde dirige proyectos educativos como campamentos y talleres de ciencia para estudiantes y profesores de ciencias de primaria y secundaria. Es profesora en la Licenciatura en Ciencias de Datos de la Universidad Austral.  También desarrolla materiales de licencia abierta para enseñar y aprender R desde cero. 
 
-[paobcorrales.github.io](https://github.com/paocorrales) | [\@paobcorrales](https://twitter.com/PaobCorrales)
+[paobcorrales.github.io](https://github.com/paocorrales) | [\@paobcorrales](https://fosstodon.org/@paocorrales)
+
+
+**Elio Campitelli**
+
+<img src="img/elio_circle.png" alt="Foto de Elio" width="100" height="100" align="left" style="margin:10px"/> Elio Campitelli es Doctore en ciencias de la atmósfera de la Universidad de Buenos Aires donde estudió la circulación de gran escala en el hemisferio sur. 
+Actualmente estudia la interacción entre la atmósfera y el hielo marino antártico en la Universidad de Monash.
+Como parte de su investigación, desarrolló múltiples paquetes de R para trabajar con datos de ciencias del clima, como metR, ggnewscale, icecdr, y otros. 
+
+[eliocamp.github.io](https://github.com/eliocamp) | [\@eliocamp](https://mastodon.social/@eliocamp)
 
 ___
 
