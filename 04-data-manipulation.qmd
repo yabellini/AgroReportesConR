@@ -36,6 +36,11 @@ cultivares |>
 
 ```
 
+El operador `|>` toma el resultado de la operación de la izquierda y se lo aplica como primer argumento a la operación de la derecha.
+Entonces `cultivares |> group_by(Cultivar)` es idéntico a hacer `group_by(cultivares, Cultivar)`. 
+La ventaja de esta notación es que podemos encadenar operaciones una tras otra sin tener que anidar funciones. 
+En ingés se llama "pipe" (tubería) y en español a veces le decimos "pipa". 
+
 La función `n()` devuelve el número de casos y la función `mean` calcula la media o promedio. El parámetro `na.rm = TRUE` indica a la función que elimine los valores faltantes (`NA`) antes de realizar el cálculo.
 
 > Pregunta: ¿Qué pasa si no se utiliza `group_by()` antes de `summarise()`? Probémoslo y discutamos lo que ocurre.
