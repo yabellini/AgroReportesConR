@@ -21,12 +21,12 @@ Los datos de la **Red Nacional de Cultivares de Girasol** fueron recogidos y pue
 ```{r read}
 cultivares <- read_csv("datos/RNG_small.csv")
 
-resumen <- cultivares %>% 
-  group_by(Cultivar) %>% 
+resumen <- cultivares |> 
+  group_by(Cultivar) |> 
   summarise(count = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2))
 
-resumen %>% 
+resumen |> 
   knitr::kable(col.names = c("Localidad", "Cantidad", "Rendimiento Ajustado Medio"),
                align = "lcc",
                caption = "Resumen de los Cultivares en el dataset.")
@@ -37,8 +37,8 @@ resumen %>%
 En esta sección centramos el análisis en el cultivar ACA 861. En este gráfico observamos la relación entre el porcentaje de aceite y el rendimiento.
 
 ```{r}
-cultivares %>% 
-  filter(Cultivar == "ACA 861") %>% 
+cultivares |> 
+  filter(Cultivar == "ACA 861") |> 
   ggplot(aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
   geom_point(color = "darkorange",
              size = 3,
@@ -55,8 +55,8 @@ cultivares %>%
 Este es la distribución de los rendimientos del cultivar ACA 861, los colores muestran el tipo de siembra utilizado en los ensayos. 
 
 ```{r}
-cultivares %>% 
-  filter(Cultivar == "ACA 861") %>%
+cultivares |> 
+  filter(Cultivar == "ACA 861") |>
   ggplot(aes(x = Rendimiento_Ajustado)) +
   geom_histogram(aes(fill = Tipo_Siembra),
                  alpha = 0.5,
@@ -72,16 +72,16 @@ cultivares %>%
 El rendimiento de un cultivar se comportan diferente según la zona geográfica. Este es un listado de localidades ordenado de mayor a menor por el rendimiento del cultivar ACA 861. 
 
 ```{r listadoxrendimiento}
-rendimiento_localidad <- cultivares %>% 
-  filter(Cultivar == "ACA 861") %>%
-  group_by(Localidad) %>% 
+rendimiento_localidad <- cultivares |> 
+  filter(Cultivar == "ACA 861") |>
+  group_by(Localidad) |> 
   summarise(count = n(),
             rendimiento_ajustado_medio = round(mean(Rendimiento_Ajustado, na.rm = TRUE), 2)) 
 
-rendimiento_localidad <- rendimiento_localidad %>% 
+rendimiento_localidad <- rendimiento_localidad |> 
   arrange(desc(rendimiento_ajustado_medio))
 
-rendimiento_localidad %>%
+rendimiento_localidad |>
   knitr::kable(col.names = c("Cultivar", "Cantidad", "Rendimiento Ajustado Medio"),
                align = "lcc",
                caption = "Resumen de los Cultivares en el dataset.")

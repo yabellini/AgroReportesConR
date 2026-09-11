@@ -78,8 +78,8 @@ params$cultivar
 De este modo, el código original puede modificarse para utilizar el valor de la especie almacenada en `params$cultivar`.
 
 ```{r eval=FALSE}
-cultivares %>% 
-  filter(Cultivar == params$cultivar) %>% 
+cultivares |> 
+  filter(Cultivar == params$cultivar) |> 
   ggplot(aes(x = Rendimiento_Ajustado, y = Aceite_porcentaje)) +
   geom_point(color = "darkorange",
              size = 3,
