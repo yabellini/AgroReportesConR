@@ -36,7 +36,7 @@ Este es un cronograma tentativo.
 
 Yanina Bellini Saibene. rOpenSci Community Manager. Fue investigadora en el Instituto Nacional de Tecnología Agropecuaria (1998-2022) en temas de AgTech. También desarrolla software para apoyar la investigación y la educación. Es profesora de grado y posgrado en varias universidades de Argentina, enseñando Ciencia de Datos aplicada y desarrollando cursos abiertos y tutoriales para enseñar habilidades técnicas en el manejo de datos. Es formadora, instructora y miembro del Directorio de [The Carpentries](https://carpentries.org/) e instructora certificada de [Posit](https://education.rstudio.com/trainers/people/bellini_saibene+yanina/).  Forma parte del Directorio de RLadies+ Global.
 
-[yabellini.netlify.com](https://yabellini.netlify.com/)
+[yabellini.netlify.app](https://yabellini.netlify.app/)
 
 **Pao Corrales**
 
